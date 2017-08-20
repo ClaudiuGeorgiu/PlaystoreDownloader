@@ -10,7 +10,7 @@ import requests
 from google.protobuf import json_format
 from tqdm import tqdm
 
-from . import playstore_protobuf
+from . import playstore_proto_pb2 as playstore_protobuf
 from .credentials import EncryptedCredentials
 
 
