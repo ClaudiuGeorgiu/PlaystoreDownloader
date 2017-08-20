@@ -10,8 +10,8 @@ import requests
 from google.protobuf import json_format
 from tqdm import tqdm
 
-import playstore_protobuf
-from credentials import EncryptedCredentials
+from . import playstore_protobuf
+from .credentials import EncryptedCredentials
 
 
 # Logging configuration.
