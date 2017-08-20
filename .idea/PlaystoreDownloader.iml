@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/playstore" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 3.5.2 virtualenv at C:\Users\Claudiu\Desktop\GitHub\PlaystoreDownloader\venv" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="PackageRequirementsSettings">
+    <option name="requirementsPath" value="C:\Users\Claudiu\Desktop\GitHub\PlaystoreDownloader\requirements.txt" />
+  </component>
+  <component name="TestRunnerService">
+    <option name="PROJECT_TEST_RUNNER" value="Unittests" />
+  </component>
+</module>
