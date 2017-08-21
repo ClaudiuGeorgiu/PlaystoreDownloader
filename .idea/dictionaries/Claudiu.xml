@@ -4,6 +4,8 @@
       <w>androidmarket</w>
       <w>asctime</w>
       <w>checkin</w>
+      <w>deviceid</w>
+      <w>evozi</w>
       <w>finsky</w>
       <w>levelname</w>
       <w>myapp</w>
@@ -11,6 +13,7 @@
       <w>playstore</w>
       <w>poller</w>
       <w>protobuf</w>
+      <w>venv</w>
     </words>
   </dictionary>
 </component>

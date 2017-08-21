@@ -10,17 +10,25 @@
 
 
 
+**_This project is intended for learning purposes only and is not affiliated with Google in any way._**
+
+
+
 ## Configuration
 
-Before interacting with the Play Store you have to provide valid credentials and an **ANDROID ID** associated to your account. Please modify the [credentials.json](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/credentials.json) file and insert the required information before using this tool, otherwise it won't work.
+Before interacting with the Play Store you have to provide valid credentials and an **ANDROID ID** associated to your account. Please modify the [credentials.json](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/credentials.json) file and insert the required information before trying to use this tool:
 
-*TODO: add instructions on how to fill missing data in `credentials.json`*
+* Enter your Google email and password in the `USERNAME` and `PASSWORD` fields of the [credentials.json](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/credentials.json) file. This information is needed to authenticate with Google's servers.
+* Use the above credentials on an Android device (real or emulated) and download at least one application using the official Google Play Store on the device. This step is necessary in order to associate the **ANDROID ID** of the device to your account, so that you will be able to download applications as if you were directly using your device. Do not remove the account from the device or its **ANDROID ID** won't be valid anymore.
+* Get the **ANDROID ID** of the device and fill the `ANDROID_ID` field of the [credentials.json](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/credentials.json) file. You can obtain the **ANDROID ID** by installing the [Device ID](https://play.google.com/store/apps/details?id=com.evozi.deviceid) application on your device, then copy the string corresponding to `Google Service Framework (GSF)` (use this string instead of the `Android Device ID` presented by the application).
+* In case of errors related to the authentication after the above steps, consider allowing less secure apps to access your account by visiting https://myaccount.google.com/lesssecureapps (visit the link while you are logged in).
 
+_Note that you will be able to download only the applications compatible with the device corresponding to the aforementioned **ANDROID ID** and further limitations may influence the total number of applications available for download_.
 
 
 ## Usage
 
-Everything was tested and works on Ubuntu 16.04, so the following instructions refer to this operating system. It should work for other systems as well, provided there is a working Python 3 installation, which is the only requirement for this project. The first thing to do is to get a local copy of this repository, so open up a terminal in the directory where you want to save the project and clone the repository:
+Everything was tested and works on Ubuntu 16.04, so the following instructions refer to this operating system. It should work in other systems as well, provided there is a working Python 3 installation, which is the only requirement for this project. The first thing to do is to get a local copy of this repository, so open up a terminal in the directory where you want to save the project and clone the repository:
 
 ```Shell
 $ git clone https://github.com/ClaudiuGeorgiu/PlaystoreDownloader.git
