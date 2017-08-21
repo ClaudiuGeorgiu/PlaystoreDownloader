@@ -6,8 +6,6 @@
 
 
 
-*TODO: add a demo animated gif*
-
 ![Demo](demo.gif)
 
 
