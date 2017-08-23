@@ -28,7 +28,7 @@ _Note that you will be able to download only the applications compatible with th
 
 ## Usage
 
-Everything was tested and works on Ubuntu 16.04, so the following instructions refer to this operating system. It should work in other systems as well, provided there is a working Python 3 installation, which is the only requirement for this project. The first thing to do is to get a local copy of this repository, so open up a terminal in the directory where you want to save the project and clone the repository:
+Everything was tested and works on Ubuntu 16.04, so the following instructions refer to this operating system. It should work on other systems as well, provided there is a working Python 3 installation, which is the only requirement for this project. The first thing to do is to get a local copy of this repository, so open up a terminal in the directory where you want to save the project and clone the repository:
 
 ```Shell
 $ git clone https://github.com/ClaudiuGeorgiu/PlaystoreDownloader.git
