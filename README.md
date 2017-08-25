@@ -2,7 +2,9 @@
 
 > Download Android applications directly from the Google Play Store.
 
-[![Python version](http://img.shields.io/badge/Python-3.5.2-green.svg)](http://www.python.org/download/releases/3.5.2/)
+[![Build Status](https://img.shields.io/travis/ClaudiuGeorgiu/PlaystoreDownloader.svg)](https://travis-ci.org/ClaudiuGeorgiu/PlaystoreDownloader)
+[![Python Version](http://img.shields.io/badge/Python-3.5-green.svg)](http://www.python.org/download/releases/3.5.2/)
+[![License](https://img.shields.io/github/license/ClaudiuGeorgiu/PlaystoreDownloader.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/LICENSE)
 
 
 
