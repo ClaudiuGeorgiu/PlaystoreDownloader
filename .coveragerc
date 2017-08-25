@@ -1,0 +1,8 @@
+[run]
+omit =
+    # Omit virtualenv directory.
+    venv/*
+    # Omit test directory.
+    test/*
+    # Omit protobuf generated files.
+    *_pb2.py
