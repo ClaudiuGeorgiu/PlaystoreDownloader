@@ -1,7 +1,17 @@
-language: python
+language:
+  - "python"
+
 python:
   - "3.5"
+
+before_install:
+  - "pip install codecov"
+
 install:
-  - pip install -r requirements.txt
+  - "pip install -r requirements.txt"
+
 script:
-  - python -c 'print("Travis CI test!")'
+  - "python -c 'print(\"Travis CI test!\")'"
+
+after_success:
+  - "codecov"
