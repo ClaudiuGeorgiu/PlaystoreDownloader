@@ -5,7 +5,7 @@ import pytest
 
 from playstore.playstore import Playstore
 # noinspection PyUnresolvedReferences
-from test.test_session_fixtures import credentials_path
+from test.test_session_fixtures import valid_credentials_path
 
 VALID_PACKAGE_NAME = 'com.spotify.music'
 BAD_PACKAGE_NAME = '<-bad_package_name->'
@@ -13,12 +13,12 @@ BAD_PACKAGE_NAME = '<-bad_package_name->'
 
 # noinspection PyShadowingNames
 @pytest.fixture(scope='class')
-def playstore(credentials_path):
-    return Playstore(credentials_path)
+def playstore(valid_credentials_path):
+    return Playstore(valid_credentials_path)
 
 
 # noinspection PyShadowingNames
-class TestPlaystore(object):
+class TestApi(object):
 
     def test_valid_app_details(self, playstore):
         assert playstore.app_details(VALID_PACKAGE_NAME).docV2.docid == VALID_PACKAGE_NAME
