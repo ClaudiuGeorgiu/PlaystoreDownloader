@@ -17,6 +17,10 @@ class EncryptedCredentials(object):
                      b'x5qIQ5QjKzsR8ETQbKLNWgRY0QRNVz34kMJR3P/LgHax/6rmf5AAAAAwEAAQ=='
 
     def __init__(self, username: str, password: str):
+
+        if not username or not password:
+            raise ValueError('Username and/or password cannot be blank!')
+
         self.username = username
         self.password = password
 

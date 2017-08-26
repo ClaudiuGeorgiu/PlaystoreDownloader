@@ -3,6 +3,7 @@ language:
 
 python:
   - "3.5"
+  - "3.6"
 
 before_install:
   - "pip install codecov"
@@ -15,3 +16,7 @@ script:
 
 after_success:
   - "codecov"
+
+env:
+  global:
+    - secure: "Uel6UUko0ESvgwnMW0+u6U95StIXMPoy/rBqlwkhYBESzyWogE0AmpzVC8+lqe6oZhYFp1lZfMcKGpixV/gw1IIOmEteiAp8TA8HUkDt1GgacYo4nZkiL0L7bS83XLBullhHAElhIhoHrCK082Fuax2F5lB54svadzvmExe7W62GXohZHrwzMAIMD6OFHv4z9ZbNRrmAFDh8z2TLwrDTE9/ETB1ns43YA0Ll46F+miLEvO+qndVBLidBTKIuudN8B8UmW+c8vGhvOXIuMjAojcik5Z052peZzRtd9bRxRc+IqElnHbHlE783ZgRGBIznYw/xSUNmt6FOjGHZjD6D0cYouj6URnprERe3xeKc8okScTdPEyHxg8c2qIsr8y5dzqXPZ72BG1k1b1iZ9/7aVND4qZEPEnUoCNa90aDvZgqobf18JqaqceR2WUHnnOrqLWzMRT9LeFu/YGru85AikNVeElo/dyww3NTZS9nQPbksPyhipQlz2XaXip5yyudjG5RAmo/PwljAqO9JrFuATksCp52mjoE5yxyAJ5U3WHsz3v+jQQI2mxnwwx7ImkAMc1sKpK+rj5NTliycGsx9daL8ZsbpiDYyh9kIEPE8LgZXE1vsv9vvxDJxfOzHhpxmWtD1qKkHHKl540MgB9buNfCjd41mmp8bLglHRS4c5AE="

@@ -13,6 +13,8 @@
       <w>playstore</w>
       <w>poller</w>
       <w>protobuf</w>
+      <w>spotify</w>
+      <w>tmpdir</w>
       <w>venv</w>
     </words>
   </dictionary>
