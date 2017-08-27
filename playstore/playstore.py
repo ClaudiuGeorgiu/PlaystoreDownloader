@@ -109,12 +109,8 @@ class Playstore(object):
 
         for line in response.text.split():
             if '=' in line:
-                try:
-                    tokens = line.split('=', 1)
-                    res[tokens[0].strip().lower()] = tokens[1].strip()
-                except IndexError:
-                    logging.critical('Login response is corrupted.')
-                    sys.exit(1)
+                tokens = line.split('=', 1)
+                res[tokens[0].strip().lower()] = tokens[1].strip()
 
         if 'auth' in res:
             logger.debug('Authentication token found: {0}.'.format(res['auth']))
@@ -206,7 +202,7 @@ class Playstore(object):
         if 'payload' not in self.protobuf_to_dict(response):
             try:
                 logging.error('Error when browsing categories: {0}'.format(response.commands.displayErrorMessage))
-            except IndexError:
+            except AttributeError:
                 logging.error('There was an error when browsing categories.')
         else:
             list_response = response.payload.browseResponse
@@ -243,7 +239,7 @@ class Playstore(object):
         if 'payload' not in self.protobuf_to_dict(response):
             try:
                 logging.error('Error when listing app by category: {0}'.format(response.commands.displayErrorMessage))
-            except IndexError:
+            except AttributeError:
                 logging.error('There was an error when listing app by category.')
         else:
             list_response = response.payload.listResponse
@@ -275,10 +271,13 @@ class Playstore(object):
         if 'payload' not in self.protobuf_to_dict(response):
             try:
                 logging.error('Error for search "{0}": {1}'.format(query, response.commands.displayErrorMessage))
-            except IndexError:
+            except AttributeError:
                 logging.error('There was an error when searching for "{0}".'.format(query))
         else:
-            doc = response.payload.searchResponse.doc[0]
+            try:
+                doc = response.payload.searchResponse.doc[0]
+            except IndexError:
+                pass
             # If the result of the query doesn't contain the desired information.
             if not doc:
                 doc = None
@@ -308,7 +307,7 @@ class Playstore(object):
         if 'payload' not in self.protobuf_to_dict(response):
             try:
                 logging.error('Error for app "{0}": {1}'.format(package_name, response.commands.displayErrorMessage))
-            except IndexError:
+            except AttributeError:
                 logging.error('There was an error when requesting details for app "{0}".'.format(package_name))
         else:
             details = response.payload.detailsResponse
@@ -349,7 +348,7 @@ class Playstore(object):
         if 'payload' not in self.protobuf_to_dict(response):
             try:
                 logging.error('Error for app "{0}": {1}'.format(package_name, response.commands.displayErrorMessage))
-            except IndexError:
+            except AttributeError:
                 logging.error('There was an error when requesting the download link '
                               'for app "{0}".'.format(package_name))
             return False

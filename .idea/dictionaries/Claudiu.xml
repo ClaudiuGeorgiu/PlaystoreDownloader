@@ -5,14 +5,19 @@
       <w>asctime</w>
       <w>checkin</w>
       <w>deviceid</w>
+      <w>docid</w>
       <w>evozi</w>
       <w>finsky</w>
       <w>levelname</w>
+      <w>monkeypatch</w>
       <w>myapp</w>
       <w>passwd</w>
       <w>playstore</w>
       <w>poller</w>
       <w>protobuf</w>
+      <w>spotify</w>
+      <w>tmpdir</w>
+      <w>topselling</w>
       <w>venv</w>
     </words>
   </dictionary>
