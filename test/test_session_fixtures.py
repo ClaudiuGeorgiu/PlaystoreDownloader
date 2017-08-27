@@ -69,3 +69,13 @@ def corrupted_configuration_path(tmpdir_factory):
         file.write('[{"ANDROID_ID": invalid json')
 
     return str(tmp_credentials_file)
+
+
+@pytest.fixture(scope='session')
+def download_folder_path(tmpdir_factory):
+
+    # This fixture will return a path to a folder where to download the apks.
+
+    tmp_download_directory = tmpdir_factory.mktemp('download')
+
+    return str(tmp_download_directory)
