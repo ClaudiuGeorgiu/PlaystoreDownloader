@@ -17,7 +17,7 @@ BAD_PACKAGE_NAME = '<-bad_package_name->'
 
 
 # noinspection PyShadowingNames
-@pytest.fixture(scope='class')
+@pytest.fixture(scope='session')
 def playstore(valid_credentials_path):
     return Playstore(valid_credentials_path)
 

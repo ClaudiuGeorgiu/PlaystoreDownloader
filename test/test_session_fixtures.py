@@ -74,7 +74,7 @@ def corrupted_configuration_path(tmpdir_factory):
 @pytest.fixture(scope='session')
 def download_folder_path(tmpdir_factory):
 
-    # This fixture will return a path to a folder where to download the apks.
+    # This fixture will return a path to a folder where to download the applications.
 
     tmp_download_directory = tmpdir_factory.mktemp('download')
 
