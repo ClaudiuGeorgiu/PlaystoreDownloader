@@ -13,7 +13,7 @@ def valid_credentials_path(tmpdir_factory):
     # This fixture will return a path to a valid configuration file
     # that contain valid credentials to interact with the Play Store.
 
-    if 'TRAVIS' in os.environ and 'CI' in os.environ:
+    if ('TRAVIS' in os.environ and 'CI' in os.environ) or ('APPVEYOR' in os.environ and 'CI' in os.environ):
         # Travis CI testing.
         test_credentials = base64.b64decode(os.environ['CREDENTIALS']).decode('ascii')
     else:

@@ -4,9 +4,15 @@
 import base64
 import hashlib
 
-from Crypto.Cipher import PKCS1_OAEP
-from Crypto.PublicKey import RSA
-from Crypto.Util.number import bytes_to_long
+try:
+    from Crypto.Cipher import PKCS1_OAEP
+    from Crypto.PublicKey import RSA
+    from Crypto.Util.number import bytes_to_long
+except ImportError:
+    # Windows platform workaround.
+    from Cryptodome.Cipher import PKCS1_OAEP
+    from Cryptodome.PublicKey import RSA
+    from Cryptodome.Util.number import bytes_to_long
 
 
 class EncryptedCredentials(object):
