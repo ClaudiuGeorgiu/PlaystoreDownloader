@@ -4,6 +4,7 @@
       <w>androidmarket</w>
       <w>asctime</w>
       <w>checkin</w>
+      <w>codecov</w>
       <w>deviceid</w>
       <w>docid</w>
       <w>evozi</w>
@@ -15,6 +16,7 @@
       <w>playstore</w>
       <w>poller</w>
       <w>protobuf</w>
+      <w>pytest</w>
       <w>spotify</w>
       <w>tmpdir</w>
       <w>topselling</w>

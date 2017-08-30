@@ -4,7 +4,7 @@
 
 [![Build Status](https://img.shields.io/travis/ClaudiuGeorgiu/PlaystoreDownloader.svg)](https://travis-ci.org/ClaudiuGeorgiu/PlaystoreDownloader)
 [![Code Coverage](https://img.shields.io/codecov/c/github/ClaudiuGeorgiu/PlaystoreDownloader.svg)](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader)
-[![Python Version](http://img.shields.io/badge/Python-3.5-green.svg)](http://www.python.org/download/releases/3.5.2/)
+[![Python Version](http://img.shields.io/badge/Python-3.6-green.svg)](https://www.python.org/downloads/release/python-362/)
 [![License](https://img.shields.io/github/license/ClaudiuGeorgiu/PlaystoreDownloader.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/LICENSE)
 
 

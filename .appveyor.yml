@@ -1,0 +1,18 @@
+build: "off"
+
+environment:
+  matrix:
+    - PYTHON: "C:\\Python36"
+    - PYTHON: "C:\\Python36-x64"
+  global:
+    VENV_TEST_DIR: "venv"
+
+install:
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  - "virtualenv --clear %VENV_TEST_DIR%"
+  - "%VENV_TEST_DIR%\\Scripts\\activate.bat"
+  - "pip install codecov"
+  - "pip install -r requirements.txt"
+
+test_script:
+  - "pytest --cov=./"
