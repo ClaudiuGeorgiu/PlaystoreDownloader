@@ -68,8 +68,8 @@ class TestApi(object):
 
     def test_list_app_by_valid_category_and_subcategory(self, playstore):
         apps = playstore.protobuf_to_dict(
-            playstore.list_app_by_category('PRODUCTIVITY', 'apps_topselling_free', 3))['doc'][0]['child']
-        assert len(apps) == 3
+            playstore.list_app_by_category('PRODUCTIVITY', 'apps_topselling_free', 5))['doc'][0]['child']
+        assert len(apps) <= 5
         assert all(app['docid'] for app in apps)
         assert all(app['title'] for app in apps)
 
@@ -92,8 +92,8 @@ class TestApi(object):
     #####################
 
     def test_valid_search(self, playstore):
-        results = playstore.protobuf_to_dict(playstore.search('music', 3))['child']
-        assert len(results) == 3
+        results = playstore.protobuf_to_dict(playstore.search('music', 5))['child']
+        assert len(results) <= 5
         assert all(result['docid'] for result in results)
         assert all(result['title'] for result in results)
 
