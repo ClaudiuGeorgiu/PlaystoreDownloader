@@ -1,6 +1,6 @@
 # PlaystoreDownloader
 
-> Download Android applications directly from the Google Play Store.
+> A command line tool to download Android applications directly from the Google Play Store.
 
 [![Build Status](https://img.shields.io/travis/ClaudiuGeorgiu/PlaystoreDownloader.svg)](https://travis-ci.org/ClaudiuGeorgiu/PlaystoreDownloader)
 [![Build Status](https://img.shields.io/appveyor/ci/ClaudiuGeorgiu/PlaystoreDownloader.svg)](https://ci.appveyor.com/project/ClaudiuGeorgiu/playstoredownloader)
