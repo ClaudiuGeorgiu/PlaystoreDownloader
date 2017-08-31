@@ -1,0 +1,23 @@
+build: "off"
+
+environment:
+  matrix:
+    - PYTHON: "C:\\Python36"
+    - PYTHON: "C:\\Python36-x64"
+  global:
+    VENV_TEST_DIR: "venv"
+    CREDENTIALS:
+      secure: "6iORx0jZ39s+dqJlujrjlh2i/FssQELbhVdE7KRqXHb2yNro4lIhIfxliP317vdHAXGlKSudy/cA9lHVTFkeZKg8NcgRQQK33ZXx03MFrHWruszwzOyOs7De8QWrtb2XQmfvQF+Lh+e6dl8gpxR9IPj+n0keRhUWBghCiMf0gUjuG5lnRb/k1tausTxB2PjJaxm+z+IZ9IDhbTnW/p38hFqLfkXkYdagKYz23MYBtZcUmwj4uuERqrsNeNc7guwqP2kR9ne0y23IhgxYQBnYZA=="
+
+install:
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  - "virtualenv --clear %VENV_TEST_DIR%"
+  - "%VENV_TEST_DIR%\\Scripts\\activate.bat"
+  - "pip install codecov"
+  - "pip install -r requirements.txt"
+
+test_script:
+  - "pytest --cov=./"
+
+after_test:
+  - "codecov"

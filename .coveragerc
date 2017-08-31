@@ -6,3 +6,7 @@ omit =
     test/*
     # Omit protobuf generated files.
     *_pb2.py
+
+[report]
+exclude_lines =
+    if __name__ == .__main__.:
