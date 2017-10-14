@@ -8,7 +8,7 @@ import pytest
 import download
 from playstore.playstore import Playstore
 # noinspection PyUnresolvedReferences
-from test.test_playstore_api import playstore, VALID_PACKAGE_NAME, BAD_PACKAGE_NAME
+from test.test_playstore_api import playstore, VALID_PACKAGE_NAME, BAD_PACKAGE_NAME, APK_WITH_OBB
 # noinspection PyUnresolvedReferences
 from test.test_session_fixtures import valid_credentials_path, download_folder_path
 
@@ -35,6 +35,15 @@ class TestDownload(object):
         monkeypatch.setattr(download, 'get_cmd_args', lambda: arguments)
 
         # If this runs without errors, the apk will be saved in the Downloads folder
+        # (created in the same folder as download.py).
+        download.main()
+
+    def test_valid_download_additional_files(self, valid_credentials_path, monkeypatch):
+        # Mock the command line parser.
+        arguments = download.get_cmd_args('"{0}" -c "{1}"'.format(APK_WITH_OBB, valid_credentials_path).split())
+        monkeypatch.setattr(download, 'get_cmd_args', lambda: arguments)
+
+        # If this runs without errors, the apk and the additional files will be saved in the Downloads folder
         # (created in the same folder as download.py).
         download.main()
 

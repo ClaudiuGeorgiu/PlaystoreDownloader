@@ -14,6 +14,7 @@ from test.test_session_fixtures import valid_credentials_path, download_folder_p
 
 VALID_PACKAGE_NAME = 'com.spotify.music'
 BAD_PACKAGE_NAME = '<-bad_package_name->'
+APK_WITH_OBB = 'com.mapswithme.maps.pro'
 
 
 # noinspection PyShadowingNames
@@ -140,7 +141,7 @@ class TestApi(object):
                                     os.path.join(download_folder_path, '{0}.apk'.format(VALID_PACKAGE_NAME)))
         assert result is True
 
-    def test_download_corrupted_file(self, playstore, download_folder_path, monkeypatch):
+    def test_download_corrupted_apk(self, playstore, download_folder_path, monkeypatch):
         # Mock the function that gets the size of the file so that the downloaded
         # apk will be treated as corrupted.
         monkeypatch.setattr(os.path, 'getsize', lambda x: 1)
