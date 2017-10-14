@@ -353,7 +353,12 @@ class Playstore(object):
                               'for app "{0}".'.format(package_name))
             return False
         else:
+            # The url where to download the apk file.
             temp_url = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadUrl
+
+            # Additional files (.obb) to be downloaded with the apk.
+            additional_files = [additional_file.downloadUrl for additional_file in
+                                response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.additionalFile]
 
         try:
             cookie = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[0]
@@ -376,7 +381,7 @@ class Playstore(object):
         chunk_size = 1024
         apk_size = int(response.headers['content-length'])
 
-        # Download the file and save it, showing a progress bar.
+        # Download the apk file and save it, showing a progress bar.
         with open(file_name, 'wb') as f:
             for chunk in tqdm(response.iter_content(chunk_size=chunk_size), total=(apk_size // chunk_size),
                               dynamic_ncols=True, unit=' KB', desc=('Downloading {0}'.format(package_name)),
@@ -395,5 +400,38 @@ class Playstore(object):
                 logging.warning('The file "{0}" is corrupted and should be removed manually.'.format(file_name))
 
             return False
+
+        # Save the additional files for the apk.
+        for index, file_url in enumerate(additional_files):
+
+            # Execute another query to get the actual file.
+            response = requests.get(file_url, headers=headers, cookies=cookies, verify=True, stream=True)
+
+            chunk_size = 1024
+            file_size = int(response.headers['content-length'])
+
+            additional_file_name = '{0}-additional-file-{1}.obb'.format(file_name, index + 1)
+
+            # Download the apk file and save it, showing a progress bar.
+            with open(additional_file_name, 'wb') as f:
+                for chunk in tqdm(response.iter_content(chunk_size=chunk_size), total=(file_size // chunk_size),
+                                  dynamic_ncols=True, unit=' KB',
+                                  desc=('Downloading additional file {0}'.format(index + 1)),
+                                  bar_format='{l_bar}{bar}|[{elapsed}<{remaining}, {rate_fmt}]'):
+                    if chunk:
+                        f.write(chunk)
+                        f.flush()
+
+            # Check if the entire additional file was downloaded correctly.
+            if file_size != os.path.getsize(additional_file_name):
+                logging.error('Download not completed for additional file {0} of "{1}". The file "{2}" is corrupted '
+                              'and will be removed.'.format(index + 1, package_name, additional_file_name))
+                try:
+                    os.remove(additional_file_name)
+                except OSError:
+                    logging.warning('The file "{0}" is corrupted and should be removed manually.'
+                                    .format(additional_file_name))
+
+                return False
 
         return True
