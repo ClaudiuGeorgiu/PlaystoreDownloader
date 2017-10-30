@@ -8,6 +8,7 @@ import sys
 
 import requests
 from google.protobuf import json_format
+from requests.exceptions import ChunkedEncodingError
 from tqdm import tqdm
 
 from . import playstore_proto_pb2 as playstore_protobuf
@@ -382,17 +383,23 @@ class Playstore(object):
         apk_size = int(response.headers['content-length'])
 
         # Download the apk file and save it, showing a progress bar.
-        with open(file_name, 'wb') as f:
-            for chunk in tqdm(response.iter_content(chunk_size=chunk_size), total=(apk_size // chunk_size),
-                              dynamic_ncols=True, unit=' KB', desc=('Downloading {0}'.format(package_name)),
-                              bar_format='{l_bar}{bar}|[{elapsed}<{remaining}, {rate_fmt}]'):
-                if chunk:
-                    f.write(chunk)
-                    f.flush()
+        try:
+            with open(file_name, 'wb') as f:
+                for chunk in tqdm(response.iter_content(chunk_size=chunk_size), total=(apk_size // chunk_size),
+                                  dynamic_ncols=True, unit=' KB', desc=('Downloading {0}'.format(package_name)),
+                                  bar_format='{l_bar}{bar}|[{elapsed}<{remaining}, {rate_fmt}]'):
+                    if chunk:
+                        f.write(chunk)
+                        f.flush()
+        except ChunkedEncodingError:
+            # There was an error during the download so not all the file was written to disk, hence there will
+            # be a mismatch between the expected size and the actual size of the downloaded file, but the next
+            # code block will handle that.
+            pass
 
         # Check if the entire file was downloaded correctly.
         if apk_size != os.path.getsize(file_name):
-            logging.error('Download not completed for "{0}". The file "{1}" is corrupted '
+            logging.error('Download not completed for "{0}", please retry. The file "{1}" is corrupted '
                           'and will be removed.'.format(package_name, file_name))
             try:
                 os.remove(file_name)
@@ -412,20 +419,26 @@ class Playstore(object):
 
             additional_file_name = '{0}-additional-file-{1}.obb'.format(file_name, index + 1)
 
-            # Download the apk file and save it, showing a progress bar.
-            with open(additional_file_name, 'wb') as f:
-                for chunk in tqdm(response.iter_content(chunk_size=chunk_size), total=(file_size // chunk_size),
-                                  dynamic_ncols=True, unit=' KB',
-                                  desc=('Downloading additional file {0}'.format(index + 1)),
-                                  bar_format='{l_bar}{bar}|[{elapsed}<{remaining}, {rate_fmt}]'):
-                    if chunk:
-                        f.write(chunk)
-                        f.flush()
+            # Download the additional file and save it, showing a progress bar.
+            try:
+                with open(additional_file_name, 'wb') as f:
+                    for chunk in tqdm(response.iter_content(chunk_size=chunk_size), total=(file_size // chunk_size),
+                                      dynamic_ncols=True, unit=' KB',
+                                      desc=('Downloading additional file {0}'.format(index + 1)),
+                                      bar_format='{l_bar}{bar}|[{elapsed}<{remaining}, {rate_fmt}]'):
+                        if chunk:
+                            f.write(chunk)
+                            f.flush()
+            except ChunkedEncodingError:
+                # There was an error during the download so not all the file was written to disk, hence there will
+                # be a mismatch between the expected size and the actual size of the downloaded file, but the next
+                # code block will handle that.
+                pass
 
             # Check if the entire additional file was downloaded correctly.
             if file_size != os.path.getsize(additional_file_name):
-                logging.error('Download not completed for additional file {0} of "{1}". The file "{2}" is corrupted '
-                              'and will be removed.'.format(index + 1, package_name, additional_file_name))
+                logging.error('Download not completed for additional file {0} of "{1}", please retry. The file "{2}" '
+                              'is corrupted and will be removed.'.format(index + 1, package_name, additional_file_name))
                 try:
                     os.remove(additional_file_name)
                 except OSError:
