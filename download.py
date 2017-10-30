@@ -31,6 +31,8 @@ def get_cmd_args(args: list = None):
     parser.add_argument('-o', '--out', type=str, metavar='FILE', default=downloaded_apk_default_location,
                         help='The path where to save the downloaded .apk file. By default the file will be saved '
                              'in a "Downloads/" directory created where this script is run')
+    parser.add_argument('-t', '--tag', type=str, metavar='TAG',
+                        help='An optional tag prepended to the file name, e.g., "[TAG] filename.apk"')
     return parser.parse_args(args)
 
 
@@ -68,6 +70,12 @@ def main():
     # If it doesn't exist, create the directory where to save the downloaded apk.
     if not os.path.exists(os.path.dirname(downloaded_apk_file_path)):
         os.makedirs(os.path.dirname(downloaded_apk_file_path))
+
+    if args.tag and args.tag.strip(' \'"'):
+        # If provided, prepend the specified tag to the file name.
+        downloaded_apk_file_path = os.path.join(os.path.dirname(downloaded_apk_file_path),
+                                                '[{0}] {1}'.format(args.tag.strip(' \'"'),
+                                                                   os.path.basename(downloaded_apk_file_path)))
 
     success = api.download(details['package_name'], downloaded_apk_file_path)
 
