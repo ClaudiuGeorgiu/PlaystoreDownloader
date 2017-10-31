@@ -291,7 +291,7 @@ class Playstore(object):
     def app_details(self, package_name: str) -> object:
         """
         Get the details for a certain app (identified by the package name) in the Google Play Store.
-        :param package_name: The package name of the app (e.g. "com.example.myapp").
+        :param package_name: The package name of the app (e.g., "com.example.myapp").
         :return: A protobuf object containing the details of the app. The result
         will be None if there was something wrong with the query.
         """
@@ -315,11 +315,13 @@ class Playstore(object):
 
         return details
 
-    def download(self, package_name: str, file_name: str = None) -> bool:
+    def download(self, package_name: str, file_name: str = None, download_obb: bool = False) -> bool:
         """
         Download a certain app (identified by the package name) from the Google Play Store.
-        :param package_name: The package name of the app (e.g. "com.example.myapp").
+        :param package_name: The package name of the app (e.g., "com.example.myapp").
         :param file_name: The location where to save the downloaded app (by default "package_name.apk").
+        :param download_obb: Flag indicating whether to also download the additional .obb files for
+        an application (if any).
         :return: True if the file was downloaded correctly, False otherwise.
         """
 
@@ -408,43 +410,45 @@ class Playstore(object):
 
             return False
 
-        # Save the additional files for the apk.
-        for index, file_url in enumerate(additional_files):
+        if download_obb:
+            # Save the additional files for the apk.
+            for index, file_url in enumerate(additional_files):
 
-            # Execute another query to get the actual file.
-            response = requests.get(file_url, headers=headers, cookies=cookies, verify=True, stream=True)
+                # Execute another query to get the actual file.
+                response = requests.get(file_url, headers=headers, cookies=cookies, verify=True, stream=True)
 
-            chunk_size = 1024
-            file_size = int(response.headers['content-length'])
+                chunk_size = 1024
+                file_size = int(response.headers['content-length'])
 
-            additional_file_name = '{0}-additional-file-{1}.obb'.format(file_name, index + 1)
+                additional_file_name = '{0}-additional-file-{1}.obb'.format(file_name, index + 1)
 
-            # Download the additional file and save it, showing a progress bar.
-            try:
-                with open(additional_file_name, 'wb') as f:
-                    for chunk in tqdm(response.iter_content(chunk_size=chunk_size), total=(file_size // chunk_size),
-                                      dynamic_ncols=True, unit=' KB',
-                                      desc=('Downloading additional file {0}'.format(index + 1)),
-                                      bar_format='{l_bar}{bar}|[{elapsed}<{remaining}, {rate_fmt}]'):
-                        if chunk:
-                            f.write(chunk)
-                            f.flush()
-            except ChunkedEncodingError:
-                # There was an error during the download so not all the file was written to disk, hence there will
-                # be a mismatch between the expected size and the actual size of the downloaded file, but the next
-                # code block will handle that.
-                pass
-
-            # Check if the entire additional file was downloaded correctly.
-            if file_size != os.path.getsize(additional_file_name):
-                logging.error('Download not completed for additional file {0} of "{1}", please retry. The file "{2}" '
-                              'is corrupted and will be removed.'.format(index + 1, package_name, additional_file_name))
+                # Download the additional file and save it, showing a progress bar.
                 try:
-                    os.remove(additional_file_name)
-                except OSError:
-                    logging.warning('The file "{0}" is corrupted and should be removed manually.'
-                                    .format(additional_file_name))
+                    with open(additional_file_name, 'wb') as f:
+                        for chunk in tqdm(response.iter_content(chunk_size=chunk_size), total=(file_size // chunk_size),
+                                          dynamic_ncols=True, unit=' KB',
+                                          desc=('Downloading additional file {0}'.format(index + 1)),
+                                          bar_format='{l_bar}{bar}|[{elapsed}<{remaining}, {rate_fmt}]'):
+                            if chunk:
+                                f.write(chunk)
+                                f.flush()
+                except ChunkedEncodingError:
+                    # There was an error during the download so not all the file was written to disk, hence there will
+                    # be a mismatch between the expected size and the actual size of the downloaded file, but the next
+                    # code block will handle that.
+                    pass
 
-                return False
+                # Check if the entire additional file was downloaded correctly.
+                if file_size != os.path.getsize(additional_file_name):
+                    logging.error('Download not completed for additional file {0} of "{1}", please retry. '
+                                  'The file "{2}" is corrupted and will be removed.'.format(index + 1, package_name,
+                                                                                            additional_file_name))
+                    try:
+                        os.remove(additional_file_name)
+                    except OSError:
+                        logging.warning('The file "{0}" is corrupted and should be removed manually.'
+                                        .format(additional_file_name))
+
+                    return False
 
         return True

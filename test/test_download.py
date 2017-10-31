@@ -56,7 +56,7 @@ class TestDownload(object):
 
     def test_valid_download_additional_files(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.
-        arguments = download.get_cmd_args('"{0}" -c "{1}"'.format(APK_WITH_OBB, valid_credentials_path).split())
+        arguments = download.get_cmd_args('"{0}" -b -c "{1}"'.format(APK_WITH_OBB, valid_credentials_path).split())
         monkeypatch.setattr(download, 'get_cmd_args', lambda: arguments)
 
         # If this runs without errors, the apk and the additional files will be saved in the Downloads folder
@@ -84,7 +84,7 @@ class TestDownload(object):
         monkeypatch.setattr(download, 'get_cmd_args', lambda: arguments)
 
         # Mock the Playstore.
-        monkeypatch.setattr(Playstore, 'download', lambda self, package, path: False)
+        monkeypatch.setattr(Playstore, 'download', lambda self, package, path, download_obb: False)
 
         with pytest.raises(SystemExit) as err:
             download.main()

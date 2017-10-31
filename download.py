@@ -25,6 +25,8 @@ def get_cmd_args(args: list = None):
     parser = argparse.ArgumentParser(description='Download an application (.apk) from the Google Play Store.')
     parser.add_argument('package', type=str, help='The package name of the application to be downloaded, '
                                                   'e.g. "com.spotify.music" or "com.whatsapp"')
+    parser.add_argument('-b', '--blobs', action='store_true',
+                        help='Download the additional .obb files along with the application (if any)')
     parser.add_argument('-c', '--credentials', type=str, metavar='CREDENTIALS', default=credentials_default_location,
                         help='The path to the JSON configuration file containing the store credentials. By '
                              'default the "credentials.json" file will be used')
@@ -77,7 +79,11 @@ def main():
                                                 '[{0}] {1}'.format(args.tag.strip(' \'"'),
                                                                    os.path.basename(downloaded_apk_file_path)))
 
-    success = api.download(details['package_name'], downloaded_apk_file_path)
+    # The download of the additional .obb files is optional.
+    if args.blobs:
+        success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=True)
+    else:
+        success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=False)
 
     if not success:
         print('Error when downloading "{0}".'.format(details['package_name']))
