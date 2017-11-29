@@ -11,4 +11,6 @@ COPY ./download.py /app/
 COPY ./credentials.json /app/
 
 WORKDIR /app
+
+# Run with -u $(id -u):$(id -g) to avoid file permission issues
 ENTRYPOINT ["python3", "/app/download.py"]
