@@ -25,12 +25,16 @@ def get_cmd_args(args: list = None):
     parser = argparse.ArgumentParser(description='Download an application (.apk) from the Google Play Store.')
     parser.add_argument('package', type=str, help='The package name of the application to be downloaded, '
                                                   'e.g. "com.spotify.music" or "com.whatsapp"')
+    parser.add_argument('-b', '--blobs', action='store_true',
+                        help='Download the additional .obb files along with the application (if any)')
     parser.add_argument('-c', '--credentials', type=str, metavar='CREDENTIALS', default=credentials_default_location,
                         help='The path to the JSON configuration file containing the store credentials. By '
                              'default the "credentials.json" file will be used')
     parser.add_argument('-o', '--out', type=str, metavar='FILE', default=downloaded_apk_default_location,
                         help='The path where to save the downloaded .apk file. By default the file will be saved '
                              'in a "Downloads/" directory created where this script is run')
+    parser.add_argument('-t', '--tag', type=str, metavar='TAG',
+                        help='An optional tag prepended to the file name, e.g., "[TAG] filename.apk"')
     return parser.parse_args(args)
 
 
@@ -69,7 +73,17 @@ def main():
     if not os.path.exists(os.path.dirname(downloaded_apk_file_path)):
         os.makedirs(os.path.dirname(downloaded_apk_file_path))
 
-    success = api.download(details['package_name'], downloaded_apk_file_path)
+    if args.tag and args.tag.strip(' \'"'):
+        # If provided, prepend the specified tag to the file name.
+        downloaded_apk_file_path = os.path.join(os.path.dirname(downloaded_apk_file_path),
+                                                '[{0}] {1}'.format(args.tag.strip(' \'"'),
+                                                                   os.path.basename(downloaded_apk_file_path)))
+
+    # The download of the additional .obb files is optional.
+    if args.blobs:
+        success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=True)
+    else:
+        success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=False)
 
     if not success:
         print('Error when downloading "{0}".'.format(details['package_name']))

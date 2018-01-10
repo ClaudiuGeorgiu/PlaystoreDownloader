@@ -58,6 +58,15 @@ $ python3 download.py "com.application.example"
 
 If the download is successful, the resulting `.apk` file will be saved in the `PlaystoreDownloader/Downloads` directory. You can change the name and the location of the downloaded `.apk` file by providing an additional `-o "path/to/downloaded.apk"` argument to [download.py](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/download.py) (type `$ python3 download.py --help` for more information).
 
+Docker is also supported:
+
+```Shell
+# Make sure to have valid credentials inside credentials.json file before building the image
+$ docker build -t downloader .
+
+# Download the selected application in the current directory
+$ docker run --rm -u $(id -u):$(id -g) -v "$PWD":"/app/Downloads" downloader "com.application.example"
+```
 
 
 ## Contributing

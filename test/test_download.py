@@ -29,6 +29,22 @@ class TestDownload(object):
 
         assert os.path.isfile(downloaded_apk_path) is True
 
+    def test_valid_download_specific_location_with_tag(self, download_folder_path, valid_credentials_path, monkeypatch):
+
+        downloaded_apk_path = '{0}.apk'.format(os.path.join(download_folder_path, VALID_PACKAGE_NAME))
+        downloaded_apk_path_with_tag = '{0}.apk'.format(os.path.join(download_folder_path,
+                                                                     '[TEST] {0}'.format(VALID_PACKAGE_NAME)))
+
+        # Mock the command line parser.
+        arguments = download.get_cmd_args(
+            '"{0}" -c "{1}" -o "{2}" -t "TEST"'.format(VALID_PACKAGE_NAME, valid_credentials_path,
+                                                       downloaded_apk_path).split())
+        monkeypatch.setattr(download, 'get_cmd_args', lambda: arguments)
+
+        download.main()
+
+        assert os.path.isfile(downloaded_apk_path_with_tag) is True
+
     def test_valid_download_default_location(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.
         arguments = download.get_cmd_args('"{0}" -c "{1}"'.format(VALID_PACKAGE_NAME, valid_credentials_path).split())
@@ -40,7 +56,7 @@ class TestDownload(object):
 
     def test_valid_download_additional_files(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.
-        arguments = download.get_cmd_args('"{0}" -c "{1}"'.format(APK_WITH_OBB, valid_credentials_path).split())
+        arguments = download.get_cmd_args('"{0}" -b -c "{1}"'.format(APK_WITH_OBB, valid_credentials_path).split())
         monkeypatch.setattr(download, 'get_cmd_args', lambda: arguments)
 
         # If this runs without errors, the apk and the additional files will be saved in the Downloads folder
@@ -68,7 +84,7 @@ class TestDownload(object):
         monkeypatch.setattr(download, 'get_cmd_args', lambda: arguments)
 
         # Mock the Playstore.
-        monkeypatch.setattr(Playstore, 'download', lambda self, package, path: False)
+        monkeypatch.setattr(Playstore, 'download', lambda self, package, path, download_obb: False)
 
         with pytest.raises(SystemExit) as err:
             download.main()
