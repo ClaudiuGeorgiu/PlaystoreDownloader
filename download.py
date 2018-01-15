@@ -46,7 +46,7 @@ def main():
     args = get_cmd_args()
 
     # Make sure to use a valid json file with the credentials.
-    api = Playstore(args.credentials.strip(' \'"'), debug=True)
+    api = Playstore(args.credentials.strip(' \'"'))
 
     try:
         # Get the application details.
