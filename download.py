@@ -2,12 +2,15 @@
 # coding: utf-8
 
 import argparse
+import logging
 import os
 import re
 import sys
 
 from playstore.playstore import Playstore
 
+# Logging configuration.
+logging.basicConfig(format='%(asctime)s> [%(levelname)s][%(funcName)s()] %(message)s', datefmt='%d/%m/%Y %H:%M:%S')
 
 # Default credentials file location.
 credentials_default_location = 'credentials.json'
@@ -43,7 +46,7 @@ def main():
     args = get_cmd_args()
 
     # Make sure to use a valid json file with the credentials.
-    api = Playstore(args.credentials.strip(' \'"'))
+    api = Playstore(args.credentials.strip(' \'"'), debug=True)
 
     try:
         # Get the application details.
