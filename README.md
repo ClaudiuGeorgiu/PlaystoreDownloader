@@ -2,11 +2,12 @@
 
 > A command line tool to download Android applications directly from the Google Play Store.
 
-[![Build Status](https://img.shields.io/travis/ClaudiuGeorgiu/PlaystoreDownloader.svg)](https://travis-ci.org/ClaudiuGeorgiu/PlaystoreDownloader)
-[![Build Status](https://img.shields.io/appveyor/ci/ClaudiuGeorgiu/PlaystoreDownloader.svg)](https://ci.appveyor.com/project/ClaudiuGeorgiu/playstoredownloader)
-[![Code Coverage](https://img.shields.io/codecov/c/github/ClaudiuGeorgiu/PlaystoreDownloader.svg)](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader)
+[![Travis Build Status](https://travis-ci.org/ClaudiuGeorgiu/PlaystoreDownloader.svg)](https://travis-ci.org/ClaudiuGeorgiu/PlaystoreDownloader)
+[![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/d7bed1h37w7x8w6y?svg=true
+)](https://ci.appveyor.com/project/ClaudiuGeorgiu/playstoredownloader)
+[![Code Coverage](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader/badge.svg)](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader)
 [![Python Version](http://img.shields.io/badge/Python-3.6-green.svg)](https://www.python.org/downloads/release/python-362/)
-[![License](https://img.shields.io/github/license/ClaudiuGeorgiu/PlaystoreDownloader.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/LICENSE)
 
 
 
