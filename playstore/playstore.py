@@ -25,6 +25,7 @@ class Playstore(object):
     def __init__(self, config_file: str = 'credentials.json', debug: bool = False):
         """
         Playstore object constructor.
+
         :param config_file: The path to the json configuration file, which contains the credentials.
         :param debug: If set to True, more debug messages will be printed into the console.
         """
@@ -65,6 +66,7 @@ class Playstore(object):
     def _load_configuration(self, config_file: str) -> None:
         """
         Load the necessary configuration data contained in the specified json file.
+
         :param config_file: The path to the json configuration file, which contains the credentials.
         """
 
@@ -79,8 +81,9 @@ class Playstore(object):
 
     def _login(self) -> None:
         """
-        Perform the login into the Play Store. This is needed to obtain the auth token to be used
-        for any further requests.
+        Perform the login into the Play Store.
+
+        This is needed to obtain the auth token to be used for any further requests.
         """
 
         params = {
@@ -120,10 +123,12 @@ class Playstore(object):
 
     def _execute_request(self, path: str, data: str = None) -> object:
         """
-        Perform a request to the Play Store to the specified path. Can be used
-        only after a successful login.
+        Perform a request to the Play Store to the specified path.
+
+        Can be used only after a successful login.
+
         :param path: The final part of the url to be requested (the first part
-        of the url is the same for all the requests so it's hardcoded).
+                     of the url is the same for all the requests so it's hardcoded).
         :param data: Optional body of the request.
         :return: A protobuf object containing the response to the request.
         """
@@ -167,8 +172,10 @@ class Playstore(object):
     @staticmethod
     def _check_entire_file_downloaded(expected_size: int, downloaded_file_path: str) -> bool:
         """
-        Check if a file was entirely downloaded by comparing the actual size of the file
-        with the expected size of the file.
+        Check if a file was entirely downloaded.
+
+        This works by comparing the actual size of the file with the expected size of the file.
+
         :param expected_size: Size (in bytes) of the file to download.
         :param downloaded_file_path: The complete path where the file has been downloaded.
         :return: True if the entire file was written to disk, False otherwise.
@@ -195,6 +202,7 @@ class Playstore(object):
     def protobuf_to_dict(cls, proto_obj: object) -> dict:
         """
         Convert a protobuf object into a Python dictionary.
+
         :param proto_obj: The protobuf object to be converted.
         :return: A Python dictionary representing the protobuf object.
         """
@@ -203,10 +211,11 @@ class Playstore(object):
     def get_store_categories(self, category: str = None) -> object:
         """
         Get the names of the categories of apps in the Google Play Store.
+
         :param category: If a valid category is specified, this method will return
-        its subcategories (if any).
+                         its subcategories (if any).
         :return: A protobuf object containing the list of categories. The result
-        will be None if there was something wrong with the query.
+                 will be None if there was something wrong with the query.
         """
 
         # Prepare the query.
@@ -233,14 +242,16 @@ class Playstore(object):
 
     def list_app_by_category(self, category: str, subcategory: str = None, num_of_results: int = None) -> object:
         """
-        Get a list of apps based on their category. If no subcategory is specified,
-        the method returns a list with all the possible subcategories.
+        Get a list of apps based on their category.
+
+        If no subcategory is specified, the method returns a list with all the possible subcategories.
+
         :param category: The category to which the apps belong.
         :param subcategory: The subcategory of the apps (top free, top paid, trending etc.).
         :param num_of_results: How many results to request from the server.
         :return: A protobuf object containing the the list of apps if a valid subcategory was
-        provided, otherwise a list with the valid subcategories. The result
-        will be None if there was something wrong with the query.
+                 provided, otherwise a list with the valid subcategories. The result
+                 will be None if there was something wrong with the query.
         """
 
         # Prepare the query.
@@ -271,10 +282,11 @@ class Playstore(object):
     def search(self, query: str, num_of_results: int = None) -> object:
         """
         Search for apps in the Google Play Store.
+
         :param query: The string describing the applications to be searched.
         :param num_of_results: How many results to request from the server.
         :return: A protobuf object containing the results of the search. The result
-        will be None if there was something wrong with the query.
+                 will be None if there was something wrong with the query.
         """
 
         # Prepare the search query.
@@ -312,9 +324,10 @@ class Playstore(object):
     def app_details(self, package_name: str) -> object:
         """
         Get the details for a certain app (identified by the package name) in the Google Play Store.
+
         :param package_name: The package name of the app (e.g., "com.example.myapp").
         :return: A protobuf object containing the details of the app. The result
-        will be None if there was something wrong with the query.
+                 will be None if there was something wrong with the query.
         """
 
         # Prepare the query.
@@ -339,10 +352,11 @@ class Playstore(object):
     def download(self, package_name: str, file_name: str = None, download_obb: bool = False) -> bool:
         """
         Download a certain app (identified by the package name) from the Google Play Store.
+
         :param package_name: The package name of the app (e.g., "com.example.myapp").
         :param file_name: The location where to save the downloaded app (by default "package_name.apk").
         :param download_obb: Flag indicating whether to also download the additional .obb files for
-        an application (if any).
+               an application (if any).
         :return: True if the file was downloaded correctly, False otherwise.
         """
 

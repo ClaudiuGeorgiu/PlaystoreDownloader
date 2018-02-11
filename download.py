@@ -22,6 +22,7 @@ downloaded_apk_default_location = 'Downloads'
 def get_cmd_args(args: list = None):
     """
     Parse and return the command line parameters needed for the script execution.
+
     :param args: Optional list of arguments to be parsed (by default sys.argv is used).
     :return: The command line needed parameters.
     """
