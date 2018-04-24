@@ -6,6 +6,7 @@ import logging
 import os
 import sys
 
+import re
 import requests
 from google.protobuf import json_format
 from requests.exceptions import ChunkedEncodingError
@@ -278,6 +279,32 @@ class Playstore(object):
             list_response = response.payload.listResponse
 
         return list_response
+
+    def list_app_by_developer(self, developer_name: str) -> list:
+        """
+        Get the list of apps published by a developer.
+
+        :param developer_name: The exact name of the developer in the Google Play Store.
+        :return: A list with the package names of the applications published by the specified developer.
+                 An empty list will be returned if no application are found.
+        """
+
+        base_url = 'https://play.google.com/store/apps/developer?id='
+
+        # Get the developer's page on Google Play Store.
+        request_url = '{0}{1}'.format(base_url, requests.utils.quote(developer_name))
+        response = requests.get(request_url)
+
+        # TODO: handle pagination in case there are many apps published by a developer,
+        # otherwise this method will get only a subset of the total number of apps.
+
+        # Use a regular expression to obtain the package names (the page shows only
+        # applications published by the selected developer). This list might contain
+        # duplicates, as the same package name can appear more than once in the page.
+        package_names = re.findall('store/apps/details\?id=([a-zA-Z0-9._]+)', response.text)
+
+        # Avoid duplicates.
+        return list(set(package_names))
 
     def search(self, query: str, num_of_results: int = None) -> object:
         """
