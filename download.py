@@ -22,7 +22,6 @@ downloaded_apk_default_location = 'Downloads'
 def flask_direct_download(package: str):
     api = Playstore(credentials_default_location)
     try:
-        # Get the application details.
         app = api.app_details(package).docV2
     except AttributeError:
         print('Error when downloading "{0}". Unable to get app\'s details.'.format(package))
@@ -43,9 +42,9 @@ def flask_direct_download(package: str):
     success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=False)
 
     if not success:
-        print('Error when downloading "{0}".'.format(details['package_name']))
+        print('Error when downloading "{0}".'.format(details['package_name'])) #todo log
         return
-    print(downloaded_apk_file_path)
+    print(downloaded_apk_file_path)  #todo log
 
 
 def get_cmd_args(args: list = None):
