@@ -19,6 +19,35 @@ credentials_default_location = 'credentials.json'
 downloaded_apk_default_location = 'Downloads'
 
 
+def flask_direct_download(package: str):
+    api = Playstore(credentials_default_location)
+    try:
+        # Get the application details.
+        app = api.app_details(package).docV2
+    except AttributeError:
+        print('Error when downloading "{0}". Unable to get app\'s details.'.format(package))
+
+    details = {
+        'package_name': app.docid,
+        'title': app.title,
+        'creator': app.creator
+    }
+    downloaded_apk_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                                downloaded_apk_default_location,
+                                                re.sub('[^\w\-_.\s]', '_', '{0} by {1} - {2}.apk'
+                                                       .format(details['title'], details['creator'],
+                                                               details['package_name'])))
+    if not os.path.exists(os.path.dirname(downloaded_apk_file_path)):
+        os.makedirs(os.path.dirname(downloaded_apk_file_path))
+
+    success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=False)
+
+    if not success:
+        print('Error when downloading "{0}".'.format(details['package_name']))
+        return
+    print(downloaded_apk_file_path)
+
+
 def get_cmd_args(args: list = None):
     """
     Parse and return the command line parameters needed for the script execution.
