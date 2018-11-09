@@ -4,17 +4,16 @@
 import json
 import logging
 import os
-import sys
-
 import re
+from typing import Iterable
+
 import requests
 from google.protobuf import json_format
 from requests.exceptions import ChunkedEncodingError
 from tqdm import tqdm
 
-from . import playstore_proto_pb2 as playstore_protobuf
-from .credentials import EncryptedCredentials
-
+from playstore import playstore_proto_pb2 as playstore_protobuf
+from playstore.credentials import EncryptedCredentials
 
 logger = logging.getLogger(__name__)
 
@@ -23,16 +22,12 @@ class Playstore(object):
 
     LOGIN_URL = 'https://android.clients.google.com/auth'
 
-    def __init__(self, config_file: str = 'credentials.json', debug: bool = False):
+    def __init__(self, config_file: str = 'credentials.json'):
         """
         Playstore object constructor.
 
         :param config_file: The path to the json configuration file, which contains the credentials.
-        :param debug: If set to True, more debug messages will be printed into the console.
         """
-
-        if debug:
-            logger.setLevel(logging.DEBUG)
 
         # Load all the necessary configuration data and perform the login. If something goes
         # wrong in this phase, no further operations can be executed.
@@ -52,11 +47,11 @@ class Playstore(object):
 
         except json.decoder.JSONDecodeError as ex:
             logger.critical('The configuration file is not a valid json: {0}.'.format(ex))
-            sys.exit(1)
+            raise
 
         except KeyError as ex:
             logger.critical('The configuration file is missing the {0} field.'.format(ex))
-            sys.exit(1)
+            raise
 
         self._login()
 
@@ -73,7 +68,7 @@ class Playstore(object):
 
         if not os.path.isfile(config_file):
             logger.critical('Missing configuration file.')
-            sys.exit(1)
+            raise FileNotFoundError('Unable to find configuration file "{0}"'.format(config_file))
 
         logger.debug('Reading {0} configuration file.'.format(config_file))
 
@@ -120,7 +115,7 @@ class Playstore(object):
             self.auth_token = res['auth']
         else:
             logger.critical('Login failed. Please check your credentials.')
-            sys.exit(1)
+            raise RuntimeError('Login failed. Please check your credentials.')
 
     def _execute_request(self, path: str, data: str = None) -> object:
         """
@@ -136,7 +131,7 @@ class Playstore(object):
 
         if not hasattr(self, 'auth_token'):
             logger.critical('Please login before attempting any other operation.')
-            sys.exit(1)
+            raise RuntimeError('Please login before attempting any other operation.')
 
         headers = {
             'Accept-Language': self.lang_code,
@@ -194,6 +189,146 @@ class Playstore(object):
             return False
         else:
             return True
+
+    def silent_download_with_progress(self, package_name: str, file_name: str = None,
+                                      download_obb: bool = False) -> Iterable[int]:
+        """
+        Silently download a certain app (identified by the package name) from the Google Play Store and report the
+        progress (using a generator that reports the download progress in the range 0-100).
+
+        :param package_name: The package name of the app (e.g., "com.example.myapp").
+        :param file_name: The location where to save the downloaded app (by default "package_name.apk").
+        :param download_obb: Flag indicating whether to also download the additional .obb files for
+               an application (if any).
+        :return: A generator that returns the download progress (0-100) at each iteration.
+        """
+
+        # Set the default file name if none is provided.
+        if not file_name:
+            file_name = '{0}.apk'.format(package_name)
+
+        # Get the app details before downloading it.
+        details = self.app_details(package_name)
+
+        if details is None:
+            logger.error('Can\'t proceed with the download. There was an error when '
+                         'requesting details for app "{0}".'.format(package_name))
+            raise RuntimeError('Can\'t proceed with the download. There was an error when '
+                               'requesting details for app "{0}".'.format(package_name))
+
+        version_code = details.docV2.details.appDetails.versionCode
+        offer_type = details.docV2.offer[0].offerType
+
+        # Prepare the query.
+        path = 'purchase'
+        data = 'ot={0}&doc={1}&vc={2}'.format(offer_type, package_name, version_code)
+
+        # Execute the first query to get the download link.
+        response = self._execute_request(path, data)
+
+        # If the query went completely wrong.
+        if 'payload' not in self.protobuf_to_dict(response):
+            try:
+                logger.error('Error for app "{0}": {1}'.format(package_name, response.commands.displayErrorMessage))
+                raise RuntimeError('Error for app "{0}": {1}'.format(package_name, response.commands.displayErrorMessage))
+            except AttributeError:
+                logger.error('There was an error when requesting the download link '
+                             'for app "{0}".'.format(package_name))
+            raise RuntimeError('Unable to download the application, please see the logs for more information.')
+        else:
+            # The url where to download the apk file.
+            temp_url = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadUrl
+
+            # Additional files (.obb) to be downloaded with the apk.
+            additional_files = [additional_file for additional_file in
+                                response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.additionalFile]
+
+        try:
+            cookie = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[0]
+        except IndexError:
+            logger.error('DownloadAuthCookie was not received for "{0}".'.format(package_name))
+            raise RuntimeError('DownloadAuthCookie was not received for "{0}".'.format(package_name))
+
+        cookies = {
+            str(cookie.name): str(cookie.value)
+        }
+
+        headers = {
+            'User-Agent': 'AndroidDownloadManager/4.1.1 (Linux; U; Android 4.1.1; Nexus S Build/JRO03E)',
+            'Accept-Encoding': ''
+        }
+
+        # Execute another query to get the actual apk file.
+        response = requests.get(temp_url, headers=headers, cookies=cookies, verify=True, stream=True)
+
+        chunk_size = 1024
+        apk_size = int(response.headers['content-length'])
+
+        # Download the apk file and save it, showing a progress bar.
+        try:
+            with open(file_name, 'wb') as f:
+                last_progress = 0
+                for index, chunk in enumerate(response.iter_content(chunk_size=chunk_size)):
+                    current_progress = 100 * index * chunk_size // apk_size
+                    if current_progress > last_progress:
+                        last_progress = current_progress
+                        yield last_progress
+
+                    if chunk:
+                        f.write(chunk)
+                        f.flush()
+
+                # Download complete.
+                yield 100
+        except ChunkedEncodingError:
+            # There was an error during the download so not all the file was written to disk, hence there will
+            # be a mismatch between the expected size and the actual size of the downloaded file, but the next
+            # code block will handle that.
+            pass
+
+        # Check if the entire apk was downloaded correctly, otherwise return immediately.
+        if not self._check_entire_file_downloaded(apk_size, file_name):
+            raise RuntimeError('Unable to download the entire application.')
+
+        if download_obb:
+            # Save the additional files for the apk.
+            for obb in additional_files:
+
+                # Execute another query to get the actual file.
+                response = requests.get(obb.downloadUrl, headers=headers, cookies=cookies, verify=True, stream=True)
+
+                chunk_size = 1024
+                file_size = int(response.headers['content-length'])
+
+                obb_file_name = os.path.join(os.path.dirname(file_name),
+                                             '{0}.{1}.{2}.obb'.format('main' if obb.fileType == 0 else 'patch',
+                                                                      obb.versionCode, package_name))
+
+                # Download the additional file and save it, showing a progress bar.
+                try:
+                    with open(obb_file_name, 'wb') as f:
+                        last_progress = 0
+                        for index, chunk in enumerate(response.iter_content(chunk_size=chunk_size)):
+                            current_progress = 100 * index * chunk_size // file_size
+                            if current_progress > last_progress:
+                                last_progress = current_progress
+                                yield last_progress
+
+                            if chunk:
+                                f.write(chunk)
+                                f.flush()
+
+                        # Download complete.
+                        yield 100
+                except ChunkedEncodingError:
+                    # There was an error during the download so not all the file was written to disk, hence there will
+                    # be a mismatch between the expected size and the actual size of the downloaded file, but the next
+                    # code block will handle that.
+                    pass
+
+                # Check if the entire additional file was downloaded correctly, otherwise return immediately.
+                if not self._check_entire_file_downloaded(file_size, obb_file_name):
+                    raise RuntimeError('Unable to download completely the additional files.')
 
     ############################
     # Playstore Public Methods #
@@ -280,6 +415,7 @@ class Playstore(object):
 
         return list_response
 
+    # noinspection PyMethodMayBeStatic
     def list_app_by_developer(self, developer_name: str) -> list:
         """
         Get the list of apps published by a developer.

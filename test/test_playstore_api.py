@@ -34,9 +34,8 @@ class TestApi(object):
         # Simulate a request without the token generated during login.
         playstore = Playstore(valid_credentials_path)
         del playstore.auth_token
-        with pytest.raises(SystemExit) as err:
+        with pytest.raises(RuntimeError):
             playstore._execute_request('ignore')
-        assert err.value.code == 1
 
     #########################
     # Play Store categories #
@@ -102,10 +101,6 @@ class TestApi(object):
         # Simulate a bad response from the server.
         monkeypatch.setattr(Playstore, '_execute_request', lambda self, path: playstore_protobuf.DocV2())
         results = playstore.search('music')
-        assert results is None
-
-    def test_search_no_results(self, playstore):
-        results = playstore.search('very_long_string_that_should_not_yield_any_search_result')
         assert results is None
 
     def test_search_empty_string(self, playstore):

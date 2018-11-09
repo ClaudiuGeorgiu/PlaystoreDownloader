@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import json
+
 import pytest
 
 from playstore.playstore import Playstore
@@ -16,21 +18,17 @@ MISSING_CONFIGURATION_FILE = 'missing_configuration_path.json'
 class TestConfiguration(object):
 
     def test_missing_configuration(self):
-        with pytest.raises(SystemExit) as err:
-            Playstore(MISSING_CONFIGURATION_FILE, debug=True)
-        assert err.value.code == 1
+        with pytest.raises(FileNotFoundError):
+            Playstore(MISSING_CONFIGURATION_FILE)
 
     def test_bad_credentials(self, wrong_credentials_path):
-        with pytest.raises(SystemExit) as err:
+        with pytest.raises(RuntimeError):
             Playstore(wrong_credentials_path)
-        assert err.value.code == 1
 
     def test_incomplete_configuration(self, incomplete_configuration_path):
-        with pytest.raises(SystemExit) as err:
+        with pytest.raises(KeyError):
             Playstore(incomplete_configuration_path)
-        assert err.value.code == 1
 
     def test_corrupted_configuration(self, corrupted_configuration_path):
-        with pytest.raises(SystemExit) as err:
+        with pytest.raises(json.decoder.JSONDecodeError):
             Playstore(corrupted_configuration_path)
-        assert err.value.code == 1

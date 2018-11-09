@@ -12,7 +12,7 @@ where:
     -h, --help   show this help message
     FILE         the file containing the package name list"
 
-if [ "$#" -ne 1 ]; then
+if [[ "$#" -ne 1 ]]; then
     echo "1 argument required, "$#" provided. Usage:" >&2
     echo "" >&2
     echo "$USAGE" >&2
@@ -28,7 +28,7 @@ while [[ $# -gt 0 ]]; do
         ;;
         *)
             # Check if the specified file exists.
-            if [ -f "${key}" ]; then
+            if [[ -f "${key}" ]]; then
                 # The name of the file from which to read the package names.
                 filename="${key}"
                 break

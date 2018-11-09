@@ -10,41 +10,14 @@ import sys
 from playstore.playstore import Playstore
 
 # Logging configuration.
-logging.basicConfig(format='%(asctime)s> [%(levelname)s][%(funcName)s()] %(message)s', datefmt='%d/%m/%Y %H:%M:%S')
+logging.basicConfig(format='%(asctime)s> [%(levelname)s][%(name)s][%(funcName)s()] %(message)s',
+                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
 
 # Default credentials file location.
 credentials_default_location = 'credentials.json'
 
 # Default directory where to save the downloaded applications.
 downloaded_apk_default_location = 'Downloads'
-
-
-def flask_direct_download(package: str):
-    api = Playstore(credentials_default_location)
-    try:
-        app = api.app_details(package).docV2
-    except AttributeError:
-        print('Error when downloading "{0}". Unable to get app\'s details.'.format(package))
-
-    details = {
-        'package_name': app.docid,
-        'title': app.title,
-        'creator': app.creator
-    }
-    downloaded_apk_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                                downloaded_apk_default_location,
-                                                re.sub('[^\w\-_.\s]', '_', '{0} by {1} - {2}.apk'
-                                                       .format(details['title'], details['creator'],
-                                                               details['package_name'])))
-    if not os.path.exists(os.path.dirname(downloaded_apk_file_path)):
-        os.makedirs(os.path.dirname(downloaded_apk_file_path))
-
-    success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=False)
-
-    if not success:
-        print('Error when downloading "{0}".'.format(details['package_name'])) #todo log
-        return
-    print(downloaded_apk_file_path)  #todo log
 
 
 def get_cmd_args(args: list = None):
@@ -74,51 +47,57 @@ def main():
 
     args = get_cmd_args()
 
-    # Make sure to use a valid json file with the credentials.
-    api = Playstore(args.credentials.strip(' \'"'))
-
     try:
-        # Get the application details.
-        app = api.app_details(args.package.strip(' \'"')).docV2
-    except AttributeError:
-        print('Error when downloading "{0}". Unable to get app\'s details.'.format(args.package.strip(' \'"')))
-        sys.exit(1)
 
-    details = {
-        'package_name': app.docid,
-        'title': app.title,
-        'creator': app.creator
-    }
+        # Make sure to use a valid json file with the credentials.
+        api = Playstore(args.credentials.strip(' \'"'))
 
-    if args.out.strip(' \'"') == downloaded_apk_default_location:
-        # The downloaded apk will be saved in the Downloads folder (created in the same folder as this script).
-        downloaded_apk_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                                downloaded_apk_default_location,
-                                                re.sub('[^\w\-_.\s]', '_', '{0} by {1} - {2}.apk'
-                                                       .format(details['title'], details['creator'],
-                                                               details['package_name'])))
-    else:
-        # The downloaded apk will be saved in the location chosen by the user.
-        downloaded_apk_file_path = os.path.abspath(args.out.strip(' \'"'))
+        try:
+            # Get the application details.
+            app = api.app_details(args.package.strip(' \'"')).docV2
+        except AttributeError:
+            print('Error when downloading "{0}". Unable to get app\'s details.'.format(args.package.strip(' \'"')))
+            sys.exit(1)
 
-    # If it doesn't exist, create the directory where to save the downloaded apk.
-    if not os.path.exists(os.path.dirname(downloaded_apk_file_path)):
-        os.makedirs(os.path.dirname(downloaded_apk_file_path))
+        details = {
+            'package_name': app.docid,
+            'title': app.title,
+            'creator': app.creator
+        }
 
-    if args.tag and args.tag.strip(' \'"'):
-        # If provided, prepend the specified tag to the file name.
-        downloaded_apk_file_path = os.path.join(os.path.dirname(downloaded_apk_file_path),
-                                                '[{0}] {1}'.format(args.tag.strip(' \'"'),
-                                                                   os.path.basename(downloaded_apk_file_path)))
+        if args.out.strip(' \'"') == downloaded_apk_default_location:
+            # The downloaded apk will be saved in the Downloads folder (created in the same folder as this script).
+            downloaded_apk_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                                    downloaded_apk_default_location,
+                                                    re.sub(r'[^\w\-_.\s]', '_', '{0} by {1} - {2}.apk'
+                                                           .format(details['title'], details['creator'],
+                                                                   details['package_name'])))
+        else:
+            # The downloaded apk will be saved in the location chosen by the user.
+            downloaded_apk_file_path = os.path.abspath(args.out.strip(' \'"'))
 
-    # The download of the additional .obb files is optional.
-    if args.blobs:
-        success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=True)
-    else:
-        success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=False)
+        # If it doesn't exist, create the directory where to save the downloaded apk.
+        if not os.path.isdir(os.path.dirname(downloaded_apk_file_path)):
+            os.makedirs(os.path.dirname(downloaded_apk_file_path))
 
-    if not success:
-        print('Error when downloading "{0}".'.format(details['package_name']))
+        if args.tag and args.tag.strip(' \'"'):
+            # If provided, prepend the specified tag to the file name.
+            downloaded_apk_file_path = os.path.join(os.path.dirname(downloaded_apk_file_path),
+                                                    '[{0}] {1}'.format(args.tag.strip(' \'"'),
+                                                                       os.path.basename(downloaded_apk_file_path)))
+
+        # The download of the additional .obb files is optional.
+        if args.blobs:
+            success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=True)
+        else:
+            success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=False)
+
+        if not success:
+            print('Error when downloading "{0}".'.format(details['package_name']))
+            sys.exit(1)
+
+    except Exception as ex:
+        print('Error during the download: {0}'.format(ex))
         sys.exit(1)
 
 

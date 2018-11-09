@@ -1,14 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=0.75, initial-scale=0.75, maximum-scale=0.75">
 
-<form action = "/download_apk" method = "POST">
-         <p>Packagename: <input type ="text" name = "packagename" /></p>
-         <p><input type = "submit" value = "GET!" /></p>
-      </form>
-</body>
+        <title>PlaystoreDownloader</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+
+        <!-- Needed for IE -->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='socket.io.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='sweetalert2.all.min.js') }}"></script>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='site.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
+    </head>
+
+    <body>
+        <div class="container">
+            <h2 align="center" style="margin-top: 70px; margin-bottom: 70px;">PlaystoreDownloader</h2>
+
+            <div class="row limited-row" style="text-align: justify;">
+                <label class="col-12" style="padding: 0;"><b>PlaystoreDownloader</b> is a tool for downloading Android applications directly from the Google Play Store. The only information needed is the application's package name.</label>
+            </div>
+
+            <div class="row text-center">
+                <div class="col-12 text-center justify-content-center">
+                    <div style="height: 20px;"></div>
+                    <div class="row limited-row input-group">
+                        <input id="package-name" name="package_name" type="text" class="form-control text-center custom-input"
+                               placeholder="">
+                        <div class="input-group-append">
+                            <button id="download-button" class="btn btn-outline-secondary"
+                                    style="padding: 5px 12px 0 12px;">
+                                <i class="material-icons" style="font-size: 25px;">file_download</i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row limited-row text-center">
+                        <small id="wrong-package-name" class="col-12 text-danger" style="padding-top: 5px; opacity: 0;">
+                          Please specify a valid package name.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div id="download-progress-container" class="progress limited-row" style="margin-top: -15px; opacity: 0;">
+                <div id="download-progress" class="progress-bar bg-success progress-bar-striped progress-bar-animated"></div>
+            </div>
+
+            <div class="row limited-row text-center">
+                <div class="col-12">
+                    <h6 style="margin-top: 70px;">Source code is available at: <a style="word-wrap: break-word;" href="https://github.com/ClaudiuGeorgiu/PlaystoreDownloader">https://github.com/ClaudiuGeorgiu/PlaystoreDownloader</a></h6>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
