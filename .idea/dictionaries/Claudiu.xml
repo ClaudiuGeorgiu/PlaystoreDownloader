@@ -5,6 +5,7 @@
       <w>appveyor</w>
       <w>asctime</w>
       <w>checkin</w>
+      <w>codacy</w>
       <w>codecov</w>
       <w>deviceid</w>
       <w>docid</w>

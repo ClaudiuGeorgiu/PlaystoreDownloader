@@ -41,7 +41,7 @@ class EncryptedCredentials(object):
         # Build the signature containing the encrypted credentials.
 
         cipher = PKCS1_OAEP.new(rsa_key)
-        encrypted_credentials = cipher.encrypt((self.username + u'\x00' + self.password).encode('utf-8'))
+        encrypted_credentials = cipher.encrypt((self.username + '\x00' + self.password).encode())
 
         signature = bytearray(b'\x00')
         signature.extend(hashlib.sha1(binary_key).digest()[:4])

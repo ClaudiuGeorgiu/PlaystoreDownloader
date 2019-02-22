@@ -8,16 +8,18 @@ matrix:
 env:
   global:
     # (printf CREDENTIALS=; json_minify private_credentials.json | base64 -w0) | travis encrypt
-    - secure: "Ry4Vi2T+IeqMTEcRY2Y5c567Gszvj/W9Yd6wqr5XUag7bv7lAwxb9eVKOE2msGHY5Blu5hmLlI1CIJIbSGaIHocls2zLXx8fDXruFetnimvnfxvvSMXk0/y6Byf0SJeo+WzurVUMI1rLBbcwz3xVaasIe11OKpbjYHs+7dgjm76W8fiE4T39gC0MqcwN8J5NK8ddDtmw5JmaRABV+/WYnJ670v/C2Rt5Q0XAS3qZtHoyE9hHJWXw2d1afIr5fxZ3kBgN5LGp6b5mjxi6n4kegkoWVmOm/MZdGg0WAdo5ygYJhNMsbV66gWHxfCKX3uHBhl/fyV8eDe7Syb0py0d4PnFPa9M9R6p17gYB6SPoJTTlx+dYimzGB9CoRxplftrcV0V3A36qYqPoyrL/c+FoxJrDLpmX2JkNL1xG3DMBKDmpSrGmpha8YKewv+XuPPCrOCh47+n9sM3kQJVjhDICywo/ia3X7dk3aCdi4aCgnTAVwqSQY0V/C9jo3mGhgAfvj6MH4+WvYsatX5u4C7SoKeMmuORhK+rkeEqYY/VQn65vblG0wyPbOTGl0H93YkH8F1S6Qy598PREIqG0lcq6H/67oQMDVwE8DgZ3/cFdZHafa91PERDkw9h0LLPYyAhKcwLIdBuJbH7oMRYc+BGpZIUDSyqFPTrBdXUJY393l3Y="
+    - secure: "lwGisxKhdd7af9rQZB9wgIZzXRLUR0TsakugZ5UBufvfAcA5uHRU2wWDtt/V24PsphzuTT1V83xE8PEBZmCPMCQxsDgdPMnqSQJWTEoObMkZhpR+FmtqVUaU9+y+SQQa4vj8xv0VvG59tEFSTlmD7M3/9O7ztzOsNyrKAgnYz7H34h672ID4BE80LpwSwuFv+sKVIDM1OC1+983P1LIgBC3urbtF2Ri3RP+pEEcrJ3HjrZiirxRw8oPeYPRPqSzuVI2WdtRd4CjfPgOm+IPyjsDAqlcqNNyno8aCJR7lLJEOocm6w/lkjPZe/z/UA0FPSVbB5L9DSRZ2gJrbZZ74zwk5crq7muW1k6b/7omWpeID18bHeEqW6EKF7seri62nplyuSCf/r3tmbKCG8quAbBCMJrXOx2r45uoFxyqXlt8LzhWz4gvvqyRksR9Q2beH6YurBeuAtFEh1MNjGJQF6Z5TGbM5FrDTElw9qjzMdJDv2RX/qPp+PR0TNWQpIrZlNyLxUoR2aqv66I6wtTejpMCE/uJsqmK/aKOQlmjad2OIj25AicARC9+uOV9GnU8i5V+JyLBSr6UeVDQzGgf5oFJGKZIWIEw+nBSsalTN4KqGmkIz43ITyCVRxDD/8o0eGwIYPwtGh7sD//TWTSUb87DrUi7Wpg6P8/ex3VwYePo="
+    - secure: "RXtMzW6sMfvVAgLU1SDefVL22vQpUhIVWwRLB+zaqoyWfM4dir/Im0tM77oDikl4M4YMgeBi0BFZjaIHCiIBEQ5qpjBCZXnwENTAE+CC7YpD66fGVxGP+b1dnZNQ0QLUHZjqSMLixZJKvzvVXHPeTVbue+s6RbFxUFwBEAw7IqyHwCW8gGPm8qhtP2UVQCRjJ0n3RLRT0m1/1ZAswpwKVH4OMSMCb/7vXyU296Avh/Nwe0v0lO4XfxnPfstYZEYJEfyZW+0NWAEkjskIdhc7pV1ZOgy8jzfft6QatIiZ282nVZ6tLb1xPiBoXXfsYNO5p/fw6ylX3lMi0zSZEm3zgCcNKjjNeY2/IKdyXW7HpVkOcjT0fxvrJHCNkMFry7xyinoi3rLVq1KnmvK08jsvac7i3R0l+cSJycay88oq1ByBsf/W+yjfxKIaCnbaqpZslUzPpbQXLuk8zMAGO7mNqul1zqjzkkKgT4NOxpFR741q3a72yIY4s4/2Ot2hvYQhc884xqvzR7Ne3Ag03uk8wickSOmjojuCx55KdeXJMuAIqD66Z/m4/7HMoYlqNMTa6r95uZginnmTAQ4iqfUTTpk0QEmwvxdAZQWFekPU1R6YJIY7p2Elnh4CX+RhGmmWJDULcJ6ZL4+0tFkixA2I8m0R68gBrqtjVvOeI7vVah8="
 
 before_install:
-  - "pip install codecov"
+  - "pip install codecov codacy-coverage"
 
 install:
   - "pip install -r requirements.txt"
 
 script:
-  - "pytest --cov=./"
+  - "pytest --verbose --cov=./ --cov-report xml"
 
 after_success:
-  - "codecov"
+  - "codecov -f coverage.xml"
+  - "python-codacy-coverage"

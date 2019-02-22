@@ -46,11 +46,11 @@ class Playstore(object):
             self.sdk_version = self.configuration['SDK_VERSION']
 
         except json.decoder.JSONDecodeError as ex:
-            logger.critical('The configuration file is not a valid json: {0}.'.format(ex))
+            logger.critical('The configuration file is not a valid json: {0}'.format(ex))
             raise
 
         except KeyError as ex:
-            logger.critical('The configuration file is missing the {0} field.'.format(ex))
+            logger.critical('The configuration file is missing the {0} field'.format(ex))
             raise
 
         self._login()
@@ -67,10 +67,10 @@ class Playstore(object):
         """
 
         if not os.path.isfile(config_file):
-            logger.critical('Missing configuration file.')
+            logger.critical('Missing configuration file')
             raise FileNotFoundError('Unable to find configuration file "{0}"'.format(config_file))
 
-        logger.debug('Reading {0} configuration file.'.format(config_file))
+        logger.debug('Reading {0} configuration file'.format(config_file))
 
         with open(config_file, 'r') as file:
             self.configuration = json.loads(file.read())[0]
@@ -111,11 +111,11 @@ class Playstore(object):
                 res[tokens[0].strip().lower()] = tokens[1].strip()
 
         if 'auth' in res:
-            logger.debug('Authentication token found: {0}.'.format(res['auth']))
+            logger.debug('Authentication token found: {0}'.format(res['auth']))
             self.auth_token = res['auth']
         else:
-            logger.critical('Login failed. Please check your credentials.')
-            raise RuntimeError('Login failed. Please check your credentials.')
+            logger.critical('Login failed, please check your credentials')
+            raise RuntimeError('Login failed, please check your credentials')
 
     def _execute_request(self, path: str, data: str = None) -> object:
         """
@@ -130,8 +130,8 @@ class Playstore(object):
         """
 
         if not hasattr(self, 'auth_token'):
-            logger.critical('Please login before attempting any other operation.')
-            raise RuntimeError('Please login before attempting any other operation.')
+            logger.critical('Please login before attempting any other operation')
+            raise RuntimeError('Please login before attempting any other operation')
 
         headers = {
             'Accept-Language': self.lang_code,
@@ -178,12 +178,12 @@ class Playstore(object):
         """
 
         if expected_size != os.path.getsize(downloaded_file_path):
-            logger.error('Download of "{0}" not completed, please retry. The file "{0}" is corrupted '
-                         'and will be removed.'.format(downloaded_file_path))
+            logger.error('Download of "{0}" not completed, please retry, the file "{0}" is corrupted '
+                         'and will be removed'.format(downloaded_file_path))
             try:
                 os.remove(downloaded_file_path)
             except OSError:
-                logger.warning('The file "{0}" is corrupted and should be removed manually.'
+                logger.warning('The file "{0}" is corrupted and should be removed manually'
                                .format(downloaded_file_path))
 
             return False
@@ -211,10 +211,10 @@ class Playstore(object):
         details = self.app_details(package_name)
 
         if details is None:
-            logger.error('Can\'t proceed with the download. There was an error when '
-                         'requesting details for app "{0}".'.format(package_name))
-            raise RuntimeError('Can\'t proceed with the download. There was an error when '
-                               'requesting details for app "{0}".'.format(package_name))
+            logger.error('Can\'t proceed with the download: there was an error when '
+                         'requesting details for app "{0}"'.format(package_name))
+            raise RuntimeError('Can\'t proceed with the download: there was an error when '
+                               'requesting details for app "{0}"'.format(package_name))
 
         version_code = details.docV2.details.appDetails.versionCode
         offer_type = details.docV2.offer[0].offerType
@@ -230,11 +230,12 @@ class Playstore(object):
         if 'payload' not in self.protobuf_to_dict(response):
             try:
                 logger.error('Error for app "{0}": {1}'.format(package_name, response.commands.displayErrorMessage))
-                raise RuntimeError('Error for app "{0}": {1}'.format(package_name, response.commands.displayErrorMessage))
+                raise RuntimeError('Error for app "{0}": {1}'.format(package_name,
+                                                                     response.commands.displayErrorMessage))
             except AttributeError:
                 logger.error('There was an error when requesting the download link '
-                             'for app "{0}".'.format(package_name))
-            raise RuntimeError('Unable to download the application, please see the logs for more information.')
+                             'for app "{0}"'.format(package_name))
+            raise RuntimeError('Unable to download the application, please see the logs for more information')
         else:
             # The url where to download the apk file.
             temp_url = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadUrl
@@ -246,8 +247,8 @@ class Playstore(object):
         try:
             cookie = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[0]
         except IndexError:
-            logger.error('DownloadAuthCookie was not received for "{0}".'.format(package_name))
-            raise RuntimeError('DownloadAuthCookie was not received for "{0}".'.format(package_name))
+            logger.error('DownloadAuthCookie was not received for "{0}"'.format(package_name))
+            raise RuntimeError('DownloadAuthCookie was not received for "{0}"'.format(package_name))
 
         cookies = {
             str(cookie.name): str(cookie.value)
@@ -288,7 +289,7 @@ class Playstore(object):
 
         # Check if the entire apk was downloaded correctly, otherwise return immediately.
         if not self._check_entire_file_downloaded(apk_size, file_name):
-            raise RuntimeError('Unable to download the entire application.')
+            raise RuntimeError('Unable to download the entire application')
 
         if download_obb:
             # Save the additional files for the apk.
@@ -328,7 +329,7 @@ class Playstore(object):
 
                 # Check if the entire additional file was downloaded correctly, otherwise return immediately.
                 if not self._check_entire_file_downloaded(file_size, obb_file_name):
-                    raise RuntimeError('Unable to download completely the additional files.')
+                    raise RuntimeError('Unable to download completely the additional files')
 
     ############################
     # Playstore Public Methods #
@@ -370,7 +371,7 @@ class Playstore(object):
             try:
                 logger.error('Error when browsing categories: {0}'.format(response.commands.displayErrorMessage))
             except AttributeError:
-                logger.error('There was an error when browsing categories.')
+                logger.error('There was an error when browsing categories')
         else:
             list_response = response.payload.browseResponse
 
@@ -409,7 +410,7 @@ class Playstore(object):
             try:
                 logger.error('Error when listing app by category: {0}'.format(response.commands.displayErrorMessage))
             except AttributeError:
-                logger.error('There was an error when listing app by category.')
+                logger.error('There was an error when listing app by category')
         else:
             list_response = response.payload.listResponse
 
@@ -437,7 +438,7 @@ class Playstore(object):
         # Use a regular expression to obtain the package names (the page shows only
         # applications published by the selected developer). This list might contain
         # duplicates, as the same package name can appear more than once in the page.
-        package_names = re.findall('store/apps/details\?id=([a-zA-Z0-9._]+)', response.text)
+        package_names = re.findall(r'store/apps/details\?id=([a-zA-Z0-9._]+)', response.text)
 
         # Avoid duplicates.
         return list(set(package_names))
@@ -469,7 +470,7 @@ class Playstore(object):
             try:
                 logger.error('Error for search "{0}": {1}'.format(query, response.commands.displayErrorMessage))
             except AttributeError:
-                logger.error('There was an error when searching for "{0}".'.format(query))
+                logger.error('There was an error when searching for "{0}"'.format(query))
         else:
             try:
                 doc = response.payload.searchResponse.doc[0]
@@ -478,7 +479,7 @@ class Playstore(object):
             # If the result of the query doesn't contain the desired information.
             if not doc:
                 doc = None
-                logger.warning('There were no results when searching for "{0}". Try using "{1}".'.format(
+                logger.warning('There were no results when searching for "{0}", try using "{1}"'.format(
                     response.payload.searchResponse.originalQuery,
                     response.payload.searchResponse.suggestedQuery))
 
@@ -506,7 +507,7 @@ class Playstore(object):
             try:
                 logger.error('Error for app "{0}": {1}'.format(package_name, response.commands.displayErrorMessage))
             except AttributeError:
-                logger.error('There was an error when requesting details for app "{0}".'.format(package_name))
+                logger.error('There was an error when requesting details for app "{0}"'.format(package_name))
         else:
             details = response.payload.detailsResponse
 
@@ -531,8 +532,8 @@ class Playstore(object):
         details = self.app_details(package_name)
 
         if details is None:
-            logger.error('Can\'t proceed with the download. There was an error when '
-                         'requesting details for app "{0}".'.format(package_name))
+            logger.error('Can\'t proceed with the download, there was an error when '
+                         'requesting details for app "{0}"'.format(package_name))
             return False
 
         version_code = details.docV2.details.appDetails.versionCode
@@ -551,7 +552,7 @@ class Playstore(object):
                 logger.error('Error for app "{0}": {1}'.format(package_name, response.commands.displayErrorMessage))
             except AttributeError:
                 logger.error('There was an error when requesting the download link '
-                             'for app "{0}".'.format(package_name))
+                             'for app "{0}"'.format(package_name))
             return False
         else:
             # The url where to download the apk file.
@@ -564,7 +565,7 @@ class Playstore(object):
         try:
             cookie = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[0]
         except IndexError:
-            logger.error('DownloadAuthCookie was not received for "{0}".'.format(package_name))
+            logger.error('DownloadAuthCookie was not received for "{0}"'.format(package_name))
             return False
 
         cookies = {

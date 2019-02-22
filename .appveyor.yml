@@ -8,16 +8,19 @@ environment:
     VENV_TEST_DIR: "venv"
     CREDENTIALS:
       secure: "6iORx0jZ39s+dqJlujrjlh2i/FssQELbhVdE7KRqXHb2yNro4lIhIfxliP317vdHAXGlKSudy/cA9lHVTFkeZKg8NcgRQQK33ZXx03MFrHWruszwzOyOs7De8QWrtb2XnlB+IB2LJe5mFRsKGt9EHfLTmSXdrhcrklfQekOsuKCXOEz2PcqSlFp4Mm7xeDyvmeBLqB5CM8Uhx28djf7seuvNkFHroLbInVeARzuy7EUhPgPDomcgmYTj8G2bLyXE4nuws1xNmkCG2R8yOaQzQw=="
+    CODACY_PROJECT_TOKEN:
+      secure: "ohznswo9mzWVsminPnzJCHYBSUTWOpAol82erY0keNxeZtGy0A4wV+dXbSemD9dA"
 
 install:
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - "virtualenv --clear %VENV_TEST_DIR%"
   - "%VENV_TEST_DIR%\\Scripts\\activate.bat"
-  - "pip install codecov"
+  - "pip install codecov codacy-coverage"
   - "pip install -r requirements.txt"
 
 test_script:
-  - "pytest --cov=./"
+  - "pytest --verbose --cov=./ --cov-report xml"
 
 after_test:
-  - "codecov"
+  - "codecov -f coverage.xml"
+  - "python-codacy-coverage"
