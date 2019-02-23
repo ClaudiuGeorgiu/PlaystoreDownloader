@@ -19,12 +19,12 @@ class EncryptedCredentials(object):
     def __init__(self, username: str, password: str):
 
         if not username or not password:
-            raise ValueError('Username and/or password cannot be blank!')
+            raise ValueError('Username and/or password cannot be blank')
 
         self.username = username
         self.password = password
 
-    def get_encrypted_credentials(self):
+    def get_encrypted_credentials(self) -> bytes:
 
         # Build the RSA key.
 

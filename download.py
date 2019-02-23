@@ -10,6 +10,7 @@ import sys
 from playstore.playstore import Playstore
 
 # Logging configuration.
+logger = logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)s> [%(levelname)s][%(name)s][%(funcName)s()] %(message)s',
                     datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
 
@@ -56,7 +57,8 @@ def main():
             # Get the application details.
             app = api.app_details(args.package.strip(' \'"')).docV2
         except AttributeError:
-            print('Error when downloading "{0}". Unable to get app\'s details.'.format(args.package.strip(' \'"')))
+            logger.critical('Error when downloading "{0}": unable to get app\'s details'
+                            .format(args.package.strip(' \'"')))
             sys.exit(1)
 
         details = {
@@ -93,11 +95,11 @@ def main():
             success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=False)
 
         if not success:
-            print('Error when downloading "{0}".'.format(details['package_name']))
+            logger.critical('Error when downloading "{0}"'.format(details['package_name']))
             sys.exit(1)
 
     except Exception as ex:
-        print('Error during the download: {0}'.format(ex))
+        logger.critical('Error during the download: {0}'.format(ex))
         sys.exit(1)
 
 

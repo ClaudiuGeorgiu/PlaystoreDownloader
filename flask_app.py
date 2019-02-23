@@ -32,12 +32,12 @@ credentials_location = os.path.join(os.path.dirname(os.path.realpath(__file__)),
 downloaded_apk_location = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'Downloads')
 
 # https://developer.android.com/guide/topics/manifest/manifest-element#package
-package_name_regex = re.compile('^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$', flags=re.IGNORECASE)
+package_name_regex = re.compile(r'^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$', flags=re.IGNORECASE)
 
 
 def create_app():
     app = Flask(__name__)
-    # Create the upload directory (if not already existing).
+    # Create the download directory (if not already existing).
     if not os.path.isdir(downloaded_apk_location):
         os.makedirs(downloaded_apk_location)
     return app
@@ -76,7 +76,7 @@ def on_start_download(package_name):
                 app = api.app_details(package_name).docV2
             except AttributeError:
                 emit('download_bad_package',
-                     'Unable to retrieve application with package name "{0}".'.format(package_name))
+                     'Unable to retrieve application with package name "{0}"'.format(package_name))
                 return
 
             details = {
@@ -93,12 +93,12 @@ def on_start_download(package_name):
             for progress in api.silent_download_with_progress(details['package_name'], downloaded_apk_file_path):
                 emit('download_progress', progress)
 
-            logger.info('The application was downloaded and saved to "{0}".'.format(downloaded_apk_file_path))
-            emit('download_success', 'The application was successfully downloaded.')
+            logger.info('The application was downloaded and saved to "{0}"'.format(downloaded_apk_file_path))
+            emit('download_success', 'The application was successfully downloaded')
         except Exception as e:
             emit('download_error', str(e))
     else:
-        emit('download_error', 'Please specify a valid package name.')
+        emit('download_error', 'Please specify a valid package name')
 
 
 if __name__ == '__main__':
