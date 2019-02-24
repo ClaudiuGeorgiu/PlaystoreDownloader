@@ -13,7 +13,7 @@ where:
     FILE         the file containing the package name list"
 
 if [[ "$#" -ne 1 ]]; then
-    echo "1 argument required, "$#" provided. Usage:" >&2
+    echo "1 argument required, $# provided. Usage:" >&2
     echo "" >&2
     echo "$USAGE" >&2
     exit 1
