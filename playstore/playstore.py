@@ -89,10 +89,7 @@ class Playstore(object):
             'accountType': 'HOSTED_OR_GOOGLE',
             'has_permission': 1,
             'source': 'android',
-            'androidId': self.android_id,
-            'app': 'com.android.vending',
             'device_country': self.lang,
-            'operatorCountry': self.lang,
             'lang': self.lang,
             'sdk_version': self.sdk_version
         }
@@ -147,7 +144,6 @@ class Playstore(object):
                           'hardware=hammerhead,product=hammerhead)',
             'X-DFE-SmallestScreenWidthDp': '320',
             'X-DFE-Filter-Level': '3',
-            'Accept-Encoding': '',
             'Host': 'android.clients.google.com',
         }
 
@@ -218,37 +214,47 @@ class Playstore(object):
         version_code = details.docV2.details.appDetails.versionCode
         offer_type = details.docV2.offer[0].offerType
 
-        # Prepare the query.
-        path = 'purchase'
-        data = 'ot={0}&doc={1}&vc={2}'.format(offer_type, package_name, version_code)
-
-        # Execute the first query to get the download link.
-        response = self._execute_request(path, data)
-
-        # If the query went completely wrong.
-        if 'payload' not in self.protobuf_to_dict(response):
-            try:
-                self.logger.error('Error for app "{0}": {1}'.format(package_name,
-                                                                    response.commands.displayErrorMessage))
-                raise RuntimeError('Error for app "{0}": {1}'.format(package_name,
-                                                                     response.commands.displayErrorMessage))
-            except AttributeError:
-                self.logger.error('There was an error when requesting the download link '
-                                  'for app "{0}"'.format(package_name))
-            raise RuntimeError('Unable to download the application, please see the logs for more information')
-        else:
-            # The url where to download the apk file.
-            temp_url = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadUrl
-
-            # Additional files (.obb) to be downloaded with the apk.
+        # Check if the app was already downloaded by this account.
+        path = 'delivery?ot={0}&doc={1}&vc={2}'.format(offer_type, package_name, version_code)
+        response = self._execute_request(path)
+        if response.payload.deliveryResponse.appDeliveryData.downloadUrl:
+            # The app already belongs to the account.
+            temp_url = response.payload.deliveryResponse.appDeliveryData.downloadUrl
+            cookie = response.payload.deliveryResponse.appDeliveryData.downloadAuthCookie[0]
             additional_files = [additional_file for additional_file in
-                                response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.additionalFile]
+                                response.payload.deliveryResponse.appDeliveryData.additionalFile]
+        else:
+            # The app doesn't belong to the account, so it has to be added to the account.
+            path = 'purchase'
+            data = 'ot={0}&doc={1}&vc={2}'.format(offer_type, package_name, version_code)
 
-        try:
-            cookie = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[0]
-        except IndexError:
-            self.logger.error('DownloadAuthCookie was not received for "{0}"'.format(package_name))
-            raise RuntimeError('DownloadAuthCookie was not received for "{0}"'.format(package_name))
+            # Execute the first query to get the download link.
+            response = self._execute_request(path, data)
+
+            # If the query went completely wrong.
+            if 'payload' not in self.protobuf_to_dict(response):
+                try:
+                    self.logger.error('Error for app "{0}": {1}'.format(package_name,
+                                                                        response.commands.displayErrorMessage))
+                    raise RuntimeError('Error for app "{0}": {1}'.format(package_name,
+                                                                         response.commands.displayErrorMessage))
+                except AttributeError:
+                    self.logger.error('There was an error when requesting the download link '
+                                      'for app "{0}"'.format(package_name))
+                raise RuntimeError('Unable to download the application, please see the logs for more information')
+            else:
+                # The url where to download the apk file.
+                temp_url = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadUrl
+
+                # Additional files (.obb) to be downloaded with the apk.
+                additional_files = [additional_file for additional_file in
+                                    response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.additionalFile]
+
+            try:
+                cookie = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[0]
+            except IndexError:
+                self.logger.error('DownloadAuthCookie was not received for "{0}"'.format(package_name))
+                raise RuntimeError('DownloadAuthCookie was not received for "{0}"'.format(package_name))
 
         cookies = {
             str(cookie.name): str(cookie.value)
@@ -541,35 +547,45 @@ class Playstore(object):
         version_code = details.docV2.details.appDetails.versionCode
         offer_type = details.docV2.offer[0].offerType
 
-        # Prepare the query.
-        path = 'purchase'
-        data = 'ot={0}&doc={1}&vc={2}'.format(offer_type, package_name, version_code)
-
-        # Execute the first query to get the download link.
-        response = self._execute_request(path, data)
-
-        # If the query went completely wrong.
-        if 'payload' not in self.protobuf_to_dict(response):
-            try:
-                self.logger.error('Error for app "{0}": {1}'.format(package_name,
-                                                                    response.commands.displayErrorMessage))
-            except AttributeError:
-                self.logger.error('There was an error when requesting the download link '
-                                  'for app "{0}"'.format(package_name))
-            return False
-        else:
-            # The url where to download the apk file.
-            temp_url = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadUrl
-
-            # Additional files (.obb) to be downloaded with the apk.
+        # Check if the app was already downloaded by this account.
+        path = 'delivery?ot={0}&doc={1}&vc={2}'.format(offer_type, package_name, version_code)
+        response = self._execute_request(path)
+        if response.payload.deliveryResponse.appDeliveryData.downloadUrl:
+            # The app already belongs to the account.
+            temp_url = response.payload.deliveryResponse.appDeliveryData.downloadUrl
+            cookie = response.payload.deliveryResponse.appDeliveryData.downloadAuthCookie[0]
             additional_files = [additional_file for additional_file in
-                                response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.additionalFile]
+                                response.payload.deliveryResponse.appDeliveryData.additionalFile]
+        else:
+            # The app doesn't belong to the account, so it has to be added to the account.
+            path = 'purchase'
+            data = 'ot={0}&doc={1}&vc={2}'.format(offer_type, package_name, version_code)
 
-        try:
-            cookie = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[0]
-        except IndexError:
-            self.logger.error('DownloadAuthCookie was not received for "{0}"'.format(package_name))
-            return False
+            # Execute the first query to get the download link.
+            response = self._execute_request(path, data)
+
+            # If the query went completely wrong.
+            if 'payload' not in self.protobuf_to_dict(response):
+                try:
+                    self.logger.error('Error for app "{0}": {1}'.format(package_name,
+                                                                        response.commands.displayErrorMessage))
+                except AttributeError:
+                    self.logger.error('There was an error when requesting the download link '
+                                      'for app "{0}"'.format(package_name))
+                return False
+            else:
+                # The url where to download the apk file.
+                temp_url = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadUrl
+
+                # Additional files (.obb) to be downloaded with the apk.
+                additional_files = [additional_file for additional_file in
+                                    response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.additionalFile]
+
+            try:
+                cookie = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[0]
+            except IndexError:
+                self.logger.error('DownloadAuthCookie was not received for "{0}"'.format(package_name))
+                return False
 
         cookies = {
             str(cookie.name): str(cookie.value)
