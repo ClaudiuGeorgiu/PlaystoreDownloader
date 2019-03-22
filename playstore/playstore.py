@@ -94,11 +94,7 @@ class Playstore(object):
             'sdk_version': self.sdk_version
         }
 
-        headers = {
-            'Accept-Encoding': '',
-        }
-
-        response = requests.post(self.LOGIN_URL, data=params, headers=headers, verify=True)
+        response = requests.post(self.LOGIN_URL, data=params, verify=True)
 
         res = {}
 

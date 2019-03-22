@@ -2,7 +2,6 @@ build: "off"
 
 environment:
   matrix:
-    - PYTHON: "C:\\Python36"
     - PYTHON: "C:\\Python36-x64"
   global:
     VENV_TEST_DIR: "venv"
