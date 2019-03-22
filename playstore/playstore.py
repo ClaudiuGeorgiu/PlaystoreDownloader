@@ -437,7 +437,9 @@ class Playstore(object):
 
         # Get the developer's page on Google Play Store.
         request_url = '{0}{1}'.format(base_url, requests.utils.quote(developer_name))
-        response = requests.get(request_url)
+        response = requests.get(request_url, headers={
+            'User-Agent': 'AndroidDownloadManager/4.1.1 (Linux; U; Android 4.1.1; Nexus S Build/JRO03E)',
+        })
 
         # TODO: handle pagination in case there are many apps published by a developer,
         # otherwise this method will get only a subset of the total number of apps.
