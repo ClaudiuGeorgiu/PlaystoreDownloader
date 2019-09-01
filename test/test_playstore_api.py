@@ -92,8 +92,7 @@ class TestApi(object):
     #####################
 
     def test_valid_search(self, playstore):
-        results = playstore.protobuf_to_dict(playstore.search('music', 5))['child']
-        assert len(results) <= 5
+        results = playstore.protobuf_to_dict(playstore.search('music'))['child']
         assert all(result['docid'] for result in results)
         assert all(result['title'] for result in results)
 

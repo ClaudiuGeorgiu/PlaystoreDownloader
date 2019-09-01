@@ -6,7 +6,7 @@ environment:
   global:
     VENV_TEST_DIR: "venv"
     CREDENTIALS:
-      secure: "6iORx0jZ39s+dqJlujrjlh2i/FssQELbhVdE7KRqXHb2yNro4lIhIfxliP317vdHAXGlKSudy/cA9lHVTFkeZKg8NcgRQQK33ZXx03MFrHWruszwzOyOs7De8QWrtb2XnlB+IB2LJe5mFRsKGt9EHfLTmSXdrhcrklfQekOsuKCXOEz2PcqSlFp4Mm7xeDyvmeBLqB5CM8Uhx28djf7seuvNkFHroLbInVeARzuy7EUhPgPDomcgmYTj8G2bLyXE4nuws1xNmkCG2R8yOaQzQw=="
+      secure: "6iORx0jZ39s+dqJlujrjlh2i/FssQELbhVdE7KRqXHb2yNro4lIhIfxliP317vdHAXGlKSudy/cA9lHVTFkeZKg8NcgRQQK33ZXx03MFrHWruszwzOyOs7De8QWrtb2XCyRHqvSL7Y2/bdw0AZhMdJmcEiv3V3hWyyni9B1EgMzYP2fgPyTUFJFdYAGGYtZEliPr5MgO8U9gzXfG/mqIRCjyqzZsi/oK+j4VcPAOal6hQlM/xkNt1N/q2IKZ+RaGRl64DtUqGHmhThlPIuPx/w=="
     CODACY_PROJECT_TOKEN:
       secure: "ohznswo9mzWVsminPnzJCHYBSUTWOpAol82erY0keNxeZtGy0A4wV+dXbSemD9dA"
 

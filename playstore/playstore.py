@@ -448,22 +448,17 @@ class Playstore(object):
         # Avoid duplicates.
         return list(set(package_names))
 
-    def search(self, query: str, num_of_results: int = None) -> object:
+    def search(self, query: str) -> object:
         """
         Search for apps in the Google Play Store.
 
         :param query: The string describing the applications to be searched.
-        :param num_of_results: How many results to request from the server.
         :return: A protobuf object containing the results of the search. The result
                  will be None if there was something wrong with the query.
         """
 
         # Prepare the search query.
         path = 'search?c=3&q={0}'.format(requests.utils.quote(query))
-
-        # (Optional): set the desired number of results from the query.
-        if num_of_results is not None:
-            path += '&n={0}'.format(int(num_of_results))
 
         # Execute the search.
         response = self._execute_request(path)
