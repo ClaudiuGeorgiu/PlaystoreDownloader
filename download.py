@@ -89,10 +89,8 @@ def main():
                                                                        os.path.basename(downloaded_apk_file_path)))
 
         # The download of the additional .obb files is optional.
-        if args.blobs:
-            success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=True)
-        else:
-            success = api.download(details['package_name'], downloaded_apk_file_path, download_obb=False)
+        success = api.download(details['package_name'], downloaded_apk_file_path,\
+                  download_obb=True if args.blobs else False)
 
         if not success:
             logger.critical('Error when downloading "{0}"'.format(details['package_name']))

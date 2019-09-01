@@ -548,7 +548,6 @@ class Playstore(object):
         # Check if the app was already downloaded by this account.
         path = 'delivery?ot={0}&doc={1}&vc={2}'.format(offer_type, package_name, version_code)
         response = self._execute_request(path)
-
         if response.payload.deliveryResponse.appDeliveryData.downloadUrl:
             # The app already belongs to the account.
             temp_url = response.payload.deliveryResponse.appDeliveryData.downloadUrl
@@ -558,9 +557,6 @@ class Playstore(object):
             split_apks = [split_apk for split_apk in
                           response.payload.deliveryResponse.appDeliveryData.split] if\
                           response.payload.deliveryResponse.appDeliveryData.split else None
-            self.logger.error(type(split_apks))
-            #self.sys.exit(1)
-
         else:
             # The app doesn't belong to the account, so it has to be added to the account.
             path = 'purchase'
@@ -639,7 +635,7 @@ class Playstore(object):
                 file_size = int(response.headers['content-length'])
 
                 cfg_apk_file_name = os.path.join(os.path.dirname(file_name),
-                                             '{0}.{1}.{2}.apk'.format(package_name, version_code, cfg_apk.name))
+                                             '{0}.{1}.{2}.apk'.format(cfg_apk.name, version_code, package_name))
 
                 # Download the additional file and save it, showing a progress bar.
                 try:
