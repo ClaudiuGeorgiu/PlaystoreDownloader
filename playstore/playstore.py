@@ -554,6 +554,9 @@ class Playstore(object):
             cookie = response.payload.deliveryResponse.appDeliveryData.downloadAuthCookie[0]
             additional_files = [additional_file for additional_file in
                                 response.payload.deliveryResponse.appDeliveryData.additionalFile]
+            split_apks = [split_apk for split_apk in
+                          response.payload.deliveryResponse.appDeliveryData.split] if\
+                          response.payload.deliveryResponse.appDeliveryData.split else None
         else:
             # The app doesn't belong to the account, so it has to be added to the account.
             path = 'purchase'
@@ -578,6 +581,8 @@ class Playstore(object):
                 # Additional files (.obb) to be downloaded with the apk.
                 additional_files = [additional_file for additional_file in
                                     response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.additionalFile]
+                split_apks = [split_apk for split_apk in response.payload.deliveryResponse.appDeliveryData.split] if\
+                              response.payload.deliveryResponse.appDeliveryData.split else None
 
             try:
                 cookie = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[0]
@@ -618,6 +623,39 @@ class Playstore(object):
         # Check if the entire apk was downloaded correctly, otherwise return immediately.
         if not self._check_entire_file_downloaded(apk_size, file_name):
             return False
+
+        if split_apks:
+            # Save the split apks for the apk.
+            for cfg_apk in split_apks:
+
+                # Execute another query to get the actual file.
+                response = requests.get(cfg_apk.downloadUrl, headers=headers, cookies=cookies, verify=True, stream=True)
+
+                chunk_size = 1024
+                file_size = int(response.headers['content-length'])
+
+                cfg_apk_file_name = os.path.join(os.path.dirname(file_name),
+                                             '{0}.{1}.{2}.apk'.format(cfg_apk.name, version_code, package_name))
+
+                # Download the additional file and save it, showing a progress bar.
+                try:
+                    with open(cfg_apk_file_name, 'wb') as f:
+                        for chunk in tqdm(response.iter_content(chunk_size=chunk_size), total=(file_size // chunk_size),
+                                          dynamic_ncols=True, unit=' KB',
+                                          desc=('Downloading Split APKs of {0}'.format(package_name)),
+                                          bar_format='{l_bar}{bar}|[{elapsed}<{remaining}, {rate_fmt}]'):
+                            if chunk:
+                                f.write(chunk)
+                                f.flush()
+                except ChunkedEncodingError:
+                    # There was an error during the download so not all the file was written to disk, hence there will
+                    # be a mismatch between the expected size and the actual size of the downloaded file, but the next
+                    # code block will handle that.
+                    pass
+
+                # Check if the entire additional file was downloaded correctly, otherwise return immediately.
+                if not self._check_entire_file_downloaded(file_size, cfg_apk_file_name):
+                    return False
 
         if download_obb:
             # Save the additional files for the apk.
