@@ -1,8 +1,8 @@
-eventlet>=0.24.1
-Flask>=1.0.2
-Flask-SocketIO>=3.0.2
-protobuf>=3.1.0
-pycryptodome>=3.4.7
-pytest-cov>=2.5.1
-requests>=2.11.1
-tqdm>=4.10.0
+eventlet==0.25.1
+Flask==1.1.1
+Flask-SocketIO==4.2.1
+protobuf==3.10.0
+pycryptodome==3.9.0
+pytest-cov==2.7.1
+requests==2.22.0
+tqdm==4.36.1

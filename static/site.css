@@ -1,5 +1,5 @@
 body {
-  font-family: "Droid Sans Mono", monospace;
+    font-family: "Droid Sans Mono", monospace;
 }
 
 .limited-row {
@@ -13,7 +13,7 @@ body {
 
 .custom-input:focus {
     border-color: #6c757d;
-    box-shadow: 0 0 0 0.2rem rgba(108,117,125,.5);
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, .5);
 }
 
 .custom-input:disabled {

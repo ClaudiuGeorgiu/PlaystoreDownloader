@@ -6,17 +6,20 @@ import json
 import pytest
 
 from playstore.playstore import Playstore
+
 # noinspection PyUnresolvedReferences
-from test.test_session_fixtures import \
-    wrong_credentials_path, incomplete_configuration_path, corrupted_configuration_path
+from test.test_session_fixtures import (
+    wrong_credentials_path,
+    incomplete_configuration_path,
+    corrupted_configuration_path,
+)
 
 
-MISSING_CONFIGURATION_FILE = 'missing_configuration_path.json'
+MISSING_CONFIGURATION_FILE = "missing_configuration_path.json"
 
 
 # noinspection PyShadowingNames
 class TestConfiguration(object):
-
     def test_missing_configuration(self):
         with pytest.raises(FileNotFoundError):
             Playstore(MISSING_CONFIGURATION_FILE)

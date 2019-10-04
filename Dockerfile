@@ -1,16 +1,15 @@
-FROM python:3.6.2
+FROM python:3.7.4-slim-buster
 
-# Copy requirements and install
-RUN mkdir /app
+WORKDIR /app
+
+# Copy requirements and install.
 COPY requirements.txt /app
-RUN pip3 install -r /app/requirements.txt
+RUN python3.7 -m pip install --no-cache-dir -r /app/requirements.txt
 
-# Copy the needed files
+# Copy the needed files.
 COPY ./playstore /app/playstore
 COPY ./download.py /app/
 COPY ./credentials.json /app/
 
-WORKDIR /app
-
-# Run with -u $(id -u):$(id -g) to avoid file permission issues
-ENTRYPOINT ["python3", "/app/download.py"]
+# Run with -u $(id -u):$(id -g) to avoid file permission issues.
+ENTRYPOINT ["python3.7", "/app/download.py"]

@@ -11176,1303 +11176,1303 @@ DESCRIPTOR.message_types_by_name['DeveloperAppsRequest'] = _DEVELOPERAPPSREQUEST
 DESCRIPTOR.message_types_by_name['DeveloperIdContainer'] = _DEVELOPERIDCONTAINER
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-AndroidAppDeliveryData = _reflection.GeneratedProtocolMessageType('AndroidAppDeliveryData', (_message.Message,), dict(
-  DESCRIPTOR = _ANDROIDAPPDELIVERYDATA,
-  __module__ = 'googleplay_pb2'
+AndroidAppDeliveryData = _reflection.GeneratedProtocolMessageType('AndroidAppDeliveryData', (_message.Message,), {
+  'DESCRIPTOR' : _ANDROIDAPPDELIVERYDATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AndroidAppDeliveryData)
-  ))
+  })
 _sym_db.RegisterMessage(AndroidAppDeliveryData)
 
-Split = _reflection.GeneratedProtocolMessageType('Split', (_message.Message,), dict(
-  DESCRIPTOR = _SPLIT,
-  __module__ = 'googleplay_pb2'
+Split = _reflection.GeneratedProtocolMessageType('Split', (_message.Message,), {
+  'DESCRIPTOR' : _SPLIT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Split)
-  ))
+  })
 _sym_db.RegisterMessage(Split)
 
-AndroidAppPatchData = _reflection.GeneratedProtocolMessageType('AndroidAppPatchData', (_message.Message,), dict(
-  DESCRIPTOR = _ANDROIDAPPPATCHDATA,
-  __module__ = 'googleplay_pb2'
+AndroidAppPatchData = _reflection.GeneratedProtocolMessageType('AndroidAppPatchData', (_message.Message,), {
+  'DESCRIPTOR' : _ANDROIDAPPPATCHDATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AndroidAppPatchData)
-  ))
+  })
 _sym_db.RegisterMessage(AndroidAppPatchData)
 
-AppFileMetadata = _reflection.GeneratedProtocolMessageType('AppFileMetadata', (_message.Message,), dict(
-  DESCRIPTOR = _APPFILEMETADATA,
-  __module__ = 'googleplay_pb2'
+AppFileMetadata = _reflection.GeneratedProtocolMessageType('AppFileMetadata', (_message.Message,), {
+  'DESCRIPTOR' : _APPFILEMETADATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AppFileMetadata)
-  ))
+  })
 _sym_db.RegisterMessage(AppFileMetadata)
 
-EncryptionParams = _reflection.GeneratedProtocolMessageType('EncryptionParams', (_message.Message,), dict(
-  DESCRIPTOR = _ENCRYPTIONPARAMS,
-  __module__ = 'googleplay_pb2'
+EncryptionParams = _reflection.GeneratedProtocolMessageType('EncryptionParams', (_message.Message,), {
+  'DESCRIPTOR' : _ENCRYPTIONPARAMS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:EncryptionParams)
-  ))
+  })
 _sym_db.RegisterMessage(EncryptionParams)
 
-HttpCookie = _reflection.GeneratedProtocolMessageType('HttpCookie', (_message.Message,), dict(
-  DESCRIPTOR = _HTTPCOOKIE,
-  __module__ = 'googleplay_pb2'
+HttpCookie = _reflection.GeneratedProtocolMessageType('HttpCookie', (_message.Message,), {
+  'DESCRIPTOR' : _HTTPCOOKIE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:HttpCookie)
-  ))
+  })
 _sym_db.RegisterMessage(HttpCookie)
 
-Address = _reflection.GeneratedProtocolMessageType('Address', (_message.Message,), dict(
-  DESCRIPTOR = _ADDRESS,
-  __module__ = 'googleplay_pb2'
+Address = _reflection.GeneratedProtocolMessageType('Address', (_message.Message,), {
+  'DESCRIPTOR' : _ADDRESS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Address)
-  ))
+  })
 _sym_db.RegisterMessage(Address)
 
-BookAuthor = _reflection.GeneratedProtocolMessageType('BookAuthor', (_message.Message,), dict(
-  DESCRIPTOR = _BOOKAUTHOR,
-  __module__ = 'googleplay_pb2'
+BookAuthor = _reflection.GeneratedProtocolMessageType('BookAuthor', (_message.Message,), {
+  'DESCRIPTOR' : _BOOKAUTHOR,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BookAuthor)
-  ))
+  })
 _sym_db.RegisterMessage(BookAuthor)
 
-BookDetails = _reflection.GeneratedProtocolMessageType('BookDetails', (_message.Message,), dict(
+BookDetails = _reflection.GeneratedProtocolMessageType('BookDetails', (_message.Message,), {
 
-  Identifier = _reflection.GeneratedProtocolMessageType('Identifier', (_message.Message,), dict(
-    DESCRIPTOR = _BOOKDETAILS_IDENTIFIER,
-    __module__ = 'googleplay_pb2'
+  'Identifier' : _reflection.GeneratedProtocolMessageType('Identifier', (_message.Message,), {
+    'DESCRIPTOR' : _BOOKDETAILS_IDENTIFIER,
+    '__module__' : 'googleplay_pb2'
     # @@protoc_insertion_point(class_scope:BookDetails.Identifier)
-    ))
+    })
   ,
-  DESCRIPTOR = _BOOKDETAILS,
-  __module__ = 'googleplay_pb2'
+  'DESCRIPTOR' : _BOOKDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BookDetails)
-  ))
+  })
 _sym_db.RegisterMessage(BookDetails)
 _sym_db.RegisterMessage(BookDetails.Identifier)
 
-BookSubject = _reflection.GeneratedProtocolMessageType('BookSubject', (_message.Message,), dict(
-  DESCRIPTOR = _BOOKSUBJECT,
-  __module__ = 'googleplay_pb2'
+BookSubject = _reflection.GeneratedProtocolMessageType('BookSubject', (_message.Message,), {
+  'DESCRIPTOR' : _BOOKSUBJECT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BookSubject)
-  ))
+  })
 _sym_db.RegisterMessage(BookSubject)
 
-BrowseLink = _reflection.GeneratedProtocolMessageType('BrowseLink', (_message.Message,), dict(
-  DESCRIPTOR = _BROWSELINK,
-  __module__ = 'googleplay_pb2'
+BrowseLink = _reflection.GeneratedProtocolMessageType('BrowseLink', (_message.Message,), {
+  'DESCRIPTOR' : _BROWSELINK,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BrowseLink)
-  ))
+  })
 _sym_db.RegisterMessage(BrowseLink)
 
-UnknownCategoryContainer = _reflection.GeneratedProtocolMessageType('UnknownCategoryContainer', (_message.Message,), dict(
-  DESCRIPTOR = _UNKNOWNCATEGORYCONTAINER,
-  __module__ = 'googleplay_pb2'
+UnknownCategoryContainer = _reflection.GeneratedProtocolMessageType('UnknownCategoryContainer', (_message.Message,), {
+  'DESCRIPTOR' : _UNKNOWNCATEGORYCONTAINER,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:UnknownCategoryContainer)
-  ))
+  })
 _sym_db.RegisterMessage(UnknownCategoryContainer)
 
-CategoryIdContainer = _reflection.GeneratedProtocolMessageType('CategoryIdContainer', (_message.Message,), dict(
-  DESCRIPTOR = _CATEGORYIDCONTAINER,
-  __module__ = 'googleplay_pb2'
+CategoryIdContainer = _reflection.GeneratedProtocolMessageType('CategoryIdContainer', (_message.Message,), {
+  'DESCRIPTOR' : _CATEGORYIDCONTAINER,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:CategoryIdContainer)
-  ))
+  })
 _sym_db.RegisterMessage(CategoryIdContainer)
 
-BrowseResponse = _reflection.GeneratedProtocolMessageType('BrowseResponse', (_message.Message,), dict(
-  DESCRIPTOR = _BROWSERESPONSE,
-  __module__ = 'googleplay_pb2'
+BrowseResponse = _reflection.GeneratedProtocolMessageType('BrowseResponse', (_message.Message,), {
+  'DESCRIPTOR' : _BROWSERESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BrowseResponse)
-  ))
+  })
 _sym_db.RegisterMessage(BrowseResponse)
 
-CategoryContainer = _reflection.GeneratedProtocolMessageType('CategoryContainer', (_message.Message,), dict(
-  DESCRIPTOR = _CATEGORYCONTAINER,
-  __module__ = 'googleplay_pb2'
+CategoryContainer = _reflection.GeneratedProtocolMessageType('CategoryContainer', (_message.Message,), {
+  'DESCRIPTOR' : _CATEGORYCONTAINER,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:CategoryContainer)
-  ))
+  })
 _sym_db.RegisterMessage(CategoryContainer)
 
-AddressChallenge = _reflection.GeneratedProtocolMessageType('AddressChallenge', (_message.Message,), dict(
-  DESCRIPTOR = _ADDRESSCHALLENGE,
-  __module__ = 'googleplay_pb2'
+AddressChallenge = _reflection.GeneratedProtocolMessageType('AddressChallenge', (_message.Message,), {
+  'DESCRIPTOR' : _ADDRESSCHALLENGE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AddressChallenge)
-  ))
+  })
 _sym_db.RegisterMessage(AddressChallenge)
 
-AuthenticationChallenge = _reflection.GeneratedProtocolMessageType('AuthenticationChallenge', (_message.Message,), dict(
-  DESCRIPTOR = _AUTHENTICATIONCHALLENGE,
-  __module__ = 'googleplay_pb2'
+AuthenticationChallenge = _reflection.GeneratedProtocolMessageType('AuthenticationChallenge', (_message.Message,), {
+  'DESCRIPTOR' : _AUTHENTICATIONCHALLENGE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AuthenticationChallenge)
-  ))
+  })
 _sym_db.RegisterMessage(AuthenticationChallenge)
 
-BuyResponse = _reflection.GeneratedProtocolMessageType('BuyResponse', (_message.Message,), dict(
+BuyResponse = _reflection.GeneratedProtocolMessageType('BuyResponse', (_message.Message,), {
 
-  CheckoutInfo = _reflection.GeneratedProtocolMessageType('CheckoutInfo', (_message.Message,), dict(
+  'CheckoutInfo' : _reflection.GeneratedProtocolMessageType('CheckoutInfo', (_message.Message,), {
 
-    CheckoutOption = _reflection.GeneratedProtocolMessageType('CheckoutOption', (_message.Message,), dict(
-      DESCRIPTOR = _BUYRESPONSE_CHECKOUTINFO_CHECKOUTOPTION,
-      __module__ = 'googleplay_pb2'
+    'CheckoutOption' : _reflection.GeneratedProtocolMessageType('CheckoutOption', (_message.Message,), {
+      'DESCRIPTOR' : _BUYRESPONSE_CHECKOUTINFO_CHECKOUTOPTION,
+      '__module__' : 'googleplay_pb2'
       # @@protoc_insertion_point(class_scope:BuyResponse.CheckoutInfo.CheckoutOption)
-      ))
+      })
     ,
-    DESCRIPTOR = _BUYRESPONSE_CHECKOUTINFO,
-    __module__ = 'googleplay_pb2'
+    'DESCRIPTOR' : _BUYRESPONSE_CHECKOUTINFO,
+    '__module__' : 'googleplay_pb2'
     # @@protoc_insertion_point(class_scope:BuyResponse.CheckoutInfo)
-    ))
+    })
   ,
-  DESCRIPTOR = _BUYRESPONSE,
-  __module__ = 'googleplay_pb2'
+  'DESCRIPTOR' : _BUYRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BuyResponse)
-  ))
+  })
 _sym_db.RegisterMessage(BuyResponse)
 _sym_db.RegisterMessage(BuyResponse.CheckoutInfo)
 _sym_db.RegisterMessage(BuyResponse.CheckoutInfo.CheckoutOption)
 
-Challenge = _reflection.GeneratedProtocolMessageType('Challenge', (_message.Message,), dict(
-  DESCRIPTOR = _CHALLENGE,
-  __module__ = 'googleplay_pb2'
+Challenge = _reflection.GeneratedProtocolMessageType('Challenge', (_message.Message,), {
+  'DESCRIPTOR' : _CHALLENGE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Challenge)
-  ))
+  })
 _sym_db.RegisterMessage(Challenge)
 
-FormCheckbox = _reflection.GeneratedProtocolMessageType('FormCheckbox', (_message.Message,), dict(
-  DESCRIPTOR = _FORMCHECKBOX,
-  __module__ = 'googleplay_pb2'
+FormCheckbox = _reflection.GeneratedProtocolMessageType('FormCheckbox', (_message.Message,), {
+  'DESCRIPTOR' : _FORMCHECKBOX,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:FormCheckbox)
-  ))
+  })
 _sym_db.RegisterMessage(FormCheckbox)
 
-LineItem = _reflection.GeneratedProtocolMessageType('LineItem', (_message.Message,), dict(
-  DESCRIPTOR = _LINEITEM,
-  __module__ = 'googleplay_pb2'
+LineItem = _reflection.GeneratedProtocolMessageType('LineItem', (_message.Message,), {
+  'DESCRIPTOR' : _LINEITEM,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:LineItem)
-  ))
+  })
 _sym_db.RegisterMessage(LineItem)
 
-Money = _reflection.GeneratedProtocolMessageType('Money', (_message.Message,), dict(
-  DESCRIPTOR = _MONEY,
-  __module__ = 'googleplay_pb2'
+Money = _reflection.GeneratedProtocolMessageType('Money', (_message.Message,), {
+  'DESCRIPTOR' : _MONEY,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Money)
-  ))
+  })
 _sym_db.RegisterMessage(Money)
 
-PurchaseNotificationResponse = _reflection.GeneratedProtocolMessageType('PurchaseNotificationResponse', (_message.Message,), dict(
-  DESCRIPTOR = _PURCHASENOTIFICATIONRESPONSE,
-  __module__ = 'googleplay_pb2'
+PurchaseNotificationResponse = _reflection.GeneratedProtocolMessageType('PurchaseNotificationResponse', (_message.Message,), {
+  'DESCRIPTOR' : _PURCHASENOTIFICATIONRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:PurchaseNotificationResponse)
-  ))
+  })
 _sym_db.RegisterMessage(PurchaseNotificationResponse)
 
-PurchaseStatusResponse = _reflection.GeneratedProtocolMessageType('PurchaseStatusResponse', (_message.Message,), dict(
-  DESCRIPTOR = _PURCHASESTATUSRESPONSE,
-  __module__ = 'googleplay_pb2'
+PurchaseStatusResponse = _reflection.GeneratedProtocolMessageType('PurchaseStatusResponse', (_message.Message,), {
+  'DESCRIPTOR' : _PURCHASESTATUSRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:PurchaseStatusResponse)
-  ))
+  })
 _sym_db.RegisterMessage(PurchaseStatusResponse)
 
-DeliveryResponse = _reflection.GeneratedProtocolMessageType('DeliveryResponse', (_message.Message,), dict(
-  DESCRIPTOR = _DELIVERYRESPONSE,
-  __module__ = 'googleplay_pb2'
+DeliveryResponse = _reflection.GeneratedProtocolMessageType('DeliveryResponse', (_message.Message,), {
+  'DESCRIPTOR' : _DELIVERYRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:DeliveryResponse)
-  ))
+  })
 _sym_db.RegisterMessage(DeliveryResponse)
 
-Docid = _reflection.GeneratedProtocolMessageType('Docid', (_message.Message,), dict(
-  DESCRIPTOR = _DOCID,
-  __module__ = 'googleplay_pb2'
+Docid = _reflection.GeneratedProtocolMessageType('Docid', (_message.Message,), {
+  'DESCRIPTOR' : _DOCID,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Docid)
-  ))
+  })
 _sym_db.RegisterMessage(Docid)
 
-Install = _reflection.GeneratedProtocolMessageType('Install', (_message.Message,), dict(
-  DESCRIPTOR = _INSTALL,
-  __module__ = 'googleplay_pb2'
+Install = _reflection.GeneratedProtocolMessageType('Install', (_message.Message,), {
+  'DESCRIPTOR' : _INSTALL,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Install)
-  ))
+  })
 _sym_db.RegisterMessage(Install)
 
-Offer = _reflection.GeneratedProtocolMessageType('Offer', (_message.Message,), dict(
-  DESCRIPTOR = _OFFER,
-  __module__ = 'googleplay_pb2'
+Offer = _reflection.GeneratedProtocolMessageType('Offer', (_message.Message,), {
+  'DESCRIPTOR' : _OFFER,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Offer)
-  ))
+  })
 _sym_db.RegisterMessage(Offer)
 
-OwnershipInfo = _reflection.GeneratedProtocolMessageType('OwnershipInfo', (_message.Message,), dict(
-  DESCRIPTOR = _OWNERSHIPINFO,
-  __module__ = 'googleplay_pb2'
+OwnershipInfo = _reflection.GeneratedProtocolMessageType('OwnershipInfo', (_message.Message,), {
+  'DESCRIPTOR' : _OWNERSHIPINFO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:OwnershipInfo)
-  ))
+  })
 _sym_db.RegisterMessage(OwnershipInfo)
 
-RentalTerms = _reflection.GeneratedProtocolMessageType('RentalTerms', (_message.Message,), dict(
-  DESCRIPTOR = _RENTALTERMS,
-  __module__ = 'googleplay_pb2'
+RentalTerms = _reflection.GeneratedProtocolMessageType('RentalTerms', (_message.Message,), {
+  'DESCRIPTOR' : _RENTALTERMS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:RentalTerms)
-  ))
+  })
 _sym_db.RegisterMessage(RentalTerms)
 
-SubscriptionTerms = _reflection.GeneratedProtocolMessageType('SubscriptionTerms', (_message.Message,), dict(
-  DESCRIPTOR = _SUBSCRIPTIONTERMS,
-  __module__ = 'googleplay_pb2'
+SubscriptionTerms = _reflection.GeneratedProtocolMessageType('SubscriptionTerms', (_message.Message,), {
+  'DESCRIPTOR' : _SUBSCRIPTIONTERMS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:SubscriptionTerms)
-  ))
+  })
 _sym_db.RegisterMessage(SubscriptionTerms)
 
-TimePeriod = _reflection.GeneratedProtocolMessageType('TimePeriod', (_message.Message,), dict(
-  DESCRIPTOR = _TIMEPERIOD,
-  __module__ = 'googleplay_pb2'
+TimePeriod = _reflection.GeneratedProtocolMessageType('TimePeriod', (_message.Message,), {
+  'DESCRIPTOR' : _TIMEPERIOD,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:TimePeriod)
-  ))
+  })
 _sym_db.RegisterMessage(TimePeriod)
 
-BillingAddressSpec = _reflection.GeneratedProtocolMessageType('BillingAddressSpec', (_message.Message,), dict(
-  DESCRIPTOR = _BILLINGADDRESSSPEC,
-  __module__ = 'googleplay_pb2'
+BillingAddressSpec = _reflection.GeneratedProtocolMessageType('BillingAddressSpec', (_message.Message,), {
+  'DESCRIPTOR' : _BILLINGADDRESSSPEC,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BillingAddressSpec)
-  ))
+  })
 _sym_db.RegisterMessage(BillingAddressSpec)
 
-CarrierBillingCredentials = _reflection.GeneratedProtocolMessageType('CarrierBillingCredentials', (_message.Message,), dict(
-  DESCRIPTOR = _CARRIERBILLINGCREDENTIALS,
-  __module__ = 'googleplay_pb2'
+CarrierBillingCredentials = _reflection.GeneratedProtocolMessageType('CarrierBillingCredentials', (_message.Message,), {
+  'DESCRIPTOR' : _CARRIERBILLINGCREDENTIALS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:CarrierBillingCredentials)
-  ))
+  })
 _sym_db.RegisterMessage(CarrierBillingCredentials)
 
-CarrierBillingInstrument = _reflection.GeneratedProtocolMessageType('CarrierBillingInstrument', (_message.Message,), dict(
-  DESCRIPTOR = _CARRIERBILLINGINSTRUMENT,
-  __module__ = 'googleplay_pb2'
+CarrierBillingInstrument = _reflection.GeneratedProtocolMessageType('CarrierBillingInstrument', (_message.Message,), {
+  'DESCRIPTOR' : _CARRIERBILLINGINSTRUMENT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:CarrierBillingInstrument)
-  ))
+  })
 _sym_db.RegisterMessage(CarrierBillingInstrument)
 
-CarrierBillingInstrumentStatus = _reflection.GeneratedProtocolMessageType('CarrierBillingInstrumentStatus', (_message.Message,), dict(
-  DESCRIPTOR = _CARRIERBILLINGINSTRUMENTSTATUS,
-  __module__ = 'googleplay_pb2'
+CarrierBillingInstrumentStatus = _reflection.GeneratedProtocolMessageType('CarrierBillingInstrumentStatus', (_message.Message,), {
+  'DESCRIPTOR' : _CARRIERBILLINGINSTRUMENTSTATUS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:CarrierBillingInstrumentStatus)
-  ))
+  })
 _sym_db.RegisterMessage(CarrierBillingInstrumentStatus)
 
-CarrierTos = _reflection.GeneratedProtocolMessageType('CarrierTos', (_message.Message,), dict(
-  DESCRIPTOR = _CARRIERTOS,
-  __module__ = 'googleplay_pb2'
+CarrierTos = _reflection.GeneratedProtocolMessageType('CarrierTos', (_message.Message,), {
+  'DESCRIPTOR' : _CARRIERTOS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:CarrierTos)
-  ))
+  })
 _sym_db.RegisterMessage(CarrierTos)
 
-CarrierTosEntry = _reflection.GeneratedProtocolMessageType('CarrierTosEntry', (_message.Message,), dict(
-  DESCRIPTOR = _CARRIERTOSENTRY,
-  __module__ = 'googleplay_pb2'
+CarrierTosEntry = _reflection.GeneratedProtocolMessageType('CarrierTosEntry', (_message.Message,), {
+  'DESCRIPTOR' : _CARRIERTOSENTRY,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:CarrierTosEntry)
-  ))
+  })
 _sym_db.RegisterMessage(CarrierTosEntry)
 
-CreditCardInstrument = _reflection.GeneratedProtocolMessageType('CreditCardInstrument', (_message.Message,), dict(
-  DESCRIPTOR = _CREDITCARDINSTRUMENT,
-  __module__ = 'googleplay_pb2'
+CreditCardInstrument = _reflection.GeneratedProtocolMessageType('CreditCardInstrument', (_message.Message,), {
+  'DESCRIPTOR' : _CREDITCARDINSTRUMENT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:CreditCardInstrument)
-  ))
+  })
 _sym_db.RegisterMessage(CreditCardInstrument)
 
-EfeParam = _reflection.GeneratedProtocolMessageType('EfeParam', (_message.Message,), dict(
-  DESCRIPTOR = _EFEPARAM,
-  __module__ = 'googleplay_pb2'
+EfeParam = _reflection.GeneratedProtocolMessageType('EfeParam', (_message.Message,), {
+  'DESCRIPTOR' : _EFEPARAM,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:EfeParam)
-  ))
+  })
 _sym_db.RegisterMessage(EfeParam)
 
-InputValidationError = _reflection.GeneratedProtocolMessageType('InputValidationError', (_message.Message,), dict(
-  DESCRIPTOR = _INPUTVALIDATIONERROR,
-  __module__ = 'googleplay_pb2'
+InputValidationError = _reflection.GeneratedProtocolMessageType('InputValidationError', (_message.Message,), {
+  'DESCRIPTOR' : _INPUTVALIDATIONERROR,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:InputValidationError)
-  ))
+  })
 _sym_db.RegisterMessage(InputValidationError)
 
-Instrument = _reflection.GeneratedProtocolMessageType('Instrument', (_message.Message,), dict(
-  DESCRIPTOR = _INSTRUMENT,
-  __module__ = 'googleplay_pb2'
+Instrument = _reflection.GeneratedProtocolMessageType('Instrument', (_message.Message,), {
+  'DESCRIPTOR' : _INSTRUMENT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Instrument)
-  ))
+  })
 _sym_db.RegisterMessage(Instrument)
 
-PasswordPrompt = _reflection.GeneratedProtocolMessageType('PasswordPrompt', (_message.Message,), dict(
-  DESCRIPTOR = _PASSWORDPROMPT,
-  __module__ = 'googleplay_pb2'
+PasswordPrompt = _reflection.GeneratedProtocolMessageType('PasswordPrompt', (_message.Message,), {
+  'DESCRIPTOR' : _PASSWORDPROMPT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:PasswordPrompt)
-  ))
+  })
 _sym_db.RegisterMessage(PasswordPrompt)
 
-ContainerMetadata = _reflection.GeneratedProtocolMessageType('ContainerMetadata', (_message.Message,), dict(
-  DESCRIPTOR = _CONTAINERMETADATA,
-  __module__ = 'googleplay_pb2'
+ContainerMetadata = _reflection.GeneratedProtocolMessageType('ContainerMetadata', (_message.Message,), {
+  'DESCRIPTOR' : _CONTAINERMETADATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ContainerMetadata)
-  ))
+  })
 _sym_db.RegisterMessage(ContainerMetadata)
 
-DebugInfo = _reflection.GeneratedProtocolMessageType('DebugInfo', (_message.Message,), dict(
+DebugInfo = _reflection.GeneratedProtocolMessageType('DebugInfo', (_message.Message,), {
 
-  Timing = _reflection.GeneratedProtocolMessageType('Timing', (_message.Message,), dict(
-    DESCRIPTOR = _DEBUGINFO_TIMING,
-    __module__ = 'googleplay_pb2'
+  'Timing' : _reflection.GeneratedProtocolMessageType('Timing', (_message.Message,), {
+    'DESCRIPTOR' : _DEBUGINFO_TIMING,
+    '__module__' : 'googleplay_pb2'
     # @@protoc_insertion_point(class_scope:DebugInfo.Timing)
-    ))
+    })
   ,
-  DESCRIPTOR = _DEBUGINFO,
-  __module__ = 'googleplay_pb2'
+  'DESCRIPTOR' : _DEBUGINFO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:DebugInfo)
-  ))
+  })
 _sym_db.RegisterMessage(DebugInfo)
 _sym_db.RegisterMessage(DebugInfo.Timing)
 
-BulkDetailsEntry = _reflection.GeneratedProtocolMessageType('BulkDetailsEntry', (_message.Message,), dict(
-  DESCRIPTOR = _BULKDETAILSENTRY,
-  __module__ = 'googleplay_pb2'
+BulkDetailsEntry = _reflection.GeneratedProtocolMessageType('BulkDetailsEntry', (_message.Message,), {
+  'DESCRIPTOR' : _BULKDETAILSENTRY,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BulkDetailsEntry)
-  ))
+  })
 _sym_db.RegisterMessage(BulkDetailsEntry)
 
-BulkDetailsRequest = _reflection.GeneratedProtocolMessageType('BulkDetailsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _BULKDETAILSREQUEST,
-  __module__ = 'googleplay_pb2'
+BulkDetailsRequest = _reflection.GeneratedProtocolMessageType('BulkDetailsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _BULKDETAILSREQUEST,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BulkDetailsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(BulkDetailsRequest)
 
-BulkDetailsResponse = _reflection.GeneratedProtocolMessageType('BulkDetailsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _BULKDETAILSRESPONSE,
-  __module__ = 'googleplay_pb2'
+BulkDetailsResponse = _reflection.GeneratedProtocolMessageType('BulkDetailsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _BULKDETAILSRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BulkDetailsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(BulkDetailsResponse)
 
-DetailsResponse = _reflection.GeneratedProtocolMessageType('DetailsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _DETAILSRESPONSE,
-  __module__ = 'googleplay_pb2'
+DetailsResponse = _reflection.GeneratedProtocolMessageType('DetailsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _DETAILSRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:DetailsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(DetailsResponse)
 
-Badge = _reflection.GeneratedProtocolMessageType('Badge', (_message.Message,), dict(
-  DESCRIPTOR = _BADGE,
-  __module__ = 'googleplay_pb2'
+Badge = _reflection.GeneratedProtocolMessageType('Badge', (_message.Message,), {
+  'DESCRIPTOR' : _BADGE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Badge)
-  ))
+  })
 _sym_db.RegisterMessage(Badge)
 
-BadgeContainer1 = _reflection.GeneratedProtocolMessageType('BadgeContainer1', (_message.Message,), dict(
-  DESCRIPTOR = _BADGECONTAINER1,
-  __module__ = 'googleplay_pb2'
+BadgeContainer1 = _reflection.GeneratedProtocolMessageType('BadgeContainer1', (_message.Message,), {
+  'DESCRIPTOR' : _BADGECONTAINER1,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BadgeContainer1)
-  ))
+  })
 _sym_db.RegisterMessage(BadgeContainer1)
 
-BadgeContainer2 = _reflection.GeneratedProtocolMessageType('BadgeContainer2', (_message.Message,), dict(
-  DESCRIPTOR = _BADGECONTAINER2,
-  __module__ = 'googleplay_pb2'
+BadgeContainer2 = _reflection.GeneratedProtocolMessageType('BadgeContainer2', (_message.Message,), {
+  'DESCRIPTOR' : _BADGECONTAINER2,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BadgeContainer2)
-  ))
+  })
 _sym_db.RegisterMessage(BadgeContainer2)
 
-BadgeLinkContainer = _reflection.GeneratedProtocolMessageType('BadgeLinkContainer', (_message.Message,), dict(
-  DESCRIPTOR = _BADGELINKCONTAINER,
-  __module__ = 'googleplay_pb2'
+BadgeLinkContainer = _reflection.GeneratedProtocolMessageType('BadgeLinkContainer', (_message.Message,), {
+  'DESCRIPTOR' : _BADGELINKCONTAINER,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BadgeLinkContainer)
-  ))
+  })
 _sym_db.RegisterMessage(BadgeLinkContainer)
 
-Features = _reflection.GeneratedProtocolMessageType('Features', (_message.Message,), dict(
-  DESCRIPTOR = _FEATURES,
-  __module__ = 'googleplay_pb2'
+Features = _reflection.GeneratedProtocolMessageType('Features', (_message.Message,), {
+  'DESCRIPTOR' : _FEATURES,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Features)
-  ))
+  })
 _sym_db.RegisterMessage(Features)
 
-Feature = _reflection.GeneratedProtocolMessageType('Feature', (_message.Message,), dict(
-  DESCRIPTOR = _FEATURE,
-  __module__ = 'googleplay_pb2'
+Feature = _reflection.GeneratedProtocolMessageType('Feature', (_message.Message,), {
+  'DESCRIPTOR' : _FEATURE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Feature)
-  ))
+  })
 _sym_db.RegisterMessage(Feature)
 
-DeviceConfigurationProto = _reflection.GeneratedProtocolMessageType('DeviceConfigurationProto', (_message.Message,), dict(
-  DESCRIPTOR = _DEVICECONFIGURATIONPROTO,
-  __module__ = 'googleplay_pb2'
+DeviceConfigurationProto = _reflection.GeneratedProtocolMessageType('DeviceConfigurationProto', (_message.Message,), {
+  'DESCRIPTOR' : _DEVICECONFIGURATIONPROTO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:DeviceConfigurationProto)
-  ))
+  })
 _sym_db.RegisterMessage(DeviceConfigurationProto)
 
-Document = _reflection.GeneratedProtocolMessageType('Document', (_message.Message,), dict(
-  DESCRIPTOR = _DOCUMENT,
-  __module__ = 'googleplay_pb2'
+Document = _reflection.GeneratedProtocolMessageType('Document', (_message.Message,), {
+  'DESCRIPTOR' : _DOCUMENT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Document)
-  ))
+  })
 _sym_db.RegisterMessage(Document)
 
-DocumentVariant = _reflection.GeneratedProtocolMessageType('DocumentVariant', (_message.Message,), dict(
-  DESCRIPTOR = _DOCUMENTVARIANT,
-  __module__ = 'googleplay_pb2'
+DocumentVariant = _reflection.GeneratedProtocolMessageType('DocumentVariant', (_message.Message,), {
+  'DESCRIPTOR' : _DOCUMENTVARIANT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:DocumentVariant)
-  ))
+  })
 _sym_db.RegisterMessage(DocumentVariant)
 
-Image = _reflection.GeneratedProtocolMessageType('Image', (_message.Message,), dict(
+Image = _reflection.GeneratedProtocolMessageType('Image', (_message.Message,), {
 
-  Dimension = _reflection.GeneratedProtocolMessageType('Dimension', (_message.Message,), dict(
-    DESCRIPTOR = _IMAGE_DIMENSION,
-    __module__ = 'googleplay_pb2'
+  'Dimension' : _reflection.GeneratedProtocolMessageType('Dimension', (_message.Message,), {
+    'DESCRIPTOR' : _IMAGE_DIMENSION,
+    '__module__' : 'googleplay_pb2'
     # @@protoc_insertion_point(class_scope:Image.Dimension)
-    ))
+    })
   ,
 
-  Citation = _reflection.GeneratedProtocolMessageType('Citation', (_message.Message,), dict(
-    DESCRIPTOR = _IMAGE_CITATION,
-    __module__ = 'googleplay_pb2'
+  'Citation' : _reflection.GeneratedProtocolMessageType('Citation', (_message.Message,), {
+    'DESCRIPTOR' : _IMAGE_CITATION,
+    '__module__' : 'googleplay_pb2'
     # @@protoc_insertion_point(class_scope:Image.Citation)
-    ))
+    })
   ,
-  DESCRIPTOR = _IMAGE,
-  __module__ = 'googleplay_pb2'
+  'DESCRIPTOR' : _IMAGE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Image)
-  ))
+  })
 _sym_db.RegisterMessage(Image)
 _sym_db.RegisterMessage(Image.Dimension)
 _sym_db.RegisterMessage(Image.Citation)
 
-TranslatedText = _reflection.GeneratedProtocolMessageType('TranslatedText', (_message.Message,), dict(
-  DESCRIPTOR = _TRANSLATEDTEXT,
-  __module__ = 'googleplay_pb2'
+TranslatedText = _reflection.GeneratedProtocolMessageType('TranslatedText', (_message.Message,), {
+  'DESCRIPTOR' : _TRANSLATEDTEXT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:TranslatedText)
-  ))
+  })
 _sym_db.RegisterMessage(TranslatedText)
 
-PlusOneData = _reflection.GeneratedProtocolMessageType('PlusOneData', (_message.Message,), dict(
-  DESCRIPTOR = _PLUSONEDATA,
-  __module__ = 'googleplay_pb2'
+PlusOneData = _reflection.GeneratedProtocolMessageType('PlusOneData', (_message.Message,), {
+  'DESCRIPTOR' : _PLUSONEDATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:PlusOneData)
-  ))
+  })
 _sym_db.RegisterMessage(PlusOneData)
 
-PlusPerson = _reflection.GeneratedProtocolMessageType('PlusPerson', (_message.Message,), dict(
-  DESCRIPTOR = _PLUSPERSON,
-  __module__ = 'googleplay_pb2'
+PlusPerson = _reflection.GeneratedProtocolMessageType('PlusPerson', (_message.Message,), {
+  'DESCRIPTOR' : _PLUSPERSON,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:PlusPerson)
-  ))
+  })
 _sym_db.RegisterMessage(PlusPerson)
 
-AlbumDetails = _reflection.GeneratedProtocolMessageType('AlbumDetails', (_message.Message,), dict(
-  DESCRIPTOR = _ALBUMDETAILS,
-  __module__ = 'googleplay_pb2'
+AlbumDetails = _reflection.GeneratedProtocolMessageType('AlbumDetails', (_message.Message,), {
+  'DESCRIPTOR' : _ALBUMDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AlbumDetails)
-  ))
+  })
 _sym_db.RegisterMessage(AlbumDetails)
 
-AppDetails = _reflection.GeneratedProtocolMessageType('AppDetails', (_message.Message,), dict(
-  DESCRIPTOR = _APPDETAILS,
-  __module__ = 'googleplay_pb2'
+AppDetails = _reflection.GeneratedProtocolMessageType('AppDetails', (_message.Message,), {
+  'DESCRIPTOR' : _APPDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AppDetails)
-  ))
+  })
 _sym_db.RegisterMessage(AppDetails)
 
-Dependencies = _reflection.GeneratedProtocolMessageType('Dependencies', (_message.Message,), dict(
-  DESCRIPTOR = _DEPENDENCIES,
-  __module__ = 'googleplay_pb2'
+Dependencies = _reflection.GeneratedProtocolMessageType('Dependencies', (_message.Message,), {
+  'DESCRIPTOR' : _DEPENDENCIES,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Dependencies)
-  ))
+  })
 _sym_db.RegisterMessage(Dependencies)
 
-Dependency = _reflection.GeneratedProtocolMessageType('Dependency', (_message.Message,), dict(
-  DESCRIPTOR = _DEPENDENCY,
-  __module__ = 'googleplay_pb2'
+Dependency = _reflection.GeneratedProtocolMessageType('Dependency', (_message.Message,), {
+  'DESCRIPTOR' : _DEPENDENCY,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Dependency)
-  ))
+  })
 _sym_db.RegisterMessage(Dependency)
 
-TestingProgramInfo = _reflection.GeneratedProtocolMessageType('TestingProgramInfo', (_message.Message,), dict(
-  DESCRIPTOR = _TESTINGPROGRAMINFO,
-  __module__ = 'googleplay_pb2'
+TestingProgramInfo = _reflection.GeneratedProtocolMessageType('TestingProgramInfo', (_message.Message,), {
+  'DESCRIPTOR' : _TESTINGPROGRAMINFO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:TestingProgramInfo)
-  ))
+  })
 _sym_db.RegisterMessage(TestingProgramInfo)
 
-EarlyAccessInfo = _reflection.GeneratedProtocolMessageType('EarlyAccessInfo', (_message.Message,), dict(
-  DESCRIPTOR = _EARLYACCESSINFO,
-  __module__ = 'googleplay_pb2'
+EarlyAccessInfo = _reflection.GeneratedProtocolMessageType('EarlyAccessInfo', (_message.Message,), {
+  'DESCRIPTOR' : _EARLYACCESSINFO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:EarlyAccessInfo)
-  ))
+  })
 _sym_db.RegisterMessage(EarlyAccessInfo)
 
-ArtistDetails = _reflection.GeneratedProtocolMessageType('ArtistDetails', (_message.Message,), dict(
-  DESCRIPTOR = _ARTISTDETAILS,
-  __module__ = 'googleplay_pb2'
+ArtistDetails = _reflection.GeneratedProtocolMessageType('ArtistDetails', (_message.Message,), {
+  'DESCRIPTOR' : _ARTISTDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ArtistDetails)
-  ))
+  })
 _sym_db.RegisterMessage(ArtistDetails)
 
-ArtistExternalLinks = _reflection.GeneratedProtocolMessageType('ArtistExternalLinks', (_message.Message,), dict(
-  DESCRIPTOR = _ARTISTEXTERNALLINKS,
-  __module__ = 'googleplay_pb2'
+ArtistExternalLinks = _reflection.GeneratedProtocolMessageType('ArtistExternalLinks', (_message.Message,), {
+  'DESCRIPTOR' : _ARTISTEXTERNALLINKS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ArtistExternalLinks)
-  ))
+  })
 _sym_db.RegisterMessage(ArtistExternalLinks)
 
-DocumentDetails = _reflection.GeneratedProtocolMessageType('DocumentDetails', (_message.Message,), dict(
-  DESCRIPTOR = _DOCUMENTDETAILS,
-  __module__ = 'googleplay_pb2'
+DocumentDetails = _reflection.GeneratedProtocolMessageType('DocumentDetails', (_message.Message,), {
+  'DESCRIPTOR' : _DOCUMENTDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:DocumentDetails)
-  ))
+  })
 _sym_db.RegisterMessage(DocumentDetails)
 
-FileMetadata = _reflection.GeneratedProtocolMessageType('FileMetadata', (_message.Message,), dict(
-  DESCRIPTOR = _FILEMETADATA,
-  __module__ = 'googleplay_pb2'
+FileMetadata = _reflection.GeneratedProtocolMessageType('FileMetadata', (_message.Message,), {
+  'DESCRIPTOR' : _FILEMETADATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:FileMetadata)
-  ))
+  })
 _sym_db.RegisterMessage(FileMetadata)
 
-MagazineDetails = _reflection.GeneratedProtocolMessageType('MagazineDetails', (_message.Message,), dict(
-  DESCRIPTOR = _MAGAZINEDETAILS,
-  __module__ = 'googleplay_pb2'
+MagazineDetails = _reflection.GeneratedProtocolMessageType('MagazineDetails', (_message.Message,), {
+  'DESCRIPTOR' : _MAGAZINEDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:MagazineDetails)
-  ))
+  })
 _sym_db.RegisterMessage(MagazineDetails)
 
-MusicDetails = _reflection.GeneratedProtocolMessageType('MusicDetails', (_message.Message,), dict(
-  DESCRIPTOR = _MUSICDETAILS,
-  __module__ = 'googleplay_pb2'
+MusicDetails = _reflection.GeneratedProtocolMessageType('MusicDetails', (_message.Message,), {
+  'DESCRIPTOR' : _MUSICDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:MusicDetails)
-  ))
+  })
 _sym_db.RegisterMessage(MusicDetails)
 
-SongDetails = _reflection.GeneratedProtocolMessageType('SongDetails', (_message.Message,), dict(
-  DESCRIPTOR = _SONGDETAILS,
-  __module__ = 'googleplay_pb2'
+SongDetails = _reflection.GeneratedProtocolMessageType('SongDetails', (_message.Message,), {
+  'DESCRIPTOR' : _SONGDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:SongDetails)
-  ))
+  })
 _sym_db.RegisterMessage(SongDetails)
 
-SubscriptionDetails = _reflection.GeneratedProtocolMessageType('SubscriptionDetails', (_message.Message,), dict(
-  DESCRIPTOR = _SUBSCRIPTIONDETAILS,
-  __module__ = 'googleplay_pb2'
+SubscriptionDetails = _reflection.GeneratedProtocolMessageType('SubscriptionDetails', (_message.Message,), {
+  'DESCRIPTOR' : _SUBSCRIPTIONDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:SubscriptionDetails)
-  ))
+  })
 _sym_db.RegisterMessage(SubscriptionDetails)
 
-Trailer = _reflection.GeneratedProtocolMessageType('Trailer', (_message.Message,), dict(
-  DESCRIPTOR = _TRAILER,
-  __module__ = 'googleplay_pb2'
+Trailer = _reflection.GeneratedProtocolMessageType('Trailer', (_message.Message,), {
+  'DESCRIPTOR' : _TRAILER,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Trailer)
-  ))
+  })
 _sym_db.RegisterMessage(Trailer)
 
-TvEpisodeDetails = _reflection.GeneratedProtocolMessageType('TvEpisodeDetails', (_message.Message,), dict(
-  DESCRIPTOR = _TVEPISODEDETAILS,
-  __module__ = 'googleplay_pb2'
+TvEpisodeDetails = _reflection.GeneratedProtocolMessageType('TvEpisodeDetails', (_message.Message,), {
+  'DESCRIPTOR' : _TVEPISODEDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:TvEpisodeDetails)
-  ))
+  })
 _sym_db.RegisterMessage(TvEpisodeDetails)
 
-TvSeasonDetails = _reflection.GeneratedProtocolMessageType('TvSeasonDetails', (_message.Message,), dict(
-  DESCRIPTOR = _TVSEASONDETAILS,
-  __module__ = 'googleplay_pb2'
+TvSeasonDetails = _reflection.GeneratedProtocolMessageType('TvSeasonDetails', (_message.Message,), {
+  'DESCRIPTOR' : _TVSEASONDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:TvSeasonDetails)
-  ))
+  })
 _sym_db.RegisterMessage(TvSeasonDetails)
 
-TvShowDetails = _reflection.GeneratedProtocolMessageType('TvShowDetails', (_message.Message,), dict(
-  DESCRIPTOR = _TVSHOWDETAILS,
-  __module__ = 'googleplay_pb2'
+TvShowDetails = _reflection.GeneratedProtocolMessageType('TvShowDetails', (_message.Message,), {
+  'DESCRIPTOR' : _TVSHOWDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:TvShowDetails)
-  ))
+  })
 _sym_db.RegisterMessage(TvShowDetails)
 
-VideoCredit = _reflection.GeneratedProtocolMessageType('VideoCredit', (_message.Message,), dict(
-  DESCRIPTOR = _VIDEOCREDIT,
-  __module__ = 'googleplay_pb2'
+VideoCredit = _reflection.GeneratedProtocolMessageType('VideoCredit', (_message.Message,), {
+  'DESCRIPTOR' : _VIDEOCREDIT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:VideoCredit)
-  ))
+  })
 _sym_db.RegisterMessage(VideoCredit)
 
-VideoDetails = _reflection.GeneratedProtocolMessageType('VideoDetails', (_message.Message,), dict(
-  DESCRIPTOR = _VIDEODETAILS,
-  __module__ = 'googleplay_pb2'
+VideoDetails = _reflection.GeneratedProtocolMessageType('VideoDetails', (_message.Message,), {
+  'DESCRIPTOR' : _VIDEODETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:VideoDetails)
-  ))
+  })
 _sym_db.RegisterMessage(VideoDetails)
 
-VideoRentalTerm = _reflection.GeneratedProtocolMessageType('VideoRentalTerm', (_message.Message,), dict(
+VideoRentalTerm = _reflection.GeneratedProtocolMessageType('VideoRentalTerm', (_message.Message,), {
 
-  Term = _reflection.GeneratedProtocolMessageType('Term', (_message.Message,), dict(
-    DESCRIPTOR = _VIDEORENTALTERM_TERM,
-    __module__ = 'googleplay_pb2'
+  'Term' : _reflection.GeneratedProtocolMessageType('Term', (_message.Message,), {
+    'DESCRIPTOR' : _VIDEORENTALTERM_TERM,
+    '__module__' : 'googleplay_pb2'
     # @@protoc_insertion_point(class_scope:VideoRentalTerm.Term)
-    ))
+    })
   ,
-  DESCRIPTOR = _VIDEORENTALTERM,
-  __module__ = 'googleplay_pb2'
+  'DESCRIPTOR' : _VIDEORENTALTERM,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:VideoRentalTerm)
-  ))
+  })
 _sym_db.RegisterMessage(VideoRentalTerm)
 _sym_db.RegisterMessage(VideoRentalTerm.Term)
 
-Bucket = _reflection.GeneratedProtocolMessageType('Bucket', (_message.Message,), dict(
-  DESCRIPTOR = _BUCKET,
-  __module__ = 'googleplay_pb2'
+Bucket = _reflection.GeneratedProtocolMessageType('Bucket', (_message.Message,), {
+  'DESCRIPTOR' : _BUCKET,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Bucket)
-  ))
+  })
 _sym_db.RegisterMessage(Bucket)
 
-ListResponse = _reflection.GeneratedProtocolMessageType('ListResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTRESPONSE,
-  __module__ = 'googleplay_pb2'
+ListResponse = _reflection.GeneratedProtocolMessageType('ListResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ListResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListResponse)
 
-DocV1 = _reflection.GeneratedProtocolMessageType('DocV1', (_message.Message,), dict(
-  DESCRIPTOR = _DOCV1,
-  __module__ = 'googleplay_pb2'
+DocV1 = _reflection.GeneratedProtocolMessageType('DocV1', (_message.Message,), {
+  'DESCRIPTOR' : _DOCV1,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:DocV1)
-  ))
+  })
 _sym_db.RegisterMessage(DocV1)
 
-DocV2 = _reflection.GeneratedProtocolMessageType('DocV2', (_message.Message,), dict(
-  DESCRIPTOR = _DOCV2,
-  __module__ = 'googleplay_pb2'
+DocV2 = _reflection.GeneratedProtocolMessageType('DocV2', (_message.Message,), {
+  'DESCRIPTOR' : _DOCV2,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:DocV2)
-  ))
+  })
 _sym_db.RegisterMessage(DocV2)
 
-Unknown25 = _reflection.GeneratedProtocolMessageType('Unknown25', (_message.Message,), dict(
-  DESCRIPTOR = _UNKNOWN25,
-  __module__ = 'googleplay_pb2'
+Unknown25 = _reflection.GeneratedProtocolMessageType('Unknown25', (_message.Message,), {
+  'DESCRIPTOR' : _UNKNOWN25,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Unknown25)
-  ))
+  })
 _sym_db.RegisterMessage(Unknown25)
 
-Unknown25Item = _reflection.GeneratedProtocolMessageType('Unknown25Item', (_message.Message,), dict(
-  DESCRIPTOR = _UNKNOWN25ITEM,
-  __module__ = 'googleplay_pb2'
+Unknown25Item = _reflection.GeneratedProtocolMessageType('Unknown25Item', (_message.Message,), {
+  'DESCRIPTOR' : _UNKNOWN25ITEM,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Unknown25Item)
-  ))
+  })
 _sym_db.RegisterMessage(Unknown25Item)
 
-Unknown25Container = _reflection.GeneratedProtocolMessageType('Unknown25Container', (_message.Message,), dict(
-  DESCRIPTOR = _UNKNOWN25CONTAINER,
-  __module__ = 'googleplay_pb2'
+Unknown25Container = _reflection.GeneratedProtocolMessageType('Unknown25Container', (_message.Message,), {
+  'DESCRIPTOR' : _UNKNOWN25CONTAINER,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Unknown25Container)
-  ))
+  })
 _sym_db.RegisterMessage(Unknown25Container)
 
-RelatedLinks = _reflection.GeneratedProtocolMessageType('RelatedLinks', (_message.Message,), dict(
-  DESCRIPTOR = _RELATEDLINKS,
-  __module__ = 'googleplay_pb2'
+RelatedLinks = _reflection.GeneratedProtocolMessageType('RelatedLinks', (_message.Message,), {
+  'DESCRIPTOR' : _RELATEDLINKS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:RelatedLinks)
-  ))
+  })
 _sym_db.RegisterMessage(RelatedLinks)
 
-RelatedLinksUnknown1 = _reflection.GeneratedProtocolMessageType('RelatedLinksUnknown1', (_message.Message,), dict(
-  DESCRIPTOR = _RELATEDLINKSUNKNOWN1,
-  __module__ = 'googleplay_pb2'
+RelatedLinksUnknown1 = _reflection.GeneratedProtocolMessageType('RelatedLinksUnknown1', (_message.Message,), {
+  'DESCRIPTOR' : _RELATEDLINKSUNKNOWN1,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:RelatedLinksUnknown1)
-  ))
+  })
 _sym_db.RegisterMessage(RelatedLinksUnknown1)
 
-RelatedLinksUnknown2 = _reflection.GeneratedProtocolMessageType('RelatedLinksUnknown2', (_message.Message,), dict(
-  DESCRIPTOR = _RELATEDLINKSUNKNOWN2,
-  __module__ = 'googleplay_pb2'
+RelatedLinksUnknown2 = _reflection.GeneratedProtocolMessageType('RelatedLinksUnknown2', (_message.Message,), {
+  'DESCRIPTOR' : _RELATEDLINKSUNKNOWN2,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:RelatedLinksUnknown2)
-  ))
+  })
 _sym_db.RegisterMessage(RelatedLinksUnknown2)
 
-Rated = _reflection.GeneratedProtocolMessageType('Rated', (_message.Message,), dict(
-  DESCRIPTOR = _RATED,
-  __module__ = 'googleplay_pb2'
+Rated = _reflection.GeneratedProtocolMessageType('Rated', (_message.Message,), {
+  'DESCRIPTOR' : _RATED,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Rated)
-  ))
+  })
 _sym_db.RegisterMessage(Rated)
 
-RelatedLink = _reflection.GeneratedProtocolMessageType('RelatedLink', (_message.Message,), dict(
-  DESCRIPTOR = _RELATEDLINK,
-  __module__ = 'googleplay_pb2'
+RelatedLink = _reflection.GeneratedProtocolMessageType('RelatedLink', (_message.Message,), {
+  'DESCRIPTOR' : _RELATEDLINK,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:RelatedLink)
-  ))
+  })
 _sym_db.RegisterMessage(RelatedLink)
 
-CategoryInfo = _reflection.GeneratedProtocolMessageType('CategoryInfo', (_message.Message,), dict(
-  DESCRIPTOR = _CATEGORYINFO,
-  __module__ = 'googleplay_pb2'
+CategoryInfo = _reflection.GeneratedProtocolMessageType('CategoryInfo', (_message.Message,), {
+  'DESCRIPTOR' : _CATEGORYINFO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:CategoryInfo)
-  ))
+  })
 _sym_db.RegisterMessage(CategoryInfo)
 
-EncryptedSubscriberInfo = _reflection.GeneratedProtocolMessageType('EncryptedSubscriberInfo', (_message.Message,), dict(
-  DESCRIPTOR = _ENCRYPTEDSUBSCRIBERINFO,
-  __module__ = 'googleplay_pb2'
+EncryptedSubscriberInfo = _reflection.GeneratedProtocolMessageType('EncryptedSubscriberInfo', (_message.Message,), {
+  'DESCRIPTOR' : _ENCRYPTEDSUBSCRIBERINFO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:EncryptedSubscriberInfo)
-  ))
+  })
 _sym_db.RegisterMessage(EncryptedSubscriberInfo)
 
-Availability = _reflection.GeneratedProtocolMessageType('Availability', (_message.Message,), dict(
+Availability = _reflection.GeneratedProtocolMessageType('Availability', (_message.Message,), {
 
-  PerDeviceAvailabilityRestriction = _reflection.GeneratedProtocolMessageType('PerDeviceAvailabilityRestriction', (_message.Message,), dict(
-    DESCRIPTOR = _AVAILABILITY_PERDEVICEAVAILABILITYRESTRICTION,
-    __module__ = 'googleplay_pb2'
+  'PerDeviceAvailabilityRestriction' : _reflection.GeneratedProtocolMessageType('PerDeviceAvailabilityRestriction', (_message.Message,), {
+    'DESCRIPTOR' : _AVAILABILITY_PERDEVICEAVAILABILITYRESTRICTION,
+    '__module__' : 'googleplay_pb2'
     # @@protoc_insertion_point(class_scope:Availability.PerDeviceAvailabilityRestriction)
-    ))
+    })
   ,
-  DESCRIPTOR = _AVAILABILITY,
-  __module__ = 'googleplay_pb2'
+  'DESCRIPTOR' : _AVAILABILITY,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Availability)
-  ))
+  })
 _sym_db.RegisterMessage(Availability)
 _sym_db.RegisterMessage(Availability.PerDeviceAvailabilityRestriction)
 
-FilterEvaluationInfo = _reflection.GeneratedProtocolMessageType('FilterEvaluationInfo', (_message.Message,), dict(
-  DESCRIPTOR = _FILTEREVALUATIONINFO,
-  __module__ = 'googleplay_pb2'
+FilterEvaluationInfo = _reflection.GeneratedProtocolMessageType('FilterEvaluationInfo', (_message.Message,), {
+  'DESCRIPTOR' : _FILTEREVALUATIONINFO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:FilterEvaluationInfo)
-  ))
+  })
 _sym_db.RegisterMessage(FilterEvaluationInfo)
 
-Rule = _reflection.GeneratedProtocolMessageType('Rule', (_message.Message,), dict(
-  DESCRIPTOR = _RULE,
-  __module__ = 'googleplay_pb2'
+Rule = _reflection.GeneratedProtocolMessageType('Rule', (_message.Message,), {
+  'DESCRIPTOR' : _RULE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Rule)
-  ))
+  })
 _sym_db.RegisterMessage(Rule)
 
-RuleEvaluation = _reflection.GeneratedProtocolMessageType('RuleEvaluation', (_message.Message,), dict(
-  DESCRIPTOR = _RULEEVALUATION,
-  __module__ = 'googleplay_pb2'
+RuleEvaluation = _reflection.GeneratedProtocolMessageType('RuleEvaluation', (_message.Message,), {
+  'DESCRIPTOR' : _RULEEVALUATION,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:RuleEvaluation)
-  ))
+  })
 _sym_db.RegisterMessage(RuleEvaluation)
 
-LibraryAppDetails = _reflection.GeneratedProtocolMessageType('LibraryAppDetails', (_message.Message,), dict(
-  DESCRIPTOR = _LIBRARYAPPDETAILS,
-  __module__ = 'googleplay_pb2'
+LibraryAppDetails = _reflection.GeneratedProtocolMessageType('LibraryAppDetails', (_message.Message,), {
+  'DESCRIPTOR' : _LIBRARYAPPDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:LibraryAppDetails)
-  ))
+  })
 _sym_db.RegisterMessage(LibraryAppDetails)
 
-LibraryInAppDetails = _reflection.GeneratedProtocolMessageType('LibraryInAppDetails', (_message.Message,), dict(
-  DESCRIPTOR = _LIBRARYINAPPDETAILS,
-  __module__ = 'googleplay_pb2'
+LibraryInAppDetails = _reflection.GeneratedProtocolMessageType('LibraryInAppDetails', (_message.Message,), {
+  'DESCRIPTOR' : _LIBRARYINAPPDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:LibraryInAppDetails)
-  ))
+  })
 _sym_db.RegisterMessage(LibraryInAppDetails)
 
-LibraryMutation = _reflection.GeneratedProtocolMessageType('LibraryMutation', (_message.Message,), dict(
-  DESCRIPTOR = _LIBRARYMUTATION,
-  __module__ = 'googleplay_pb2'
+LibraryMutation = _reflection.GeneratedProtocolMessageType('LibraryMutation', (_message.Message,), {
+  'DESCRIPTOR' : _LIBRARYMUTATION,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:LibraryMutation)
-  ))
+  })
 _sym_db.RegisterMessage(LibraryMutation)
 
-LibrarySubscriptionDetails = _reflection.GeneratedProtocolMessageType('LibrarySubscriptionDetails', (_message.Message,), dict(
-  DESCRIPTOR = _LIBRARYSUBSCRIPTIONDETAILS,
-  __module__ = 'googleplay_pb2'
+LibrarySubscriptionDetails = _reflection.GeneratedProtocolMessageType('LibrarySubscriptionDetails', (_message.Message,), {
+  'DESCRIPTOR' : _LIBRARYSUBSCRIPTIONDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:LibrarySubscriptionDetails)
-  ))
+  })
 _sym_db.RegisterMessage(LibrarySubscriptionDetails)
 
-LibraryUpdate = _reflection.GeneratedProtocolMessageType('LibraryUpdate', (_message.Message,), dict(
-  DESCRIPTOR = _LIBRARYUPDATE,
-  __module__ = 'googleplay_pb2'
+LibraryUpdate = _reflection.GeneratedProtocolMessageType('LibraryUpdate', (_message.Message,), {
+  'DESCRIPTOR' : _LIBRARYUPDATE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:LibraryUpdate)
-  ))
+  })
 _sym_db.RegisterMessage(LibraryUpdate)
 
-AndroidAppNotificationData = _reflection.GeneratedProtocolMessageType('AndroidAppNotificationData', (_message.Message,), dict(
-  DESCRIPTOR = _ANDROIDAPPNOTIFICATIONDATA,
-  __module__ = 'googleplay_pb2'
+AndroidAppNotificationData = _reflection.GeneratedProtocolMessageType('AndroidAppNotificationData', (_message.Message,), {
+  'DESCRIPTOR' : _ANDROIDAPPNOTIFICATIONDATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AndroidAppNotificationData)
-  ))
+  })
 _sym_db.RegisterMessage(AndroidAppNotificationData)
 
-InAppNotificationData = _reflection.GeneratedProtocolMessageType('InAppNotificationData', (_message.Message,), dict(
-  DESCRIPTOR = _INAPPNOTIFICATIONDATA,
-  __module__ = 'googleplay_pb2'
+InAppNotificationData = _reflection.GeneratedProtocolMessageType('InAppNotificationData', (_message.Message,), {
+  'DESCRIPTOR' : _INAPPNOTIFICATIONDATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:InAppNotificationData)
-  ))
+  })
 _sym_db.RegisterMessage(InAppNotificationData)
 
-LibraryDirtyData = _reflection.GeneratedProtocolMessageType('LibraryDirtyData', (_message.Message,), dict(
-  DESCRIPTOR = _LIBRARYDIRTYDATA,
-  __module__ = 'googleplay_pb2'
+LibraryDirtyData = _reflection.GeneratedProtocolMessageType('LibraryDirtyData', (_message.Message,), {
+  'DESCRIPTOR' : _LIBRARYDIRTYDATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:LibraryDirtyData)
-  ))
+  })
 _sym_db.RegisterMessage(LibraryDirtyData)
 
-Notification = _reflection.GeneratedProtocolMessageType('Notification', (_message.Message,), dict(
-  DESCRIPTOR = _NOTIFICATION,
-  __module__ = 'googleplay_pb2'
+Notification = _reflection.GeneratedProtocolMessageType('Notification', (_message.Message,), {
+  'DESCRIPTOR' : _NOTIFICATION,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Notification)
-  ))
+  })
 _sym_db.RegisterMessage(Notification)
 
-PurchaseDeclinedData = _reflection.GeneratedProtocolMessageType('PurchaseDeclinedData', (_message.Message,), dict(
-  DESCRIPTOR = _PURCHASEDECLINEDDATA,
-  __module__ = 'googleplay_pb2'
+PurchaseDeclinedData = _reflection.GeneratedProtocolMessageType('PurchaseDeclinedData', (_message.Message,), {
+  'DESCRIPTOR' : _PURCHASEDECLINEDDATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:PurchaseDeclinedData)
-  ))
+  })
 _sym_db.RegisterMessage(PurchaseDeclinedData)
 
-PurchaseRemovalData = _reflection.GeneratedProtocolMessageType('PurchaseRemovalData', (_message.Message,), dict(
-  DESCRIPTOR = _PURCHASEREMOVALDATA,
-  __module__ = 'googleplay_pb2'
+PurchaseRemovalData = _reflection.GeneratedProtocolMessageType('PurchaseRemovalData', (_message.Message,), {
+  'DESCRIPTOR' : _PURCHASEREMOVALDATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:PurchaseRemovalData)
-  ))
+  })
 _sym_db.RegisterMessage(PurchaseRemovalData)
 
-UserNotificationData = _reflection.GeneratedProtocolMessageType('UserNotificationData', (_message.Message,), dict(
-  DESCRIPTOR = _USERNOTIFICATIONDATA,
-  __module__ = 'googleplay_pb2'
+UserNotificationData = _reflection.GeneratedProtocolMessageType('UserNotificationData', (_message.Message,), {
+  'DESCRIPTOR' : _USERNOTIFICATIONDATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:UserNotificationData)
-  ))
+  })
 _sym_db.RegisterMessage(UserNotificationData)
 
-AggregateRating = _reflection.GeneratedProtocolMessageType('AggregateRating', (_message.Message,), dict(
-  DESCRIPTOR = _AGGREGATERATING,
-  __module__ = 'googleplay_pb2'
+AggregateRating = _reflection.GeneratedProtocolMessageType('AggregateRating', (_message.Message,), {
+  'DESCRIPTOR' : _AGGREGATERATING,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AggregateRating)
-  ))
+  })
 _sym_db.RegisterMessage(AggregateRating)
 
-AcceptTosResponse = _reflection.GeneratedProtocolMessageType('AcceptTosResponse', (_message.Message,), dict(
-  DESCRIPTOR = _ACCEPTTOSRESPONSE,
-  __module__ = 'googleplay_pb2'
+AcceptTosResponse = _reflection.GeneratedProtocolMessageType('AcceptTosResponse', (_message.Message,), {
+  'DESCRIPTOR' : _ACCEPTTOSRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AcceptTosResponse)
-  ))
+  })
 _sym_db.RegisterMessage(AcceptTosResponse)
 
-CarrierBillingConfig = _reflection.GeneratedProtocolMessageType('CarrierBillingConfig', (_message.Message,), dict(
-  DESCRIPTOR = _CARRIERBILLINGCONFIG,
-  __module__ = 'googleplay_pb2'
+CarrierBillingConfig = _reflection.GeneratedProtocolMessageType('CarrierBillingConfig', (_message.Message,), {
+  'DESCRIPTOR' : _CARRIERBILLINGCONFIG,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:CarrierBillingConfig)
-  ))
+  })
 _sym_db.RegisterMessage(CarrierBillingConfig)
 
-BillingConfig = _reflection.GeneratedProtocolMessageType('BillingConfig', (_message.Message,), dict(
-  DESCRIPTOR = _BILLINGCONFIG,
-  __module__ = 'googleplay_pb2'
+BillingConfig = _reflection.GeneratedProtocolMessageType('BillingConfig', (_message.Message,), {
+  'DESCRIPTOR' : _BILLINGCONFIG,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:BillingConfig)
-  ))
+  })
 _sym_db.RegisterMessage(BillingConfig)
 
-CorpusMetadata = _reflection.GeneratedProtocolMessageType('CorpusMetadata', (_message.Message,), dict(
-  DESCRIPTOR = _CORPUSMETADATA,
-  __module__ = 'googleplay_pb2'
+CorpusMetadata = _reflection.GeneratedProtocolMessageType('CorpusMetadata', (_message.Message,), {
+  'DESCRIPTOR' : _CORPUSMETADATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:CorpusMetadata)
-  ))
+  })
 _sym_db.RegisterMessage(CorpusMetadata)
 
-Experiments = _reflection.GeneratedProtocolMessageType('Experiments', (_message.Message,), dict(
-  DESCRIPTOR = _EXPERIMENTS,
-  __module__ = 'googleplay_pb2'
+Experiments = _reflection.GeneratedProtocolMessageType('Experiments', (_message.Message,), {
+  'DESCRIPTOR' : _EXPERIMENTS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Experiments)
-  ))
+  })
 _sym_db.RegisterMessage(Experiments)
 
-SelfUpdateConfig = _reflection.GeneratedProtocolMessageType('SelfUpdateConfig', (_message.Message,), dict(
-  DESCRIPTOR = _SELFUPDATECONFIG,
-  __module__ = 'googleplay_pb2'
+SelfUpdateConfig = _reflection.GeneratedProtocolMessageType('SelfUpdateConfig', (_message.Message,), {
+  'DESCRIPTOR' : _SELFUPDATECONFIG,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:SelfUpdateConfig)
-  ))
+  })
 _sym_db.RegisterMessage(SelfUpdateConfig)
 
-TocResponse = _reflection.GeneratedProtocolMessageType('TocResponse', (_message.Message,), dict(
-  DESCRIPTOR = _TOCRESPONSE,
-  __module__ = 'googleplay_pb2'
+TocResponse = _reflection.GeneratedProtocolMessageType('TocResponse', (_message.Message,), {
+  'DESCRIPTOR' : _TOCRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:TocResponse)
-  ))
+  })
 _sym_db.RegisterMessage(TocResponse)
 
-Payload = _reflection.GeneratedProtocolMessageType('Payload', (_message.Message,), dict(
-  DESCRIPTOR = _PAYLOAD,
-  __module__ = 'googleplay_pb2'
+Payload = _reflection.GeneratedProtocolMessageType('Payload', (_message.Message,), {
+  'DESCRIPTOR' : _PAYLOAD,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Payload)
-  ))
+  })
 _sym_db.RegisterMessage(Payload)
 
-PreFetch = _reflection.GeneratedProtocolMessageType('PreFetch', (_message.Message,), dict(
-  DESCRIPTOR = _PREFETCH,
-  __module__ = 'googleplay_pb2'
+PreFetch = _reflection.GeneratedProtocolMessageType('PreFetch', (_message.Message,), {
+  'DESCRIPTOR' : _PREFETCH,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:PreFetch)
-  ))
+  })
 _sym_db.RegisterMessage(PreFetch)
 
-ServerMetadata = _reflection.GeneratedProtocolMessageType('ServerMetadata', (_message.Message,), dict(
-  DESCRIPTOR = _SERVERMETADATA,
-  __module__ = 'googleplay_pb2'
+ServerMetadata = _reflection.GeneratedProtocolMessageType('ServerMetadata', (_message.Message,), {
+  'DESCRIPTOR' : _SERVERMETADATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ServerMetadata)
-  ))
+  })
 _sym_db.RegisterMessage(ServerMetadata)
 
-Targets = _reflection.GeneratedProtocolMessageType('Targets', (_message.Message,), dict(
-  DESCRIPTOR = _TARGETS,
-  __module__ = 'googleplay_pb2'
+Targets = _reflection.GeneratedProtocolMessageType('Targets', (_message.Message,), {
+  'DESCRIPTOR' : _TARGETS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Targets)
-  ))
+  })
 _sym_db.RegisterMessage(Targets)
 
-ServerCookie = _reflection.GeneratedProtocolMessageType('ServerCookie', (_message.Message,), dict(
-  DESCRIPTOR = _SERVERCOOKIE,
-  __module__ = 'googleplay_pb2'
+ServerCookie = _reflection.GeneratedProtocolMessageType('ServerCookie', (_message.Message,), {
+  'DESCRIPTOR' : _SERVERCOOKIE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ServerCookie)
-  ))
+  })
 _sym_db.RegisterMessage(ServerCookie)
 
-ServerCookies = _reflection.GeneratedProtocolMessageType('ServerCookies', (_message.Message,), dict(
-  DESCRIPTOR = _SERVERCOOKIES,
-  __module__ = 'googleplay_pb2'
+ServerCookies = _reflection.GeneratedProtocolMessageType('ServerCookies', (_message.Message,), {
+  'DESCRIPTOR' : _SERVERCOOKIES,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ServerCookies)
-  ))
+  })
 _sym_db.RegisterMessage(ServerCookies)
 
-ResponseWrapper = _reflection.GeneratedProtocolMessageType('ResponseWrapper', (_message.Message,), dict(
-  DESCRIPTOR = _RESPONSEWRAPPER,
-  __module__ = 'googleplay_pb2'
+ResponseWrapper = _reflection.GeneratedProtocolMessageType('ResponseWrapper', (_message.Message,), {
+  'DESCRIPTOR' : _RESPONSEWRAPPER,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ResponseWrapper)
-  ))
+  })
 _sym_db.RegisterMessage(ResponseWrapper)
 
-ResponseWrapperApi = _reflection.GeneratedProtocolMessageType('ResponseWrapperApi', (_message.Message,), dict(
-  DESCRIPTOR = _RESPONSEWRAPPERAPI,
-  __module__ = 'googleplay_pb2'
+ResponseWrapperApi = _reflection.GeneratedProtocolMessageType('ResponseWrapperApi', (_message.Message,), {
+  'DESCRIPTOR' : _RESPONSEWRAPPERAPI,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ResponseWrapperApi)
-  ))
+  })
 _sym_db.RegisterMessage(ResponseWrapperApi)
 
-PayloadApi = _reflection.GeneratedProtocolMessageType('PayloadApi', (_message.Message,), dict(
-  DESCRIPTOR = _PAYLOADAPI,
-  __module__ = 'googleplay_pb2'
+PayloadApi = _reflection.GeneratedProtocolMessageType('PayloadApi', (_message.Message,), {
+  'DESCRIPTOR' : _PAYLOADAPI,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:PayloadApi)
-  ))
+  })
 _sym_db.RegisterMessage(PayloadApi)
 
-UserProfileResponse = _reflection.GeneratedProtocolMessageType('UserProfileResponse', (_message.Message,), dict(
-  DESCRIPTOR = _USERPROFILERESPONSE,
-  __module__ = 'googleplay_pb2'
+UserProfileResponse = _reflection.GeneratedProtocolMessageType('UserProfileResponse', (_message.Message,), {
+  'DESCRIPTOR' : _USERPROFILERESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:UserProfileResponse)
-  ))
+  })
 _sym_db.RegisterMessage(UserProfileResponse)
 
-ServerCommands = _reflection.GeneratedProtocolMessageType('ServerCommands', (_message.Message,), dict(
-  DESCRIPTOR = _SERVERCOMMANDS,
-  __module__ = 'googleplay_pb2'
+ServerCommands = _reflection.GeneratedProtocolMessageType('ServerCommands', (_message.Message,), {
+  'DESCRIPTOR' : _SERVERCOMMANDS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ServerCommands)
-  ))
+  })
 _sym_db.RegisterMessage(ServerCommands)
 
-GetReviewsResponse = _reflection.GeneratedProtocolMessageType('GetReviewsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _GETREVIEWSRESPONSE,
-  __module__ = 'googleplay_pb2'
+GetReviewsResponse = _reflection.GeneratedProtocolMessageType('GetReviewsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETREVIEWSRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:GetReviewsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(GetReviewsResponse)
 
-Review = _reflection.GeneratedProtocolMessageType('Review', (_message.Message,), dict(
-  DESCRIPTOR = _REVIEW,
-  __module__ = 'googleplay_pb2'
+Review = _reflection.GeneratedProtocolMessageType('Review', (_message.Message,), {
+  'DESCRIPTOR' : _REVIEW,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:Review)
-  ))
+  })
 _sym_db.RegisterMessage(Review)
 
-ReviewAuthor = _reflection.GeneratedProtocolMessageType('ReviewAuthor', (_message.Message,), dict(
-  DESCRIPTOR = _REVIEWAUTHOR,
-  __module__ = 'googleplay_pb2'
+ReviewAuthor = _reflection.GeneratedProtocolMessageType('ReviewAuthor', (_message.Message,), {
+  'DESCRIPTOR' : _REVIEWAUTHOR,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ReviewAuthor)
-  ))
+  })
 _sym_db.RegisterMessage(ReviewAuthor)
 
-UserProfile = _reflection.GeneratedProtocolMessageType('UserProfile', (_message.Message,), dict(
-  DESCRIPTOR = _USERPROFILE,
-  __module__ = 'googleplay_pb2'
+UserProfile = _reflection.GeneratedProtocolMessageType('UserProfile', (_message.Message,), {
+  'DESCRIPTOR' : _USERPROFILE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:UserProfile)
-  ))
+  })
 _sym_db.RegisterMessage(UserProfile)
 
-ReviewResponse = _reflection.GeneratedProtocolMessageType('ReviewResponse', (_message.Message,), dict(
-  DESCRIPTOR = _REVIEWRESPONSE,
-  __module__ = 'googleplay_pb2'
+ReviewResponse = _reflection.GeneratedProtocolMessageType('ReviewResponse', (_message.Message,), {
+  'DESCRIPTOR' : _REVIEWRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ReviewResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ReviewResponse)
 
-RelatedSearch = _reflection.GeneratedProtocolMessageType('RelatedSearch', (_message.Message,), dict(
-  DESCRIPTOR = _RELATEDSEARCH,
-  __module__ = 'googleplay_pb2'
+RelatedSearch = _reflection.GeneratedProtocolMessageType('RelatedSearch', (_message.Message,), {
+  'DESCRIPTOR' : _RELATEDSEARCH,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:RelatedSearch)
-  ))
+  })
 _sym_db.RegisterMessage(RelatedSearch)
 
-SearchResponse = _reflection.GeneratedProtocolMessageType('SearchResponse', (_message.Message,), dict(
-  DESCRIPTOR = _SEARCHRESPONSE,
-  __module__ = 'googleplay_pb2'
+SearchResponse = _reflection.GeneratedProtocolMessageType('SearchResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SEARCHRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:SearchResponse)
-  ))
+  })
 _sym_db.RegisterMessage(SearchResponse)
 
-SearchSuggestResponse = _reflection.GeneratedProtocolMessageType('SearchSuggestResponse', (_message.Message,), dict(
-  DESCRIPTOR = _SEARCHSUGGESTRESPONSE,
-  __module__ = 'googleplay_pb2'
+SearchSuggestResponse = _reflection.GeneratedProtocolMessageType('SearchSuggestResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SEARCHSUGGESTRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:SearchSuggestResponse)
-  ))
+  })
 _sym_db.RegisterMessage(SearchSuggestResponse)
 
-SearchSuggestEntry = _reflection.GeneratedProtocolMessageType('SearchSuggestEntry', (_message.Message,), dict(
+SearchSuggestEntry = _reflection.GeneratedProtocolMessageType('SearchSuggestEntry', (_message.Message,), {
 
-  ImageContainer = _reflection.GeneratedProtocolMessageType('ImageContainer', (_message.Message,), dict(
-    DESCRIPTOR = _SEARCHSUGGESTENTRY_IMAGECONTAINER,
-    __module__ = 'googleplay_pb2'
+  'ImageContainer' : _reflection.GeneratedProtocolMessageType('ImageContainer', (_message.Message,), {
+    'DESCRIPTOR' : _SEARCHSUGGESTENTRY_IMAGECONTAINER,
+    '__module__' : 'googleplay_pb2'
     # @@protoc_insertion_point(class_scope:SearchSuggestEntry.ImageContainer)
-    ))
+    })
   ,
 
-  PackageNameContainer = _reflection.GeneratedProtocolMessageType('PackageNameContainer', (_message.Message,), dict(
-    DESCRIPTOR = _SEARCHSUGGESTENTRY_PACKAGENAMECONTAINER,
-    __module__ = 'googleplay_pb2'
+  'PackageNameContainer' : _reflection.GeneratedProtocolMessageType('PackageNameContainer', (_message.Message,), {
+    'DESCRIPTOR' : _SEARCHSUGGESTENTRY_PACKAGENAMECONTAINER,
+    '__module__' : 'googleplay_pb2'
     # @@protoc_insertion_point(class_scope:SearchSuggestEntry.PackageNameContainer)
-    ))
+    })
   ,
-  DESCRIPTOR = _SEARCHSUGGESTENTRY,
-  __module__ = 'googleplay_pb2'
+  'DESCRIPTOR' : _SEARCHSUGGESTENTRY,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:SearchSuggestEntry)
-  ))
+  })
 _sym_db.RegisterMessage(SearchSuggestEntry)
 _sym_db.RegisterMessage(SearchSuggestEntry.ImageContainer)
 _sym_db.RegisterMessage(SearchSuggestEntry.PackageNameContainer)
 
-TestingProgramResponse = _reflection.GeneratedProtocolMessageType('TestingProgramResponse', (_message.Message,), dict(
-  DESCRIPTOR = _TESTINGPROGRAMRESPONSE,
-  __module__ = 'googleplay_pb2'
+TestingProgramResponse = _reflection.GeneratedProtocolMessageType('TestingProgramResponse', (_message.Message,), {
+  'DESCRIPTOR' : _TESTINGPROGRAMRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:TestingProgramResponse)
-  ))
+  })
 _sym_db.RegisterMessage(TestingProgramResponse)
 
-TestingProgramResult = _reflection.GeneratedProtocolMessageType('TestingProgramResult', (_message.Message,), dict(
-  DESCRIPTOR = _TESTINGPROGRAMRESULT,
-  __module__ = 'googleplay_pb2'
+TestingProgramResult = _reflection.GeneratedProtocolMessageType('TestingProgramResult', (_message.Message,), {
+  'DESCRIPTOR' : _TESTINGPROGRAMRESULT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:TestingProgramResult)
-  ))
+  })
 _sym_db.RegisterMessage(TestingProgramResult)
 
-TestingProgramDetails = _reflection.GeneratedProtocolMessageType('TestingProgramDetails', (_message.Message,), dict(
-  DESCRIPTOR = _TESTINGPROGRAMDETAILS,
-  __module__ = 'googleplay_pb2'
+TestingProgramDetails = _reflection.GeneratedProtocolMessageType('TestingProgramDetails', (_message.Message,), {
+  'DESCRIPTOR' : _TESTINGPROGRAMDETAILS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:TestingProgramDetails)
-  ))
+  })
 _sym_db.RegisterMessage(TestingProgramDetails)
 
-LogRequest = _reflection.GeneratedProtocolMessageType('LogRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LOGREQUEST,
-  __module__ = 'googleplay_pb2'
+LogRequest = _reflection.GeneratedProtocolMessageType('LogRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LOGREQUEST,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:LogRequest)
-  ))
+  })
 _sym_db.RegisterMessage(LogRequest)
 
-TestingProgramRequest = _reflection.GeneratedProtocolMessageType('TestingProgramRequest', (_message.Message,), dict(
-  DESCRIPTOR = _TESTINGPROGRAMREQUEST,
-  __module__ = 'googleplay_pb2'
+TestingProgramRequest = _reflection.GeneratedProtocolMessageType('TestingProgramRequest', (_message.Message,), {
+  'DESCRIPTOR' : _TESTINGPROGRAMREQUEST,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:TestingProgramRequest)
-  ))
+  })
 _sym_db.RegisterMessage(TestingProgramRequest)
 
-UploadDeviceConfigRequest = _reflection.GeneratedProtocolMessageType('UploadDeviceConfigRequest', (_message.Message,), dict(
-  DESCRIPTOR = _UPLOADDEVICECONFIGREQUEST,
-  __module__ = 'googleplay_pb2'
+UploadDeviceConfigRequest = _reflection.GeneratedProtocolMessageType('UploadDeviceConfigRequest', (_message.Message,), {
+  'DESCRIPTOR' : _UPLOADDEVICECONFIGREQUEST,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:UploadDeviceConfigRequest)
-  ))
+  })
 _sym_db.RegisterMessage(UploadDeviceConfigRequest)
 
-UploadDeviceConfigResponse = _reflection.GeneratedProtocolMessageType('UploadDeviceConfigResponse', (_message.Message,), dict(
-  DESCRIPTOR = _UPLOADDEVICECONFIGRESPONSE,
-  __module__ = 'googleplay_pb2'
+UploadDeviceConfigResponse = _reflection.GeneratedProtocolMessageType('UploadDeviceConfigResponse', (_message.Message,), {
+  'DESCRIPTOR' : _UPLOADDEVICECONFIGRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:UploadDeviceConfigResponse)
-  ))
+  })
 _sym_db.RegisterMessage(UploadDeviceConfigResponse)
 
-AndroidCheckinRequest = _reflection.GeneratedProtocolMessageType('AndroidCheckinRequest', (_message.Message,), dict(
-  DESCRIPTOR = _ANDROIDCHECKINREQUEST,
-  __module__ = 'googleplay_pb2'
+AndroidCheckinRequest = _reflection.GeneratedProtocolMessageType('AndroidCheckinRequest', (_message.Message,), {
+  'DESCRIPTOR' : _ANDROIDCHECKINREQUEST,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AndroidCheckinRequest)
-  ))
+  })
 _sym_db.RegisterMessage(AndroidCheckinRequest)
 
-AndroidCheckinResponse = _reflection.GeneratedProtocolMessageType('AndroidCheckinResponse', (_message.Message,), dict(
-  DESCRIPTOR = _ANDROIDCHECKINRESPONSE,
-  __module__ = 'googleplay_pb2'
+AndroidCheckinResponse = _reflection.GeneratedProtocolMessageType('AndroidCheckinResponse', (_message.Message,), {
+  'DESCRIPTOR' : _ANDROIDCHECKINRESPONSE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AndroidCheckinResponse)
-  ))
+  })
 _sym_db.RegisterMessage(AndroidCheckinResponse)
 
-GservicesSetting = _reflection.GeneratedProtocolMessageType('GservicesSetting', (_message.Message,), dict(
-  DESCRIPTOR = _GSERVICESSETTING,
-  __module__ = 'googleplay_pb2'
+GservicesSetting = _reflection.GeneratedProtocolMessageType('GservicesSetting', (_message.Message,), {
+  'DESCRIPTOR' : _GSERVICESSETTING,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:GservicesSetting)
-  ))
+  })
 _sym_db.RegisterMessage(GservicesSetting)
 
-AndroidBuildProto = _reflection.GeneratedProtocolMessageType('AndroidBuildProto', (_message.Message,), dict(
-  DESCRIPTOR = _ANDROIDBUILDPROTO,
-  __module__ = 'googleplay_pb2'
+AndroidBuildProto = _reflection.GeneratedProtocolMessageType('AndroidBuildProto', (_message.Message,), {
+  'DESCRIPTOR' : _ANDROIDBUILDPROTO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AndroidBuildProto)
-  ))
+  })
 _sym_db.RegisterMessage(AndroidBuildProto)
 
-AndroidCheckinProto = _reflection.GeneratedProtocolMessageType('AndroidCheckinProto', (_message.Message,), dict(
-  DESCRIPTOR = _ANDROIDCHECKINPROTO,
-  __module__ = 'googleplay_pb2'
+AndroidCheckinProto = _reflection.GeneratedProtocolMessageType('AndroidCheckinProto', (_message.Message,), {
+  'DESCRIPTOR' : _ANDROIDCHECKINPROTO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AndroidCheckinProto)
-  ))
+  })
 _sym_db.RegisterMessage(AndroidCheckinProto)
 
-AndroidEventProto = _reflection.GeneratedProtocolMessageType('AndroidEventProto', (_message.Message,), dict(
-  DESCRIPTOR = _ANDROIDEVENTPROTO,
-  __module__ = 'googleplay_pb2'
+AndroidEventProto = _reflection.GeneratedProtocolMessageType('AndroidEventProto', (_message.Message,), {
+  'DESCRIPTOR' : _ANDROIDEVENTPROTO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AndroidEventProto)
-  ))
+  })
 _sym_db.RegisterMessage(AndroidEventProto)
 
-AndroidIntentProto = _reflection.GeneratedProtocolMessageType('AndroidIntentProto', (_message.Message,), dict(
+AndroidIntentProto = _reflection.GeneratedProtocolMessageType('AndroidIntentProto', (_message.Message,), {
 
-  Extra = _reflection.GeneratedProtocolMessageType('Extra', (_message.Message,), dict(
-    DESCRIPTOR = _ANDROIDINTENTPROTO_EXTRA,
-    __module__ = 'googleplay_pb2'
+  'Extra' : _reflection.GeneratedProtocolMessageType('Extra', (_message.Message,), {
+    'DESCRIPTOR' : _ANDROIDINTENTPROTO_EXTRA,
+    '__module__' : 'googleplay_pb2'
     # @@protoc_insertion_point(class_scope:AndroidIntentProto.Extra)
-    ))
+    })
   ,
-  DESCRIPTOR = _ANDROIDINTENTPROTO,
-  __module__ = 'googleplay_pb2'
+  'DESCRIPTOR' : _ANDROIDINTENTPROTO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AndroidIntentProto)
-  ))
+  })
 _sym_db.RegisterMessage(AndroidIntentProto)
 _sym_db.RegisterMessage(AndroidIntentProto.Extra)
 
-AndroidStatisticProto = _reflection.GeneratedProtocolMessageType('AndroidStatisticProto', (_message.Message,), dict(
-  DESCRIPTOR = _ANDROIDSTATISTICPROTO,
-  __module__ = 'googleplay_pb2'
+AndroidStatisticProto = _reflection.GeneratedProtocolMessageType('AndroidStatisticProto', (_message.Message,), {
+  'DESCRIPTOR' : _ANDROIDSTATISTICPROTO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AndroidStatisticProto)
-  ))
+  })
 _sym_db.RegisterMessage(AndroidStatisticProto)
 
-ClientLibraryState = _reflection.GeneratedProtocolMessageType('ClientLibraryState', (_message.Message,), dict(
-  DESCRIPTOR = _CLIENTLIBRARYSTATE,
-  __module__ = 'googleplay_pb2'
+ClientLibraryState = _reflection.GeneratedProtocolMessageType('ClientLibraryState', (_message.Message,), {
+  'DESCRIPTOR' : _CLIENTLIBRARYSTATE,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ClientLibraryState)
-  ))
+  })
 _sym_db.RegisterMessage(ClientLibraryState)
 
-AndroidDataUsageProto = _reflection.GeneratedProtocolMessageType('AndroidDataUsageProto', (_message.Message,), dict(
-  DESCRIPTOR = _ANDROIDDATAUSAGEPROTO,
-  __module__ = 'googleplay_pb2'
+AndroidDataUsageProto = _reflection.GeneratedProtocolMessageType('AndroidDataUsageProto', (_message.Message,), {
+  'DESCRIPTOR' : _ANDROIDDATAUSAGEPROTO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AndroidDataUsageProto)
-  ))
+  })
 _sym_db.RegisterMessage(AndroidDataUsageProto)
 
-AndroidUsageStatsReport = _reflection.GeneratedProtocolMessageType('AndroidUsageStatsReport', (_message.Message,), dict(
-  DESCRIPTOR = _ANDROIDUSAGESTATSREPORT,
-  __module__ = 'googleplay_pb2'
+AndroidUsageStatsReport = _reflection.GeneratedProtocolMessageType('AndroidUsageStatsReport', (_message.Message,), {
+  'DESCRIPTOR' : _ANDROIDUSAGESTATSREPORT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AndroidUsageStatsReport)
-  ))
+  })
 _sym_db.RegisterMessage(AndroidUsageStatsReport)
 
-AppBucket = _reflection.GeneratedProtocolMessageType('AppBucket', (_message.Message,), dict(
-  DESCRIPTOR = _APPBUCKET,
-  __module__ = 'googleplay_pb2'
+AppBucket = _reflection.GeneratedProtocolMessageType('AppBucket', (_message.Message,), {
+  'DESCRIPTOR' : _APPBUCKET,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:AppBucket)
-  ))
+  })
 _sym_db.RegisterMessage(AppBucket)
 
-CounterData = _reflection.GeneratedProtocolMessageType('CounterData', (_message.Message,), dict(
-  DESCRIPTOR = _COUNTERDATA,
-  __module__ = 'googleplay_pb2'
+CounterData = _reflection.GeneratedProtocolMessageType('CounterData', (_message.Message,), {
+  'DESCRIPTOR' : _COUNTERDATA,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:CounterData)
-  ))
+  })
 _sym_db.RegisterMessage(CounterData)
 
-IpLayerAppStat = _reflection.GeneratedProtocolMessageType('IpLayerAppStat', (_message.Message,), dict(
-  DESCRIPTOR = _IPLAYERAPPSTAT,
-  __module__ = 'googleplay_pb2'
+IpLayerAppStat = _reflection.GeneratedProtocolMessageType('IpLayerAppStat', (_message.Message,), {
+  'DESCRIPTOR' : _IPLAYERAPPSTAT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:IpLayerAppStat)
-  ))
+  })
 _sym_db.RegisterMessage(IpLayerAppStat)
 
-IpLayerNetworkBucket = _reflection.GeneratedProtocolMessageType('IpLayerNetworkBucket', (_message.Message,), dict(
-  DESCRIPTOR = _IPLAYERNETWORKBUCKET,
-  __module__ = 'googleplay_pb2'
+IpLayerNetworkBucket = _reflection.GeneratedProtocolMessageType('IpLayerNetworkBucket', (_message.Message,), {
+  'DESCRIPTOR' : _IPLAYERNETWORKBUCKET,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:IpLayerNetworkBucket)
-  ))
+  })
 _sym_db.RegisterMessage(IpLayerNetworkBucket)
 
-IpLayerNetworkStat = _reflection.GeneratedProtocolMessageType('IpLayerNetworkStat', (_message.Message,), dict(
-  DESCRIPTOR = _IPLAYERNETWORKSTAT,
-  __module__ = 'googleplay_pb2'
+IpLayerNetworkStat = _reflection.GeneratedProtocolMessageType('IpLayerNetworkStat', (_message.Message,), {
+  'DESCRIPTOR' : _IPLAYERNETWORKSTAT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:IpLayerNetworkStat)
-  ))
+  })
 _sym_db.RegisterMessage(IpLayerNetworkStat)
 
-KeyToPackageNameMapping = _reflection.GeneratedProtocolMessageType('KeyToPackageNameMapping', (_message.Message,), dict(
-  DESCRIPTOR = _KEYTOPACKAGENAMEMAPPING,
-  __module__ = 'googleplay_pb2'
+KeyToPackageNameMapping = _reflection.GeneratedProtocolMessageType('KeyToPackageNameMapping', (_message.Message,), {
+  'DESCRIPTOR' : _KEYTOPACKAGENAMEMAPPING,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:KeyToPackageNameMapping)
-  ))
+  })
 _sym_db.RegisterMessage(KeyToPackageNameMapping)
 
-PackageInfo = _reflection.GeneratedProtocolMessageType('PackageInfo', (_message.Message,), dict(
-  DESCRIPTOR = _PACKAGEINFO,
-  __module__ = 'googleplay_pb2'
+PackageInfo = _reflection.GeneratedProtocolMessageType('PackageInfo', (_message.Message,), {
+  'DESCRIPTOR' : _PACKAGEINFO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:PackageInfo)
-  ))
+  })
 _sym_db.RegisterMessage(PackageInfo)
 
-PayloadLevelAppStat = _reflection.GeneratedProtocolMessageType('PayloadLevelAppStat', (_message.Message,), dict(
-  DESCRIPTOR = _PAYLOADLEVELAPPSTAT,
-  __module__ = 'googleplay_pb2'
+PayloadLevelAppStat = _reflection.GeneratedProtocolMessageType('PayloadLevelAppStat', (_message.Message,), {
+  'DESCRIPTOR' : _PAYLOADLEVELAPPSTAT,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:PayloadLevelAppStat)
-  ))
+  })
 _sym_db.RegisterMessage(PayloadLevelAppStat)
 
-StatCounters = _reflection.GeneratedProtocolMessageType('StatCounters', (_message.Message,), dict(
-  DESCRIPTOR = _STATCOUNTERS,
-  __module__ = 'googleplay_pb2'
+StatCounters = _reflection.GeneratedProtocolMessageType('StatCounters', (_message.Message,), {
+  'DESCRIPTOR' : _STATCOUNTERS,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:StatCounters)
-  ))
+  })
 _sym_db.RegisterMessage(StatCounters)
 
-UsageStatsExtensionProto = _reflection.GeneratedProtocolMessageType('UsageStatsExtensionProto', (_message.Message,), dict(
-  DESCRIPTOR = _USAGESTATSEXTENSIONPROTO,
-  __module__ = 'googleplay_pb2'
+UsageStatsExtensionProto = _reflection.GeneratedProtocolMessageType('UsageStatsExtensionProto', (_message.Message,), {
+  'DESCRIPTOR' : _USAGESTATSEXTENSIONPROTO,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:UsageStatsExtensionProto)
-  ))
+  })
 _sym_db.RegisterMessage(UsageStatsExtensionProto)
 
-ModifyLibraryRequest = _reflection.GeneratedProtocolMessageType('ModifyLibraryRequest', (_message.Message,), dict(
-  DESCRIPTOR = _MODIFYLIBRARYREQUEST,
-  __module__ = 'googleplay_pb2'
+ModifyLibraryRequest = _reflection.GeneratedProtocolMessageType('ModifyLibraryRequest', (_message.Message,), {
+  'DESCRIPTOR' : _MODIFYLIBRARYREQUEST,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:ModifyLibraryRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ModifyLibraryRequest)
 
-UrlRequestWrapper = _reflection.GeneratedProtocolMessageType('UrlRequestWrapper', (_message.Message,), dict(
-  DESCRIPTOR = _URLREQUESTWRAPPER,
-  __module__ = 'googleplay_pb2'
+UrlRequestWrapper = _reflection.GeneratedProtocolMessageType('UrlRequestWrapper', (_message.Message,), {
+  'DESCRIPTOR' : _URLREQUESTWRAPPER,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:UrlRequestWrapper)
-  ))
+  })
 _sym_db.RegisterMessage(UrlRequestWrapper)
 
-DeveloperAppsRequest = _reflection.GeneratedProtocolMessageType('DeveloperAppsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _DEVELOPERAPPSREQUEST,
-  __module__ = 'googleplay_pb2'
+DeveloperAppsRequest = _reflection.GeneratedProtocolMessageType('DeveloperAppsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DEVELOPERAPPSREQUEST,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:DeveloperAppsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(DeveloperAppsRequest)
 
-DeveloperIdContainer = _reflection.GeneratedProtocolMessageType('DeveloperIdContainer', (_message.Message,), dict(
-  DESCRIPTOR = _DEVELOPERIDCONTAINER,
-  __module__ = 'googleplay_pb2'
+DeveloperIdContainer = _reflection.GeneratedProtocolMessageType('DeveloperIdContainer', (_message.Message,), {
+  'DESCRIPTOR' : _DEVELOPERIDCONTAINER,
+  '__module__' : 'googleplay_pb2'
   # @@protoc_insertion_point(class_scope:DeveloperIdContainer)
-  ))
+  })
 _sym_db.RegisterMessage(DeveloperIdContainer)
 
 
