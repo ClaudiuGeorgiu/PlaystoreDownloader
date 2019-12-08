@@ -2,16 +2,18 @@
 # coding: utf-8
 
 import os
+from unittest.mock import Mock
 from urllib.parse import urlparse, parse_qs
 
 import pytest
+from requests.exceptions import ChunkedEncodingError
 
 from playstore import playstore_proto_pb2 as playstore_protobuf
 from playstore.playstore import Playstore
+from playstore.util import Util
 
 # noinspection PyUnresolvedReferences
 from test.test_session_fixtures import valid_credentials_path, download_folder_path
-
 
 VALID_PACKAGE_NAME = "com.spotify.music"
 BAD_PACKAGE_NAME = "<-bad_package_name->"
@@ -79,7 +81,9 @@ class TestApi(object):
     def test_get_categories_response_error(self, playstore, monkeypatch):
         # Simulate a bad response from the server.
         monkeypatch.setattr(
-            Playstore, "_execute_request", lambda self, path, query: playstore_protobuf.DocV2()
+            Playstore,
+            "_execute_request",
+            lambda self, path, query: playstore_protobuf.DocV2(),
         )
         categories = playstore.get_store_categories()
         assert categories is None
@@ -102,7 +106,9 @@ class TestApi(object):
     def test_list_app_by_category_response_error(self, playstore, monkeypatch):
         # Simulate a bad response from the server.
         monkeypatch.setattr(
-            Playstore, "_execute_request", lambda self, path, query: playstore_protobuf.DocV2()
+            Playstore,
+            "_execute_request",
+            lambda self, path, query: playstore_protobuf.DocV2(),
         )
         subcategories = playstore.list_app_by_category("PRODUCTIVITY")
         assert subcategories is None
@@ -129,7 +135,9 @@ class TestApi(object):
     def test_search_response_error(self, playstore, monkeypatch):
         # Simulate a bad response from the server.
         monkeypatch.setattr(
-            Playstore, "_execute_request", lambda self, path, query: playstore_protobuf.DocV2()
+            Playstore,
+            "_execute_request",
+            lambda self, path, query: playstore_protobuf.DocV2(),
         )
         results = playstore.search("music")
         assert results is None
@@ -137,6 +145,10 @@ class TestApi(object):
     def test_search_empty_string(self, playstore):
         with pytest.raises(TypeError):
             playstore.search()
+
+    def test_list_app_by_valid_developer(self, playstore):
+        results = playstore.list_app_by_developer("Google LLC")
+        assert len(results) >= 10
 
     ##########################
     # Play Store app details #
@@ -153,7 +165,9 @@ class TestApi(object):
     def test_app_details_response_error(self, playstore, monkeypatch):
         # Simulate a bad response from the server.
         monkeypatch.setattr(
-            Playstore, "_execute_request", lambda self, path, query: playstore_protobuf.DocV2()
+            Playstore,
+            "_execute_request",
+            lambda self, path, query: playstore_protobuf.DocV2(),
         )
         details = playstore.app_details(VALID_PACKAGE_NAME)
         assert details is None
@@ -166,14 +180,32 @@ class TestApi(object):
     # Play Store app download #
     ###########################
 
-    def test_download_valid_package_name(self, playstore, download_folder_path):
+    def test_download_valid_package_name_with_progress(
+        self, playstore, download_folder_path
+    ):
         result = playstore.download(
             VALID_PACKAGE_NAME,
             os.path.join(download_folder_path, "{0}.apk".format(VALID_PACKAGE_NAME)),
+            show_progress_bar=True,
+        )
+        assert result is True
+
+    def test_download_valid_package_name_without_progress(
+        self, playstore, download_folder_path
+    ):
+        result = playstore.download(
+            VALID_PACKAGE_NAME,
+            os.path.join(download_folder_path, "{0}.apk".format(VALID_PACKAGE_NAME)),
+            show_progress_bar=False,
         )
         assert result is True
 
     def test_download_corrupted_apk(self, playstore, download_folder_path, monkeypatch):
+        def raise_exception(*args, **kwargs):
+            raise ChunkedEncodingError()
+
+        monkeypatch.setattr(Util, "show_list_progress", raise_exception)
+
         # Mock the function that gets the size of the file so that the downloaded
         # apk will be treated as corrupted.
         monkeypatch.setattr(os.path, "getsize", lambda x: 1)
@@ -188,6 +220,43 @@ class TestApi(object):
         result = playstore.download(
             VALID_PACKAGE_NAME,
             os.path.join(download_folder_path, "{0}.apk".format(VALID_PACKAGE_NAME)),
+        )
+        assert result is False
+
+    def test_download_corrupted_split_apk(
+        self, playstore, download_folder_path, monkeypatch
+    ):
+        original = Util.show_list_progress
+
+        def raise_exception(*args, **kwargs):
+            if " split apk ".lower() not in kwargs["description"].lower():
+                return original(*args, **kwargs)
+            raise ChunkedEncodingError()
+
+        monkeypatch.setattr(Util, "show_list_progress", raise_exception)
+
+        result = playstore.download(
+            APK_WITH_SPLIT_APK,
+            os.path.join(download_folder_path, "{0}.apk".format(APK_WITH_SPLIT_APK)),
+            show_progress_bar=False,
+        )
+        assert result is False
+
+    def test_download_corrupted_obb(self, playstore, download_folder_path, monkeypatch):
+        original = Util.show_list_progress
+
+        def raise_exception(*args, **kwargs):
+            if " obb ".lower() not in kwargs["description"].lower():
+                return original(*args, **kwargs)
+            raise ChunkedEncodingError()
+
+        monkeypatch.setattr(Util, "show_list_progress", raise_exception)
+
+        result = playstore.download(
+            APK_WITH_OBB,
+            os.path.join(download_folder_path, "{0}.apk".format(APK_WITH_OBB)),
+            download_obb=True,
+            show_progress_bar=False,
         )
         assert result is False
 

@@ -6,6 +6,8 @@ omit =
     test/*
     # Omit protobuf generated files.
     *_pb2.py
+    # Omit web version.
+    flask_app.py
 
 [report]
 exclude_lines =

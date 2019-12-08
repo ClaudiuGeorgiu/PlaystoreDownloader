@@ -13,7 +13,7 @@ from requests.exceptions import ChunkedEncodingError
 
 from playstore import playstore_proto_pb2 as playstore_protobuf
 from playstore.credentials import EncryptedCredentials
-from playstore.util import retry, show_list_progress
+from playstore.util import Util
 
 
 class Playstore(object):
@@ -83,7 +83,7 @@ class Playstore(object):
         with open(config_file, "r") as file:
             self.configuration = json.loads(file.read())[0]
 
-    @retry(exception=RuntimeError)
+    @Util.retry(exception=RuntimeError)
     def _login(self) -> None:
         """
         Perform the login into the Play Store.
@@ -346,7 +346,7 @@ class Playstore(object):
             with open(file_name, "wb") as f:
                 last_progress = 0
                 for index, chunk in enumerate(
-                    show_list_progress(
+                    Util.show_list_progress(
                         response.iter_content(chunk_size=chunk_size),
                         interactive=show_progress_bar,
                         unit=" KB",
@@ -403,7 +403,7 @@ class Playstore(object):
                     with open(split_apk_file_name, "wb") as f:
                         last_progress = 0
                         for index, chunk in enumerate(
-                            show_list_progress(
+                            Util.show_list_progress(
                                 response.iter_content(chunk_size=chunk_size),
                                 interactive=show_progress_bar,
                                 unit=" KB",
@@ -468,7 +468,7 @@ class Playstore(object):
                     with open(obb_file_name, "wb") as f:
                         last_progress = 0
                         for index, chunk in enumerate(
-                            show_list_progress(
+                            Util.show_list_progress(
                                 response.iter_content(chunk_size=chunk_size),
                                 interactive=show_progress_bar,
                                 unit=" KB",
@@ -625,7 +625,7 @@ class Playstore(object):
         )
 
         # TODO: handle pagination in case there are many apps published by a developer,
-        # otherwise this method will get only a subset of the total number of apps.
+        #  otherwise this method will get only a subset of the total number of apps.
 
         # Use a regular expression to obtain the package names (the page shows only
         # applications published by the selected developer). This list might contain
