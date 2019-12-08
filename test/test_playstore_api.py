@@ -2,7 +2,6 @@
 # coding: utf-8
 
 import os
-from unittest.mock import Mock
 from urllib.parse import urlparse, parse_qs
 
 import pytest
@@ -142,6 +141,19 @@ class TestApi(object):
         results = playstore.search("music")
         assert results is None
 
+    def test_search_response_error_2(self, playstore, monkeypatch):
+        original = Playstore._execute_request
+
+        def mock(*args, **kwargs):
+            to_return = original(*args, **kwargs)
+            del to_return.payload.searchResponse.doc[:]
+            return to_return
+
+        # Simulate a bad response from the server.
+        monkeypatch.setattr(Playstore, "_execute_request", mock)
+        results = playstore.search("music")
+        assert results is None
+
     def test_search_empty_string(self, playstore):
         with pytest.raises(TypeError):
             playstore.search()
@@ -180,23 +192,11 @@ class TestApi(object):
     # Play Store app download #
     ###########################
 
-    def test_download_valid_package_name_with_progress(
-        self, playstore, download_folder_path
-    ):
+    def test_download_valid_package_name(self, playstore, download_folder_path):
         result = playstore.download(
             VALID_PACKAGE_NAME,
             os.path.join(download_folder_path, "{0}.apk".format(VALID_PACKAGE_NAME)),
             show_progress_bar=True,
-        )
-        assert result is True
-
-    def test_download_valid_package_name_without_progress(
-        self, playstore, download_folder_path
-    ):
-        result = playstore.download(
-            VALID_PACKAGE_NAME,
-            os.path.join(download_folder_path, "{0}.apk".format(VALID_PACKAGE_NAME)),
-            show_progress_bar=False,
         )
         assert result is True
 
@@ -231,7 +231,8 @@ class TestApi(object):
         def raise_exception(*args, **kwargs):
             if " split apk ".lower() not in kwargs["description"].lower():
                 return original(*args, **kwargs)
-            raise ChunkedEncodingError()
+            else:
+                raise ChunkedEncodingError()
 
         monkeypatch.setattr(Util, "show_list_progress", raise_exception)
 
@@ -248,7 +249,8 @@ class TestApi(object):
         def raise_exception(*args, **kwargs):
             if " obb ".lower() not in kwargs["description"].lower():
                 return original(*args, **kwargs)
-            raise ChunkedEncodingError()
+            else:
+                raise ChunkedEncodingError()
 
         monkeypatch.setattr(Util, "show_list_progress", raise_exception)
 
@@ -261,25 +263,57 @@ class TestApi(object):
         assert result is False
 
     def test_download_response_error(self, playstore, monkeypatch):
+        original = Playstore.protobuf_to_dict
+
+        def mock(*args):
+            if mock.counter < 1:
+                mock.counter += 1
+                return original(args[1])
+            else:
+                return {}
+
+        mock.counter = 0
+
         # Simulate a bad response from the server.
-        app_details = playstore.app_details(VALID_PACKAGE_NAME)
-        monkeypatch.setattr(Playstore, "app_details", lambda self, package: app_details)
-        monkeypatch.setattr(
-            Playstore, "_execute_request", lambda self, path: playstore_protobuf.DocV2()
-        )
+        monkeypatch.setattr(Playstore, "protobuf_to_dict", mock)
+        result = playstore.download(VALID_PACKAGE_NAME)
+        assert result is False
+
+    def test_download_response_error_2(self, playstore, monkeypatch):
+        original = Playstore._execute_request
+
+        def mock(*args, **kwargs):
+            if mock.counter < 2:
+                mock.counter += 1
+                return original(*args, **kwargs)
+            else:
+                return playstore_protobuf.DocV2()
+
+        mock.counter = 0
+
+        # Simulate a bad response from the server.
+        monkeypatch.setattr(Playstore, "_execute_request", mock)
         result = playstore.download(VALID_PACKAGE_NAME)
         assert result is False
 
     def test_download_cookie_error(self, playstore, monkeypatch):
+        original = Playstore._execute_request
+
+        def mock(*args, **kwargs):
+            if mock.counter < 2:
+                mock.counter += 1
+                return original(*args, **kwargs)
+            else:
+                to_return = original(*args, **kwargs)
+                del to_return.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[
+                    :
+                ]
+                return to_return
+
+        mock.counter = 0
+
         # Simulate a bad response from the server.
-        app_details = playstore.app_details(VALID_PACKAGE_NAME)
-        monkeypatch.setattr(Playstore, "app_details", lambda self, package: app_details)
-        monkeypatch.setattr(
-            Playstore, "_execute_request", lambda self, path: playstore_protobuf.DocV2()
-        )
-        monkeypatch.setattr(
-            Playstore, "protobuf_to_dict", lambda self, proto_obj: {"payload": "ignore"}
-        )
+        monkeypatch.setattr(Playstore, "_execute_request", mock)
         result = playstore.download(VALID_PACKAGE_NAME)
         assert result is False
 
