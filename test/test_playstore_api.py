@@ -16,6 +16,7 @@ from test.test_session_fixtures import valid_credentials_path, download_folder_p
 VALID_PACKAGE_NAME = "com.spotify.music"
 BAD_PACKAGE_NAME = "<-bad_package_name->"
 APK_WITH_OBB = "com.mapswithme.maps.pro"
+APK_WITH_SPLIT_APK = "com.android.chrome"
 
 
 # noinspection PyShadowingNames
@@ -78,7 +79,7 @@ class TestApi(object):
     def test_get_categories_response_error(self, playstore, monkeypatch):
         # Simulate a bad response from the server.
         monkeypatch.setattr(
-            Playstore, "_execute_request", lambda self, path: playstore_protobuf.DocV2()
+            Playstore, "_execute_request", lambda self, path, query: playstore_protobuf.DocV2()
         )
         categories = playstore.get_store_categories()
         assert categories is None
@@ -101,7 +102,7 @@ class TestApi(object):
     def test_list_app_by_category_response_error(self, playstore, monkeypatch):
         # Simulate a bad response from the server.
         monkeypatch.setattr(
-            Playstore, "_execute_request", lambda self, path: playstore_protobuf.DocV2()
+            Playstore, "_execute_request", lambda self, path, query: playstore_protobuf.DocV2()
         )
         subcategories = playstore.list_app_by_category("PRODUCTIVITY")
         assert subcategories is None
@@ -128,7 +129,7 @@ class TestApi(object):
     def test_search_response_error(self, playstore, monkeypatch):
         # Simulate a bad response from the server.
         monkeypatch.setattr(
-            Playstore, "_execute_request", lambda self, path: playstore_protobuf.DocV2()
+            Playstore, "_execute_request", lambda self, path, query: playstore_protobuf.DocV2()
         )
         results = playstore.search("music")
         assert results is None
@@ -152,7 +153,7 @@ class TestApi(object):
     def test_app_details_response_error(self, playstore, monkeypatch):
         # Simulate a bad response from the server.
         monkeypatch.setattr(
-            Playstore, "_execute_request", lambda self, path: playstore_protobuf.DocV2()
+            Playstore, "_execute_request", lambda self, path, query: playstore_protobuf.DocV2()
         )
         details = playstore.app_details(VALID_PACKAGE_NAME)
         assert details is None
@@ -190,22 +191,28 @@ class TestApi(object):
         )
         assert result is False
 
-    # def test_download_response_error(self, playstore, monkeypatch):
-    #     # Simulate a bad response from the server.
-    #     app_details = playstore.app_details(VALID_PACKAGE_NAME)
-    #     monkeypatch.setattr(Playstore, 'app_details', lambda self, package: app_details)
-    #     monkeypatch.setattr(Playstore, '_execute_request', lambda self, path, data: playstore_protobuf.DocV2())
-    #     result = playstore.download(VALID_PACKAGE_NAME)
-    #     assert result is False
-    #
-    # def test_download_cookie_error(self, playstore, monkeypatch):
-    #     # Simulate a bad response from the server.
-    #     app_details = playstore.app_details(VALID_PACKAGE_NAME)
-    #     monkeypatch.setattr(Playstore, 'app_details', lambda self, package: app_details)
-    #     monkeypatch.setattr(Playstore, '_execute_request', lambda self, path, data: playstore_protobuf.ResponseWrapper())
-    #     monkeypatch.setattr(Playstore, 'protobuf_to_dict', lambda self, proto_obj: {'payload': 'ignore'})
-    #     result = playstore.download(VALID_PACKAGE_NAME)
-    #     assert result is False
+    def test_download_response_error(self, playstore, monkeypatch):
+        # Simulate a bad response from the server.
+        app_details = playstore.app_details(VALID_PACKAGE_NAME)
+        monkeypatch.setattr(Playstore, "app_details", lambda self, package: app_details)
+        monkeypatch.setattr(
+            Playstore, "_execute_request", lambda self, path: playstore_protobuf.DocV2()
+        )
+        result = playstore.download(VALID_PACKAGE_NAME)
+        assert result is False
+
+    def test_download_cookie_error(self, playstore, monkeypatch):
+        # Simulate a bad response from the server.
+        app_details = playstore.app_details(VALID_PACKAGE_NAME)
+        monkeypatch.setattr(Playstore, "app_details", lambda self, package: app_details)
+        monkeypatch.setattr(
+            Playstore, "_execute_request", lambda self, path: playstore_protobuf.DocV2()
+        )
+        monkeypatch.setattr(
+            Playstore, "protobuf_to_dict", lambda self, proto_obj: {"payload": "ignore"}
+        )
+        result = playstore.download(VALID_PACKAGE_NAME)
+        assert result is False
 
     def test_download_bad_package_name(self, playstore):
         result = playstore.download(BAD_PACKAGE_NAME)

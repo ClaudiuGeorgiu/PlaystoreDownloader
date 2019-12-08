@@ -14,10 +14,15 @@ from test.test_playstore_api import (
     VALID_PACKAGE_NAME,
     BAD_PACKAGE_NAME,
     APK_WITH_OBB,
+    APK_WITH_SPLIT_APK,
 )
 
 # noinspection PyUnresolvedReferences
-from test.test_session_fixtures import valid_credentials_path, download_folder_path
+from test.test_session_fixtures import (
+    valid_credentials_path,
+    wrong_credentials_path,
+    download_folder_path,
+)
 
 
 # noinspection PyShadowingNames
@@ -87,6 +92,17 @@ class TestDownload(object):
         # (created in the same folder as download.py).
         download.main()
 
+    def test_valid_download_split_apk(self, valid_credentials_path, monkeypatch):
+        # Mock the command line parser.
+        arguments = download.get_cmd_args(
+            '"{0}" -c "{1}"'.format(APK_WITH_SPLIT_APK, valid_credentials_path).split()
+        )
+        monkeypatch.setattr(download, "get_cmd_args", lambda: arguments)
+
+        # If this runs without errors, the apk and the split apk(s) will be saved in the Downloads folder
+        # (created in the same folder as download.py).
+        download.main()
+
     def test_download_app_details_error(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.
         arguments = download.get_cmd_args(
@@ -120,6 +136,19 @@ class TestDownload(object):
         monkeypatch.setattr(
             Playstore, "download", lambda self, package, path, download_obb: False
         )
+
+        with pytest.raises(SystemExit) as err:
+            download.main()
+        assert err.value.code == 1
+
+    def test_download_wrong_credentials(
+        self, download_folder_path, wrong_credentials_path, monkeypatch
+    ):
+        # Mock the command line parser.
+        arguments = download.get_cmd_args(
+            '"{0}" -c "{1}"'.format(VALID_PACKAGE_NAME, wrong_credentials_path).split()
+        )
+        monkeypatch.setattr(download, "get_cmd_args", lambda: arguments)
 
         with pytest.raises(SystemExit) as err:
             download.main()

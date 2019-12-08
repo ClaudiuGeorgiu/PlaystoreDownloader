@@ -1,8 +1,7 @@
-eventlet==0.25.1
 Flask==1.1.1
 Flask-SocketIO==4.2.1
-protobuf==3.10.0
-pycryptodome==3.9.0
-pytest-cov==2.7.1
+protobuf==3.11.1
+pycryptodome==3.9.4
+pytest-cov==2.8.1
 requests==2.22.0
-tqdm==4.36.1
+tqdm==4.40.1

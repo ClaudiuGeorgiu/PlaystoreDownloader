@@ -3,11 +3,11 @@
 > A command line tool to download Android applications directly from the Google Play Store.
 
 [![Codacy](https://api.codacy.com/project/badge/Grade/92ff2ab2c1114c7e9df13b77fac0d961)](https://www.codacy.com/app/ClaudiuGeorgiu/PlaystoreDownloader)
-[![Travis Build Status](https://travis-ci.com/ClaudiuGeorgiu/PlaystoreDownloader.svg)](https://travis-ci.com/ClaudiuGeorgiu/PlaystoreDownloader)
+[![Travis Build Status](https://img.shields.io/travis/com/ClaudiuGeorgiu/PlaystoreDownloader?logo=travis)](https://travis-ci.com/ClaudiuGeorgiu/PlaystoreDownloader)
 [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/d7bed1h37w7x8w6y?svg=true
 )](https://ci.appveyor.com/project/ClaudiuGeorgiu/playstoredownloader)
 [![Code Coverage](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader/badge.svg)](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader)
-[![Python Version](https://img.shields.io/badge/Python-3.7-green.svg)](https://www.python.org/downloads/release/python-374/)
+[![Python Version](https://img.shields.io/badge/Python-3.5%20%7C%203.6%20%7C%203.7%20%7C%203.8-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/release/python-380/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/LICENSE)
 
 
@@ -57,7 +57,7 @@ _Note that you will be able to download only the applications compatible with th
 
 ## ❱ Usage
 
-Apart from valid Play Store credentials, the only requirement of this project is a working `Python 3.7` installation
+Apart from valid Play Store credentials, the only requirement of this project is a working `Python 3.8` installation
 (along with its package manager `pip`). The first thing to do is to get a local copy of this repository, so open up
 a terminal in the directory where you want to save the project and clone the repository:
 
@@ -71,25 +71,25 @@ Make sure to execute the following commands in the previously created `Playstore
 ```Shell
 $ # The usage of a virtual environment is highly recommended, e.g., virtualenv.
 $ # If not using virtualenv (https://virtualenv.pypa.io/), skip the next 2 lines.
-$ virtualenv -p python3.7 venv
+$ virtualenv -p python3.8 venv
 $ source venv/bin/activate
 
 $ # Install PlaystoreDownloader's requirements.
-$ python3.7 -m pip install -r requirements.txt
+$ python3.8 -m pip install -r requirements.txt
 ```
 
 After configuring the Play Store credentials as described in the [configuration](#-configuration), simply call the
 following instruction using the package name of the app to download:
 
 ```Shell
-$ python3.7 download.py "com.application.example"
+$ python3.8 download.py "com.application.example"
 ```
 
 If the download is successful, the resulting `.apk` file will be saved in the `PlaystoreDownloader/Downloads/`
 directory. You can change the name and the location of the downloaded `.apk` file by providing an additional
 `-o "path/to/downloaded.apk"` argument to
 [download.py](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/download.py)
-(type `$ python3.7 download.py --help` for more information).
+(type `$ python3.8 download.py --help` for more information).
 
 Docker is also supported:
 

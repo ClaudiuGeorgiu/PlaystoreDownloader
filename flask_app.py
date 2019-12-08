@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# The following 2 lines have to stay at the top of the file!
-import eventlet
-
-eventlet.monkey_patch()
-
 import logging
 import os
 import re
@@ -28,11 +23,17 @@ logging.basicConfig(
     datefmt="%d/%m/%Y %H:%M:%S",
     level=log_level,
 )
+logging.getLogger("werkzeug").disabled = True
 
 # Credentials file location (make sure to use a valid json file with the credentials).
 credentials_location = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "private_credentials.json"
 )
+if not os.path.isfile(credentials_location):
+    # Use the default credentials file if no private credentials are present.
+    credentials_location = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), "credentials.json"
+    )
 
 # Directory where to save the downloaded applications.
 downloaded_apk_location = os.path.join(
@@ -89,7 +90,7 @@ def on_start_download(package_name):
             except AttributeError:
                 emit(
                     "download_bad_package",
-                    'Unable to retrieve application with package name "{0}"'.format(
+                    "Unable to retrieve application with package name '{0}'".format(
                         package_name
                     ),
                 )
@@ -111,13 +112,14 @@ def on_start_download(package_name):
                 ),
             )
 
-            for progress in api.silent_download_with_progress(
+            # noinspection PyProtectedMember
+            for progress in api._download_with_progress(
                 details["package_name"], downloaded_apk_file_path
             ):
                 emit("download_progress", progress)
 
             logger.info(
-                'The application was downloaded and saved to "{0}"'.format(
+                "The application was downloaded and saved to '{0}'".format(
                     downloaded_apk_file_path
                 )
             )

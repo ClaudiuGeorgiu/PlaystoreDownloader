@@ -88,7 +88,7 @@ def main():
             app = api.app_details(args.package.strip(" '\"")).docV2
         except AttributeError:
             logger.critical(
-                'Error when downloading "{0}": unable to get app\'s details'.format(
+                "Error when downloading '{0}': unable to get app's details".format(
                     args.package.strip(" '\"")
                 )
             )
@@ -117,9 +117,9 @@ def main():
             # The downloaded apk will be saved in the location chosen by the user.
             downloaded_apk_file_path = os.path.abspath(args.out.strip(" '\""))
 
-        # If it doesn't exist, create the directory where to save the downloaded apk.
+        # If it doesn't already exist, create the directory where to save the downloaded apk.
         if not os.path.isdir(os.path.dirname(downloaded_apk_file_path)):
-            os.makedirs(os.path.dirname(downloaded_apk_file_path))
+            os.makedirs(os.path.dirname(downloaded_apk_file_path), exist_ok=True)
 
         if args.tag and args.tag.strip(" '\""):
             # If provided, prepend the specified tag to the file name.
@@ -139,7 +139,7 @@ def main():
 
         if not success:
             logger.critical(
-                'Error when downloading "{0}"'.format(details["package_name"])
+                "Error when downloading '{0}'".format(details["package_name"])
             )
             sys.exit(1)
 

@@ -16,7 +16,7 @@ def valid_credentials_path(tmpdir_factory):
     if ("TRAVIS" in os.environ and "CI" in os.environ) or (
         "APPVEYOR" in os.environ and "CI" in os.environ
     ):
-        # Travis CI testing.
+        # Automatic CI testing.
         test_credentials = base64.b64decode(os.environ["CREDENTIALS"]).decode("ascii")
     else:
         # Local testing. Make sure to use a valid json file with the credentials.
