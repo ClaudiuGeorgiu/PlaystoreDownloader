@@ -308,9 +308,9 @@ class Playstore(object):
                 split_apks = (
                     [
                         split_apk
-                        for split_apk in response.payload.deliveryResponse.appDeliveryData.split
+                        for split_apk in response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.split
                     ]
-                    if response.payload.deliveryResponse.appDeliveryData.split
+                    if response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.split
                     else None
                 )
 
