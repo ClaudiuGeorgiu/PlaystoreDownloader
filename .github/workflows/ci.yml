@@ -41,6 +41,8 @@ jobs:
           fail_ci_if_error: true
 
       - name: Upload tests coverage to Codacy
-        uses: codacy/codacy-coverage-reporter-action@master
-        with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        if: contains(matrix.os, 'ubuntu') == true
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        run: |
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Python -r ./coverage.xml
