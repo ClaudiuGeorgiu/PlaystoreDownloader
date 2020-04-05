@@ -4,4 +4,4 @@ coverage:
     changes: false
     project:
       default:
-        threshold: "10%"
+        threshold: "5%"

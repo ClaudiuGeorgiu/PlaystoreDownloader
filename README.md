@@ -3,11 +3,9 @@
 > A command line tool to download Android applications directly from the Google Play Store.
 
 [![Codacy](https://api.codacy.com/project/badge/Grade/92ff2ab2c1114c7e9df13b77fac0d961)](https://www.codacy.com/app/ClaudiuGeorgiu/PlaystoreDownloader)
-[![Travis Build Status](https://img.shields.io/travis/com/ClaudiuGeorgiu/PlaystoreDownloader?logo=travis)](https://travis-ci.com/ClaudiuGeorgiu/PlaystoreDownloader)
-[![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/d7bed1h37w7x8w6y?svg=true
-)](https://ci.appveyor.com/project/ClaudiuGeorgiu/playstoredownloader)
+[![Actions Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/CI/badge.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3ACI)
 [![Code Coverage](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader/badge.svg)](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader)
-[![Python Version](https://img.shields.io/badge/Python-3.6%20%7C%203.7%20%7C%203.8-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/release/python-380/)
+[![Python Version](https://img.shields.io/badge/Python-3.6%20%7C%203.7%20%7C%203.8-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/LICENSE)
 
 

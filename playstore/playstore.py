@@ -117,7 +117,9 @@ class Playstore(object):
         else:
             raise RuntimeError("Login failed, please check your credentials")
 
-    def _execute_request(self, path: str, query: dict = None, data: str = None) -> object:
+    def _execute_request(
+        self, path: str, query: dict = None, data: str = None
+    ) -> object:
         """
         Perform a request to the Play Store to the specified path.
 
@@ -155,7 +157,9 @@ class Playstore(object):
 
         if data is not None:
             headers["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8"
-            response = requests.post(url, headers=headers, params=query, data=data, verify=True)
+            response = requests.post(
+                url, headers=headers, params=query, data=data, verify=True
+            )
         else:
             response = requests.get(url, headers=headers, params=query, verify=True)
 
@@ -236,11 +240,7 @@ class Playstore(object):
 
         # Check if the app was already downloaded by this account.
         path = "delivery"
-        query = {
-            "ot": offer_type,
-            "doc": package_name,
-            "vc": version_code
-        }
+        query = {"ot": offer_type, "doc": package_name, "vc": version_code}
 
         response = self._execute_request(path, query)
         if response.payload.deliveryResponse.appDeliveryData.downloadUrl:
@@ -527,9 +527,7 @@ class Playstore(object):
 
         # Prepare the query.
         path = "browse"
-        query = {
-            "c": 3
-        }
+        query = {"c": 3}
 
         if category is not None:
             query["cat"] = requests.utils.quote(category)
@@ -572,10 +570,7 @@ class Playstore(object):
 
         # Prepare the query.
         path = "list"
-        query = {
-            "c": 3,
-            "cat": requests.utils.quote(category)
-        }
+        query = {"c": 3, "cat": requests.utils.quote(category)}
 
         if subcategory is not None:
             query["ctr"] = requests.utils.quote(subcategory)
@@ -648,10 +643,7 @@ class Playstore(object):
 
         # Prepare the search query.
         path = "search"
-        query = {
-            "c": 3,
-            "q": requests.utils.quote(query)
-        }
+        query = {"c": 3, "q": requests.utils.quote(query)}
 
         # Execute the search.
         response = self._execute_request(path, query)
@@ -698,9 +690,7 @@ class Playstore(object):
 
         # Prepare the query.
         path = "details"
-        query = {
-            "doc": requests.utils.quote(package_name)
-        }
+        query = {"doc": requests.utils.quote(package_name)}
 
         # Execute the query.
         response = self._execute_request(path, query)
