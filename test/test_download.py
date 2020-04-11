@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
+#!/usr/bin/env python3
 
 import os
 
@@ -88,8 +87,8 @@ class TestDownload(object):
         )
         monkeypatch.setattr(download, "get_cmd_args", lambda: arguments)
 
-        # If this runs without errors, the apk and the additional files will be saved in the Downloads folder
-        # (created in the same folder as download.py).
+        # If this runs without errors, the apk and the additional files will be saved
+        # in the Downloads folder (created in the same folder as download.py).
         download.main()
 
     def test_valid_download_split_apk(self, valid_credentials_path, monkeypatch):
@@ -99,8 +98,8 @@ class TestDownload(object):
         )
         monkeypatch.setattr(download, "get_cmd_args", lambda: arguments)
 
-        # If this runs without errors, the apk and the split apk(s) will be saved in the Downloads folder
-        # (created in the same folder as download.py).
+        # If this runs without errors, the apk and the split apk(s) will be saved in
+        # the Downloads folder (created in the same folder as download.py).
         download.main()
 
     def test_download_app_details_error(self, valid_credentials_path, monkeypatch):

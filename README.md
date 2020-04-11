@@ -3,7 +3,9 @@
 > A command line tool to download Android applications directly from the Google Play Store.
 
 [![Codacy](https://api.codacy.com/project/badge/Grade/92ff2ab2c1114c7e9df13b77fac0d961)](https://www.codacy.com/app/ClaudiuGeorgiu/PlaystoreDownloader)
-[![Actions Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/CI/badge.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3ACI)
+[![Ubuntu Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/Ubuntu/badge.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AUbuntu)
+[![Windows Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/Windows/badge.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AWindows)
+[![MacOS Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/MacOS/badge.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AMacOS)
 [![Code Coverage](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader/badge.svg)](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader)
 [![Python Version](https://img.shields.io/badge/Python-3.6%20%7C%203.7%20%7C%203.8-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/LICENSE)
@@ -55,8 +57,7 @@ _Note that you will be able to download only the applications compatible with th
 
 ## ❱ Usage
 
-Apart from valid Play Store credentials, the only requirement of this project is a working `Python 3.8` installation
-(along with its package manager `pip`). The first thing to do is to get a local copy of this repository, so open up
+Apart from valid Play Store credentials, the only requirement of this project is a working `Python 3` (at least `3.6`) installation. The first thing to do is to get a local copy of this repository, so open up
 a terminal in the directory where you want to save the project and clone the repository:
 
 ```Shell
@@ -69,25 +70,25 @@ Make sure to execute the following commands in the previously created `Playstore
 ```Shell
 $ # The usage of a virtual environment is highly recommended, e.g., virtualenv.
 $ # If not using virtualenv (https://virtualenv.pypa.io/), skip the next 2 lines.
-$ virtualenv -p python3.8 venv
+$ virtualenv -p python3 venv
 $ source venv/bin/activate
 
 $ # Install PlaystoreDownloader's requirements.
-$ python3.8 -m pip install -r requirements.txt
+$ python3 -m pip install -r requirements.txt
 ```
 
 After configuring the Play Store credentials as described in the [configuration](#-configuration), simply call the
 following instruction using the package name of the app to download:
 
 ```Shell
-$ python3.8 download.py "com.application.example"
+$ python3 download.py "com.application.example"
 ```
 
 If the download is successful, the resulting `.apk` file will be saved in the `PlaystoreDownloader/Downloads/`
 directory. You can change the name and the location of the downloaded `.apk` file by providing an additional
 `-o "path/to/downloaded.apk"` argument to
 [download.py](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/download.py)
-(type `$ python3.8 download.py --help` for more information).
+(type `$ python3 download.py --help` for more information).
 
 Docker is also supported:
 

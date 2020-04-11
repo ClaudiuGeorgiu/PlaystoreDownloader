@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
+#!/usr/bin/env python3
 
 import argparse
 import logging
@@ -52,8 +51,8 @@ def get_cmd_args(args: list = None):
         type=str,
         metavar="CREDENTIALS",
         default=credentials_default_location,
-        help="The path to the JSON configuration file containing the store credentials. By "
-        'default the "credentials.json" file will be used',
+        help="The path to the JSON configuration file containing the store "
+             'credentials. By default the "credentials.json" file will be used',
     )
     parser.add_argument(
         "-o",
@@ -61,8 +60,9 @@ def get_cmd_args(args: list = None):
         type=str,
         metavar="FILE",
         default=downloaded_apk_default_location,
-        help="The path where to save the downloaded .apk file. By default the file will be saved "
-        'in a "Downloads/" directory created where this script is run',
+        help="The path where to save the downloaded .apk file. By default the file "
+             'will be saved in a "Downloads/" directory created where this script '
+             'is run',
     )
     parser.add_argument(
         "-t",
@@ -101,7 +101,8 @@ def main():
         }
 
         if args.out.strip(" '\"") == downloaded_apk_default_location:
-            # The downloaded apk will be saved in the Downloads folder (created in the same folder as this script).
+            # The downloaded apk will be saved in the Downloads folder (created in the
+            # same folder as this script).
             downloaded_apk_file_path = os.path.join(
                 os.path.dirname(os.path.realpath(__file__)),
                 downloaded_apk_default_location,
@@ -117,7 +118,8 @@ def main():
             # The downloaded apk will be saved in the location chosen by the user.
             downloaded_apk_file_path = os.path.abspath(args.out.strip(" '\""))
 
-        # If it doesn't already exist, create the directory where to save the downloaded apk.
+        # If it doesn't already exist, create the directory where to save the
+        # downloaded apk.
         if not os.path.isdir(os.path.dirname(downloaded_apk_file_path)):
             os.makedirs(os.path.dirname(downloaded_apk_file_path), exist_ok=True)
 

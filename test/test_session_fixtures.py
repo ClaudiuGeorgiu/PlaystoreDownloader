@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
+#!/usr/bin/env python3
 
 import base64
 import os
@@ -40,7 +39,7 @@ def wrong_credentials_path(tmpdir_factory):
     with open(str(tmp_credentials_file), "w") as file:
         file.write(
             '[{"USERNAME":"bad.username","PASSWORD":"invalid_password",'
-            '"ANDROID_ID":"android","LANG_CODE":"en_US","LANG":"us","SDK_VERSION":23}]'
+            '"ANDROID_ID":"android","LANG_CODE":"en_US","LANG":"us"}]'
         )
 
     return str(tmp_credentials_file)
