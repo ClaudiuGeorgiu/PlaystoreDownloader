@@ -52,7 +52,7 @@ def get_cmd_args(args: list = None):
         metavar="CREDENTIALS",
         default=credentials_default_location,
         help="The path to the JSON configuration file containing the store "
-             'credentials. By default the "credentials.json" file will be used',
+        'credentials. By default the "credentials.json" file will be used',
     )
     parser.add_argument(
         "-o",
@@ -61,8 +61,8 @@ def get_cmd_args(args: list = None):
         metavar="FILE",
         default=downloaded_apk_default_location,
         help="The path where to save the downloaded .apk file. By default the file "
-             'will be saved in a "Downloads/" directory created where this script '
-             'is run',
+        'will be saved in a "Downloads/" directory created where this script '
+        "is run",
     )
     parser.add_argument(
         "-t",
