@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
+#!/usr/bin/env python3
 
 import json
 import logging
@@ -24,15 +23,16 @@ class Playstore(object):
         """
         Playstore object constructor.
 
-        :param config_file: The path to the json configuration file, which contains the credentials.
+        :param config_file: The path to the json configuration file, which contains
+                            the credentials.
         """
 
         self.logger = logging.getLogger(
             "{0}.{1}".format(__name__, self.__class__.__name__)
         )
 
-        # Load all the necessary configuration data and perform the login. If something goes
-        # wrong in this phase, no further operations can be executed.
+        # Load all the necessary configuration data and perform the login. If something
+        # goes wrong in this phase, no further operations can be executed.
 
         try:
             self._load_configuration(config_file)
@@ -69,7 +69,8 @@ class Playstore(object):
         """
         Load the necessary configuration data contained in the specified json file.
 
-        :param config_file: The path to the json configuration file, which contains the credentials.
+        :param config_file: The path to the json configuration file, which contains
+                            the credentials.
         """
 
         if not os.path.isfile(config_file):
@@ -117,7 +118,9 @@ class Playstore(object):
         else:
             raise RuntimeError("Login failed, please check your credentials")
 
-    def _execute_request(self, path: str, query: dict = None, data: str = None) -> object:
+    def _execute_request(
+        self, path: str, query: dict = None, data: str = None
+    ) -> object:
         """
         Perform a request to the Play Store to the specified path.
 
@@ -138,13 +141,15 @@ class Playstore(object):
             "Accept-Language": self.lang_code,
             "Authorization": "GoogleLogin auth={0}".format(self.auth_token),
             "X-DFE-Enabled-Experiments": "cl:billing.select_add_instrument_by_default",
-            "X-DFE-Unsupported-Experiments": "nocache:billing.use_charging_poller,market_emails,"
+            "X-DFE-Unsupported-Experiments": "nocache:billing.use_charging_poller,"
+            "market_emails,"
             "buyer_currency,prod_baseline,checkin.set_asset_paid_app_field,"
             "shekel_test,content_ratings,buyer_currency_in_app,"
             "nocache:encrypted_apk,recent_changes",
             "X-DFE-Device-Id": self.android_id,
             "X-DFE-Client-Id": "am-android-google",
-            "User-Agent": "Android-Finsky/4.4.3 (api=3,versionCode=8016014,sdk=23,device=hammerhead,"
+            "User-Agent": "Android-Finsky/4.4.3 (api=3,versionCode=8016014,sdk=23,"
+            "device=hammerhead,"
             "hardware=hammerhead,product=hammerhead)",
             "X-DFE-SmallestScreenWidthDp": "320",
             "X-DFE-Filter-Level": "3",
@@ -155,7 +160,9 @@ class Playstore(object):
 
         if data is not None:
             headers["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8"
-            response = requests.post(url, headers=headers, params=query, data=data, verify=True)
+            response = requests.post(
+                url, headers=headers, params=query, data=data, verify=True
+            )
         else:
             response = requests.get(url, headers=headers, params=query, verify=True)
 
@@ -169,17 +176,19 @@ class Playstore(object):
         """
         Check if a file was entirely downloaded.
 
-        This works by comparing the actual size of the file with the expected size of the file.
+        This works by comparing the actual size of the file with the expected size
+        of the file.
 
         :param expected_size: Size (in bytes) of the file to download.
-        :param downloaded_file_path: The complete path where the file has been downloaded.
+        :param downloaded_file_path: The complete path where the file has been
+                                     downloaded.
         :return: True if the entire file was written to disk, False otherwise.
         """
 
         if expected_size != os.path.getsize(downloaded_file_path):
             self.logger.error(
-                "Download of '{0}' not completed, please retry, the file '{0}' is corrupted "
-                "and will be removed".format(downloaded_file_path)
+                "Download of '{0}' not completed, please retry, the file '{0}' is "
+                "corrupted and will be removed".format(downloaded_file_path)
             )
             try:
                 os.remove(downloaded_file_path)
@@ -202,16 +211,19 @@ class Playstore(object):
         show_progress_bar: bool = False,
     ) -> Iterable[int]:
         """
-        Internal method to download a certain app (identified by the package name) from the Google Play Store
-        and report the progress (using a generator that reports the download progress in the range 0-100).
+        Internal method to download a certain app (identified by the package name) from
+        the Google Play Store and report the progress (using a generator that reports
+        the download progress in the range 0-100).
 
         :param package_name: The package name of the app (e.g., "com.example.myapp").
-        :param file_name: The location where to save the downloaded app (by default "package_name.apk").
-        :param download_obb: Flag indicating whether to also download the additional .obb files for
-                             an application (if any).
-        :param show_progress_bar: Flag indicating whether to show a progress bar in the terminal during
-                                  the download of the file(s).
-        :return: A generator that returns the download progress (0-100) at each iteration.
+        :param file_name: The location where to save the downloaded app (by default
+                          "package_name.apk").
+        :param download_obb: Flag indicating whether to also download the additional
+                             .obb files for an application (if any).
+        :param show_progress_bar: Flag indicating whether to show a progress bar in the
+                                  terminal during the download of the file(s).
+        :return: A generator that returns the download progress (0-100) at each
+                 iteration.
         """
 
         # Set the default file name if none is provided.
@@ -236,11 +248,7 @@ class Playstore(object):
 
         # Check if the app was already downloaded by this account.
         path = "delivery"
-        query = {
-            "ot": offer_type,
-            "doc": package_name,
-            "vc": version_code
-        }
+        query = {"ot": offer_type, "doc": package_name, "vc": version_code}
 
         response = self._execute_request(path, query)
         if response.payload.deliveryResponse.appDeliveryData.downloadUrl:
@@ -262,7 +270,8 @@ class Playstore(object):
                 else None
             )
         else:
-            # The app doesn't belong to the account, so it has to be added to the account.
+            # The app doesn't belong to the account, so it has to be added to the
+            # account first.
             path = "purchase"
             data = "ot={0}&doc={1}&vc={2}".format(
                 offer_type, package_name, version_code
@@ -290,7 +299,8 @@ class Playstore(object):
                         "for app '{0}'".format(package_name)
                     )
                 raise RuntimeError(
-                    "Unable to download the application, please see the logs for more information"
+                    "Unable to download the application, please see the logs for more "
+                    "information"
                 )
             else:
                 # The url where to download the apk file.
@@ -329,7 +339,8 @@ class Playstore(object):
         cookies = {str(cookie.name): str(cookie.value)}
 
         headers = {
-            "User-Agent": "AndroidDownloadManager/4.1.1 (Linux; U; Android 4.1.1; Nexus S Build/JRO03E)",
+            "User-Agent": "AndroidDownloadManager/4.1.1 (Linux; U; Android 4.1.1; "
+            "Nexus S Build/JRO03E)",
             "Accept-Encoding": "",
         }
 
@@ -366,12 +377,14 @@ class Playstore(object):
                 # Download complete.
                 yield 100
         except ChunkedEncodingError:
-            # There was an error during the download so not all the file was written to disk, hence there will
-            # be a mismatch between the expected size and the actual size of the downloaded file, but the next
-            # code block will handle that.
+            # There was an error during the download so not all the file was written
+            # to disk, hence there will be a mismatch between the expected size and
+            # the actual size of the downloaded file, but the next code block will
+            # handle that.
             pass
 
-        # Check if the entire apk was downloaded correctly, otherwise raise an exception.
+        # Check if the entire apk was downloaded correctly, otherwise raise an
+        # exception.
         if not self._check_entire_file_downloaded(apk_size, file_name):
             raise RuntimeError("Unable to download the entire application")
 
@@ -398,7 +411,8 @@ class Playstore(object):
                     ),
                 )
 
-                # Download the split apk and save it, yielding the progress (in the range 0-100).
+                # Download the split apk and save it, yielding the progress (in the
+                # range 0-100).
                 try:
                     with open(split_apk_file_name, "wb") as f:
                         last_progress = 0
@@ -425,12 +439,14 @@ class Playstore(object):
                         # Download complete.
                         yield 100
                 except ChunkedEncodingError:
-                    # There was an error during the download so not all the file was written to disk, hence there will
-                    # be a mismatch between the expected size and the actual size of the downloaded file, but the next
-                    # code block will handle that.
+                    # There was an error during the download so not all the file was
+                    # written to disk, hence there will be a mismatch between the
+                    # expected size and the actual size of the downloaded file, but the
+                    # next code block will handle that.
                     pass
 
-                # Check if the entire additional file was downloaded correctly, otherwise raise an exception.
+                # Check if the entire additional file was downloaded correctly,
+                # otherwise raise an exception.
                 if not self._check_entire_file_downloaded(
                     file_size, split_apk_file_name
                 ):
@@ -463,7 +479,8 @@ class Playstore(object):
                     ),
                 )
 
-                # Download the additional obb file and save it, yielding the progress (in the range 0-100).
+                # Download the additional obb file and save it, yielding the progress
+                # (in the range 0-100).
                 try:
                     with open(obb_file_name, "wb") as f:
                         last_progress = 0
@@ -473,9 +490,8 @@ class Playstore(object):
                                 interactive=show_progress_bar,
                                 unit=" KB",
                                 total=(file_size // chunk_size),
-                                description="Downloading additional obb file for {0}".format(
-                                    package_name
-                                ),
+                                description="Downloading additional obb file "
+                                "for {0}".format(package_name),
                             )
                         ):
                             current_progress = 100 * index * chunk_size // file_size
@@ -490,12 +506,14 @@ class Playstore(object):
                         # Download complete.
                         yield 100
                 except ChunkedEncodingError:
-                    # There was an error during the download so not all the file was written to disk, hence there will
-                    # be a mismatch between the expected size and the actual size of the downloaded file, but the next
-                    # code block will handle that.
+                    # There was an error during the download so not all the file was
+                    # written to disk, hence there will be a mismatch between the
+                    # expected size and the actual size of the downloaded file, but
+                    # the next code block will handle that.
                     pass
 
-                # Check if the entire additional file was downloaded correctly, otherwise raise an exception.
+                # Check if the entire additional file was downloaded correctly,
+                # otherwise raise an exception.
                 if not self._check_entire_file_downloaded(file_size, obb_file_name):
                     raise RuntimeError(
                         "Unable to download completely the additional obb file(s)"
@@ -527,9 +545,7 @@ class Playstore(object):
 
         # Prepare the query.
         path = "browse"
-        query = {
-            "c": 3
-        }
+        query = {"c": 3}
 
         if category is not None:
             query["cat"] = requests.utils.quote(category)
@@ -560,22 +576,22 @@ class Playstore(object):
         """
         Get a list of apps based on their category.
 
-        If no subcategory is specified, the method returns a list with all the possible subcategories.
+        If no subcategory is specified, the method returns a list with all the
+        possible subcategories.
 
         :param category: The category to which the apps belong.
-        :param subcategory: The subcategory of the apps (top free, top paid, trending etc.).
+        :param subcategory: The subcategory of the apps (top free, top paid,
+                            trending etc.).
         :param num_of_results: How many results to request from the server.
-        :return: A protobuf object containing the the list of apps if a valid subcategory was
-                 provided, otherwise a list with the valid subcategories. The result
-                 will be None if there was something wrong with the query.
+        :return: A protobuf object containing the the list of apps if a valid
+                 subcategory was provided, otherwise a list with the valid
+                 subcategories. The result will be None if there was something
+                 wrong with the query.
         """
 
         # Prepare the query.
         path = "list"
-        query = {
-            "c": 3,
-            "cat": requests.utils.quote(category)
-        }
+        query = {"c": 3, "cat": requests.utils.quote(category)}
 
         if subcategory is not None:
             query["ctr"] = requests.utils.quote(subcategory)
@@ -609,8 +625,9 @@ class Playstore(object):
         Get the list of apps published by a developer.
 
         :param developer_name: The exact name of the developer in the Google Play Store.
-        :return: A list with the package names of the applications published by the specified developer.
-                 An empty list will be returned if no application are found.
+        :return: A list with the package names of the applications published by the
+                 specified developer. An empty list will be returned if no application
+                 are found.
         """
 
         base_url = "https://play.google.com/store/apps/developer?id="
@@ -620,7 +637,8 @@ class Playstore(object):
         response = requests.get(
             request_url,
             headers={
-                "User-Agent": "AndroidDownloadManager/4.1.1 (Linux; U; Android 4.1.1; Nexus S Build/JRO03E)"
+                "User-Agent": "AndroidDownloadManager/4.1.1 (Linux; U; Android 4.1.1; "
+                "Nexus S Build/JRO03E)"
             },
         )
 
@@ -648,10 +666,7 @@ class Playstore(object):
 
         # Prepare the search query.
         path = "search"
-        query = {
-            "c": 3,
-            "q": requests.utils.quote(query)
-        }
+        query = {"c": 3, "q": requests.utils.quote(query)}
 
         # Execute the search.
         response = self._execute_request(path, query)
@@ -679,7 +694,8 @@ class Playstore(object):
             if not doc:
                 doc = None
                 self.logger.warning(
-                    "There were no results when searching for '{0}', try using '{1}'".format(
+                    "There were no results when searching for '{0}', "
+                    "try using '{1}'".format(
                         response.payload.searchResponse.originalQuery,
                         response.payload.searchResponse.suggestedQuery,
                     )
@@ -689,7 +705,8 @@ class Playstore(object):
 
     def app_details(self, package_name: str) -> object:
         """
-        Get the details for a certain app (identified by the package name) in the Google Play Store.
+        Get the details for a certain app (identified by the package name) in the
+        Google Play Store.
 
         :param package_name: The package name of the app (e.g., "com.example.myapp").
         :return: A protobuf object containing the details of the app. The result
@@ -698,9 +715,7 @@ class Playstore(object):
 
         # Prepare the query.
         path = "details"
-        query = {
-            "doc": requests.utils.quote(package_name)
-        }
+        query = {"doc": requests.utils.quote(package_name)}
 
         # Execute the query.
         response = self._execute_request(path, query)
@@ -734,14 +749,16 @@ class Playstore(object):
         show_progress_bar: bool = True,
     ) -> bool:
         """
-        Download a certain app (identified by the package name) from the Google Play Store.
+        Download a certain app (identified by the package name) from the
+        Google Play Store.
 
         :param package_name: The package name of the app (e.g., "com.example.myapp").
-        :param file_name: The location where to save the downloaded app (by default "package_name.apk").
-        :param download_obb: Flag indicating whether to also download the additional .obb files for
-                             an application (if any).
-        :param show_progress_bar: Flag indicating whether to show a progress bar in the terminal during
-                                  the download of the file(s).
+        :param file_name: The location where to save the downloaded app (by default
+                          "package_name.apk").
+        :param download_obb: Flag indicating whether to also download the additional
+                             .obb files for an application (if any).
+        :param show_progress_bar: Flag indicating whether to show a progress bar in the
+                                  terminal during the download of the file(s).
         :return: True if the file was downloaded correctly, False otherwise.
         """
 

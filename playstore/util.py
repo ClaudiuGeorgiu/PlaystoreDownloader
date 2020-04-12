@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
+#!/usr/bin/env python3
 
 import itertools
 import logging
@@ -16,12 +15,13 @@ class Util(object):
         """
         Retry decorator.
 
-        Retry the execution of the wrapped function/method in case of specific errors, for a specific number
-        of times (specified by delays, in seconds).
+        Retry the execution of the wrapped function/method in case of specific errors,
+        for a specific number of times (specified by delays, in seconds).
 
-        :param delays: The delays (in seconds) between consecutive executions of the wrapped function/method.
-        :param exception: The exception to check (may be a tuple of exceptions to check). By default, all
-                          the exceptions are checked.
+        :param delays: The delays (in seconds) between consecutive executions of the
+                       wrapped function/method.
+        :param exception: The exception to check (may be a tuple of exceptions to
+                          check). By default, all the exceptions are checked.
         """
 
         def wrapper(function):
@@ -41,9 +41,10 @@ class Util(object):
 
         return wrapper
 
-    # When iterating over list L, use "for element in show_list_progress(L, interactive=True)"
-    # to show a progress bar. When setting "interactive=False", no progress bar will be shown.
-    # While using this method, no other code should write to standard output.
+    # When iterating over list L, use:
+    # `for element in show_list_progress(L, interactive=True)`
+    # to show a progress bar. When setting `interactive=False`, no progress bar will
+    # be shown. While using this method, no other code should write to standard output.
     @staticmethod
     def show_list_progress(
         the_list: list,

@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
+#!/usr/bin/env python3
 
 import base64
 import os
@@ -13,9 +12,7 @@ def valid_credentials_path(tmpdir_factory):
     # This fixture will return a path to a valid configuration file
     # that contain valid credentials to interact with the Play Store.
 
-    if ("TRAVIS" in os.environ and "CI" in os.environ) or (
-        "APPVEYOR" in os.environ and "CI" in os.environ
-    ):
+    if os.environ.get("GITHUB_ACTIONS", "false").lower() == "true":
         # Automatic CI testing.
         test_credentials = base64.b64decode(os.environ["CREDENTIALS"]).decode("ascii")
     else:
@@ -42,7 +39,7 @@ def wrong_credentials_path(tmpdir_factory):
     with open(str(tmp_credentials_file), "w") as file:
         file.write(
             '[{"USERNAME":"bad.username","PASSWORD":"invalid_password",'
-            '"ANDROID_ID":"android","LANG_CODE":"en_US","LANG":"us","SDK_VERSION":23}]'
+            '"ANDROID_ID":"android","LANG_CODE":"en_US","LANG":"us"}]'
         )
 
     return str(tmp_credentials_file)

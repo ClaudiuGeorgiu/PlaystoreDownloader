@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
+#!/usr/bin/env python3
 
 import base64
 import hashlib
@@ -44,7 +43,7 @@ class EncryptedCredentials(object):
 
         cipher = PKCS1_OAEP.new(rsa_key)
         encrypted_credentials = cipher.encrypt(
-            (self.username + "\x00" + self.password).encode()
+            f"{self.username}\x00{self.password}".encode()
         )
 
         signature = bytearray(b"\x00")

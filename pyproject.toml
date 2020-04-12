@@ -1,0 +1,15 @@
+[tool.black]
+line-length = 88
+include = '\.pyi?$'
+exclude = '''
+(
+    /(
+      | \.git
+      | \.github
+      | venv
+      | static
+      | templates
+    )/
+    | playstore_proto_pb2.py
+)
+'''
