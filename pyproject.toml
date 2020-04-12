@@ -6,7 +6,7 @@ exclude = '''
     /(
       | \.git
       | \.github
-      | \.venv
+      | venv
       | static
       | templates
     )/
