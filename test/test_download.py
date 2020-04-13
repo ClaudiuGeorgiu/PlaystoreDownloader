@@ -94,7 +94,9 @@ class TestDownload(object):
     def test_valid_download_split_apk(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.
         arguments = download.get_cmd_args(
-            '"{0}" -c "{1}"'.format(APK_WITH_SPLIT_APK, valid_credentials_path).split()
+            '"{0}" -s -c "{1}"'.format(
+                APK_WITH_SPLIT_APK, valid_credentials_path
+            ).split()
         )
         monkeypatch.setattr(download, "get_cmd_args", lambda: arguments)
 

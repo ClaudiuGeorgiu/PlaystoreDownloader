@@ -37,6 +37,7 @@ class TestApi(object):
         playstore = Playstore(valid_credentials_path)
         del playstore.auth_token
         with pytest.raises(RuntimeError):
+            # noinspection PyProtectedMember
             playstore._execute_request("ignore")
 
     #########################
@@ -141,6 +142,7 @@ class TestApi(object):
         assert results is None
 
     def test_search_response_error_2(self, playstore, monkeypatch):
+        # noinspection PyProtectedMember
         original = Playstore._execute_request
 
         def mock(*args, **kwargs):
@@ -200,6 +202,7 @@ class TestApi(object):
         assert result is True
 
     def test_download_corrupted_apk(self, playstore, download_folder_path, monkeypatch):
+        # noinspection PyUnusedLocal
         def raise_exception(*args, **kwargs):
             raise ChunkedEncodingError()
 
@@ -238,6 +241,7 @@ class TestApi(object):
         result = playstore.download(
             APK_WITH_SPLIT_APK,
             os.path.join(download_folder_path, "{0}.apk".format(APK_WITH_SPLIT_APK)),
+            download_split_apks=True,
             show_progress_bar=False,
         )
         assert result is False
@@ -246,7 +250,7 @@ class TestApi(object):
         original = Util.show_list_progress
 
         def raise_exception(*args, **kwargs):
-            if " obb ".lower() not in kwargs["description"].lower():
+            if " .obb ".lower() not in kwargs["description"].lower():
                 return original(*args, **kwargs)
             else:
                 raise ChunkedEncodingError()
@@ -279,6 +283,7 @@ class TestApi(object):
         assert result is False
 
     def test_download_response_error_2(self, playstore, monkeypatch):
+        # noinspection PyProtectedMember
         original = Playstore._execute_request
 
         def mock(*args, **kwargs):
@@ -296,6 +301,7 @@ class TestApi(object):
         assert result is False
 
     def test_download_cookie_error(self, playstore, monkeypatch):
+        # noinspection PyProtectedMember
         original = Playstore._execute_request
 
         def mock(*args, **kwargs):

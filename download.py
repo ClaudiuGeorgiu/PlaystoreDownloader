@@ -46,6 +46,12 @@ def get_cmd_args(args: list = None):
         help="Download the additional .obb files along with the application (if any)",
     )
     parser.add_argument(
+        "-s",
+        "--split-apks",
+        action="store_true",
+        help="Download the additional split apks along with the application (if any)",
+    )
+    parser.add_argument(
         "-c",
         "--credentials",
         type=str,
@@ -132,11 +138,12 @@ def main():
                 ),
             )
 
-        # The download of the additional .obb files is optional.
+        # The download of the additional files is optional.
         success = api.download(
             details["package_name"],
             downloaded_apk_file_path,
             download_obb=True if args.blobs else False,
+            download_split_apks=True if args.split_apks else False,
         )
 
         if not success:
