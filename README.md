@@ -21,7 +21,7 @@ initial (one-time) configuration, applications can be downloaded by specifying t
 
 ## ❱ Demo
 
-![Demo](https://raw.githubusercontent.com/ClaudiuGeorgiu/PlaystoreDownloader/master/demo.gif)
+![Demo](https://raw.githubusercontent.com/ClaudiuGeorgiu/PlaystoreDownloader/master/docs/demo/demo.gif)
 
 
 
