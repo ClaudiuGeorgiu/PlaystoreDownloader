@@ -37,7 +37,7 @@ def get_cmd_args(args: list = None):
         "package",
         type=str,
         help="The package name of the application to be downloaded, "
-        'e.g. "com.spotify.music" or "com.whatsapp"',
+        'e.g., "com.spotify.music" or "com.whatsapp"',
     )
     parser.add_argument(
         "-b",
@@ -58,7 +58,8 @@ def get_cmd_args(args: list = None):
         metavar="CREDENTIALS",
         default=credentials_default_location,
         help="The path to the JSON configuration file containing the store "
-        'credentials. By default the "credentials.json" file will be used',
+        'credentials. By default a "credentials.json" file in the current directory '
+        "will be used",
     )
     parser.add_argument(
         "-o",
@@ -110,7 +111,6 @@ def main():
             # The downloaded apk will be saved in the Downloads folder (created in the
             # same folder as this script).
             downloaded_apk_file_path = os.path.join(
-                os.path.dirname(os.path.realpath(__file__)),
                 downloaded_apk_default_location,
                 re.sub(
                     r"[^\w\-_.\s]",
