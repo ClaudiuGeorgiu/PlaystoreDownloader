@@ -1,8 +1,12 @@
 'use strict';
 
-$(document).ready(function () {
+jQuery(function ($) {
 
-    let timeoutArray = [];
+    const packageNameItem = $('#package-name');
+    const wrongPackageNameMsg = $('#wrong-package-name');
+    const downloadButtonItem = $('#download-button');
+
+    const timeoutArray = [];
     timeoutArray.push = function () {
         // Hold only the last 10 timeouts.
         if (this.length >= 10) {
@@ -13,9 +17,9 @@ $(document).ready(function () {
 
     $.fn.placeholderTypewriter = function (action) {
         return this.each(function () {
-            let that = $(this);
+            const that = $(this);
 
-            let settings = {
+            const settings = {
                 pause: 1500,
                 text: [
                     'com.spotify.music',
@@ -35,18 +39,18 @@ $(document).ready(function () {
 
             function typeString($target, index, cursorPosition, callback) {
 
-                let timeouts = that.data('timeouts') || timeoutArray;
+                const timeouts = that.data('timeouts') || timeoutArray;
 
-                let text = settings.text[index];
+                const text = settings.text[index];
 
-                let placeholder = $target.attr('placeholder');
+                const placeholder = $target.attr('placeholder');
                 $target.attr('placeholder', placeholder + text[cursorPosition]);
 
                 // Type next character.
                 if (cursorPosition < text.length - 1) {
                     timeouts.push(setTimeout(function () {
                         typeString($target, index, cursorPosition + 1, callback);
-                    }, parseInt(150 - Math.random() * 75)));
+                    }, Math.round(150 - Math.random() * 75)));
                     that.data('timeouts', timeouts);
                     return;
                 }
@@ -57,10 +61,10 @@ $(document).ready(function () {
 
             function deleteString($target, callback) {
 
-                let timeouts = that.data('timeouts') || timeoutArray;
+                const timeouts = that.data('timeouts') || timeoutArray;
 
-                let placeholder = $target.attr('placeholder');
-                let length = placeholder.length;
+                const placeholder = $target.attr('placeholder');
+                const length = placeholder.length;
 
                 // Delete last character
                 $target.attr('placeholder', placeholder.substr(0, length - 1));
@@ -69,7 +73,7 @@ $(document).ready(function () {
                 if (length > 1) {
                     timeouts.push(setTimeout(function () {
                         deleteString($target, callback);
-                    }, parseInt(75 - Math.random() * 50)));
+                    }, Math.round(75 - Math.random() * 50)));
                     that.data('timeouts', timeouts);
                     return;
                 }
@@ -80,7 +84,7 @@ $(document).ready(function () {
 
             function loopTyping($target, index) {
 
-                let timeouts = that.data('timeouts') || timeoutArray;
+                const timeouts = that.data('timeouts') || timeoutArray;
 
                 // Pause before deleting string.
                 timeouts.push(setTimeout(function () {
@@ -105,78 +109,76 @@ $(document).ready(function () {
         });
     };
 
-    let wrongPackageNameMsg = $('#wrong-package-name');
-
-    let socket = io.connect(document.location.protocol + '//' + document.location.host);
+    const socket = io.connect(document.location.protocol + '//' + document.location.host);
     socket.on('download_progress', function (progress) {
-        if (parseFloat($('#download-progress-container').css('opacity')) === 0) {
-            $('#download-progress-container').fadeTo(500, 1);
+        const downloadProgressContainer = $('#download-progress-container');
+        if (parseFloat(downloadProgressContainer.css('opacity')) === 0) {
+            downloadProgressContainer.fadeTo(500, 1);
         }
-        $('#download-progress').width(progress + '%');
+
+        const downloadProgressItem = $('#download-progress');
+        downloadProgressItem.width(progress + '%');
         if (progress === 100) {
-            $('#download-button').css('padding', '').html('<i class="fas fa-check"></i>');
-            $('#download-progress').removeClass('progress-bar-animated');
+            downloadButtonItem.css('padding', '').html('<i class="fas fa-check"></i>');
+            downloadProgressItem.removeClass('progress-bar-animated');
         }
     });
 
     socket.on('download_success', function (message) {
-        swal({
-            animation: true,
+        Swal.fire({
             titleText: 'Successful download',
-            type: 'success',
+            icon: 'success',
             text: message,
             showConfirmButton: true
-        }).then(swal.noop);
+        });
     });
 
     socket.on('download_bad_package', function (message) {
-        swal({
-            animation: true,
+        Swal.fire({
             titleText: 'No application found',
-            type: 'error',
+            icon: 'error',
             text: message,
             showConfirmButton: true
         }).then(function () {
-            $('#package-name').removeClass('is-valid').addClass('is-invalid').css('color', 'red').prop('disabled', false);
-            $('#download-button').removeClass('btn-outline-secondary btn-outline-success')
+            packageNameItem.removeClass('is-valid').addClass('is-invalid').css('color', 'red').prop('disabled', false);
+            downloadButtonItem.removeClass('btn-outline-secondary btn-outline-success')
                 .addClass('btn-outline-danger').prop('disabled', false).css('padding', '5px 12px 0 12px')
                 .html('<i class="material-icons" style="font-size: 25px;">file_download</i>');
         });
     });
 
     socket.on('download_error', function (message) {
-        swal({
-            animation: true,
+        Swal.fire({
             titleText: 'Download error',
-            type: 'error',
+            icon: 'error',
             text: message,
             showConfirmButton: true
         }).then(function () {
-            window.location.reload(true);
+            window.location.reload();
         });
     });
 
     function startDownload() {
-        let packageName = $('#package-name').val();
+        const packageName = packageNameItem.val();
 
         if (/^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/i.test(packageName)) {
-            $('#package-name').removeClass('is-invalid').addClass('is-valid').css('color', '').prop('disabled', true);
-            $('#download-button').removeClass('btn-outline-secondary btn-outline-danger')
+            packageNameItem.removeClass('is-invalid').addClass('is-valid').css('color', '').prop('disabled', true);
+            downloadButtonItem.removeClass('btn-outline-secondary btn-outline-danger')
                 .addClass('btn-outline-success').prop('disabled', true).css('padding', '')
                 .html('<i class="fas fa-sync fa-spin"></i>');
             wrongPackageNameMsg.fadeTo(500, 0);
             socket.emit('start_download', packageName);
         } else {
-            $('#package-name').removeClass('is-valid').addClass('is-invalid').css('color', 'red');
-            $('#download-button').removeClass('btn-outline-secondary btn-outline-success')
+            packageNameItem.removeClass('is-valid').addClass('is-invalid').css('color', 'red');
+            downloadButtonItem.removeClass('btn-outline-secondary btn-outline-success')
                 .addClass('btn-outline-danger');
             wrongPackageNameMsg.fadeTo(500, 1);
         }
     }
 
-    $('#package-name').focus(function () {
+    packageNameItem.focus(function () {
         $(this).placeholderTypewriter('stop').attr('placeholder', '').removeClass('is-invalid').css('color', '');
-        $('#download-button').removeClass('btn-outline-danger').addClass('btn-outline-secondary');
+        downloadButtonItem.removeClass('btn-outline-danger').addClass('btn-outline-secondary');
         wrongPackageNameMsg.fadeTo(500, 0);
     }).focusout(function () {
         if ($(this).val() === '') {
@@ -184,7 +186,7 @@ $(document).ready(function () {
         }
     }).on('input', function () {
         $(this).placeholderTypewriter('stop').attr('placeholder', '').removeClass('is-invalid').css('color', '');
-        $('#download-button').removeClass('btn-outline-danger').addClass('btn-outline-secondary');
+        downloadButtonItem.removeClass('btn-outline-danger').addClass('btn-outline-secondary');
         if (parseFloat(wrongPackageNameMsg.css('opacity')) === 1) {
             wrongPackageNameMsg.fadeTo(500, 0);
         }
@@ -195,5 +197,5 @@ $(document).ready(function () {
         }
     }).placeholderTypewriter('start');
 
-    $('#download-button').click(startDownload);
+    downloadButtonItem.click(startDownload);
 });

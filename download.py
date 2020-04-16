@@ -37,7 +37,7 @@ def get_cmd_args(args: list = None):
         "package",
         type=str,
         help="The package name of the application to be downloaded, "
-        'e.g. "com.spotify.music" or "com.whatsapp"',
+        'e.g., "com.spotify.music" or "com.whatsapp"',
     )
     parser.add_argument(
         "-b",
@@ -46,13 +46,20 @@ def get_cmd_args(args: list = None):
         help="Download the additional .obb files along with the application (if any)",
     )
     parser.add_argument(
+        "-s",
+        "--split-apks",
+        action="store_true",
+        help="Download the additional split apks along with the application (if any)",
+    )
+    parser.add_argument(
         "-c",
         "--credentials",
         type=str,
         metavar="CREDENTIALS",
         default=credentials_default_location,
         help="The path to the JSON configuration file containing the store "
-        'credentials. By default the "credentials.json" file will be used',
+        'credentials. By default a "credentials.json" file in the current directory '
+        "will be used",
     )
     parser.add_argument(
         "-o",
@@ -83,14 +90,15 @@ def main():
         # Make sure to use a valid json file with the credentials.
         api = Playstore(args.credentials.strip(" '\""))
 
+        stripped_package_name = args.package.strip(" '\"")
+
         try:
             # Get the application details.
-            app = api.app_details(args.package.strip(" '\"")).docV2
+            app = api.app_details(stripped_package_name).docV2
         except AttributeError:
             logger.critical(
-                "Error when downloading '{0}': unable to get app's details".format(
-                    args.package.strip(" '\"")
-                )
+                f"Error when downloading '{stripped_package_name}': unable to "
+                f"get app's details"
             )
             sys.exit(1)
 
@@ -104,14 +112,12 @@ def main():
             # The downloaded apk will be saved in the Downloads folder (created in the
             # same folder as this script).
             downloaded_apk_file_path = os.path.join(
-                os.path.dirname(os.path.realpath(__file__)),
                 downloaded_apk_default_location,
                 re.sub(
                     r"[^\w\-_.\s]",
                     "_",
-                    "{0} by {1} - {2}.apk".format(
-                        details["title"], details["creator"], details["package_name"]
-                    ),
+                    f"{details['title']} by {details['creator']} - "
+                    f"{details['package_name']}.apk",
                 ),
             )
         else:
@@ -125,28 +131,26 @@ def main():
 
         if args.tag and args.tag.strip(" '\""):
             # If provided, prepend the specified tag to the file name.
+            stripped_tag = args.tag.strip(" '\"")
             downloaded_apk_file_path = os.path.join(
                 os.path.dirname(downloaded_apk_file_path),
-                "[{0}] {1}".format(
-                    args.tag.strip(" '\""), os.path.basename(downloaded_apk_file_path)
-                ),
+                f"[{stripped_tag}] {os.path.basename(downloaded_apk_file_path)}",
             )
 
-        # The download of the additional .obb files is optional.
+        # The download of the additional files is optional.
         success = api.download(
             details["package_name"],
             downloaded_apk_file_path,
             download_obb=True if args.blobs else False,
+            download_split_apks=True if args.split_apks else False,
         )
 
         if not success:
-            logger.critical(
-                "Error when downloading '{0}'".format(details["package_name"])
-            )
+            logger.critical(f"Error when downloading '{details['package_name']}'")
             sys.exit(1)
 
     except Exception as ex:
-        logger.critical("Error during the download: {0}".format(ex))
+        logger.critical(f"Error during the download: {ex}")
         sys.exit(1)
 
 

@@ -27,9 +27,7 @@ class Playstore(object):
                             the credentials.
         """
 
-        self.logger = logging.getLogger(
-            "{0}.{1}".format(__name__, self.__class__.__name__)
-        )
+        self.logger = logging.getLogger(f"{__name__}.{self.__class__.__name__}")
 
         # Load all the necessary configuration data and perform the login. If something
         # goes wrong in this phase, no further operations can be executed.
@@ -48,15 +46,11 @@ class Playstore(object):
             self.lang: str = self.configuration["LANG"]
 
         except json.decoder.JSONDecodeError as ex:
-            self.logger.critical(
-                "The configuration file is not a valid json: {0}".format(ex)
-            )
+            self.logger.critical(f"The configuration file is not a valid json: {ex}")
             raise
 
         except KeyError as ex:
-            self.logger.critical(
-                "The configuration file is missing the {0} field".format(ex)
-            )
+            self.logger.critical(f"The configuration file is missing the {ex} field")
             raise
 
         self._login()
@@ -76,10 +70,10 @@ class Playstore(object):
         if not os.path.isfile(config_file):
             self.logger.critical("Missing configuration file")
             raise FileNotFoundError(
-                "Unable to find configuration file '{0}'".format(config_file)
+                f"Unable to find configuration file '{config_file}'"
             )
 
-        self.logger.debug("Reading '{0}' configuration file".format(config_file))
+        self.logger.debug(f"Reading '{config_file}' configuration file")
 
         with open(config_file, "r") as file:
             self.configuration = json.loads(file.read())[0]
@@ -113,13 +107,13 @@ class Playstore(object):
                 res[tokens[0].strip().lower()] = tokens[1].strip()
 
         if "auth" in res:
-            self.logger.debug("Authentication token found: {0}".format(res["auth"]))
+            self.logger.debug(f"Authentication token found: {res['auth']}")
             self.auth_token = res["auth"]
         else:
             raise RuntimeError("Login failed, please check your credentials")
 
     def _execute_request(
-        self, path: str, query: dict = None, data: str = None
+        self, path: str, query: dict = None, data: dict = None
     ) -> object:
         """
         Perform a request to the Play Store to the specified path.
@@ -139,7 +133,7 @@ class Playstore(object):
 
         headers = {
             "Accept-Language": self.lang_code,
-            "Authorization": "GoogleLogin auth={0}".format(self.auth_token),
+            "Authorization": f"GoogleLogin auth={self.auth_token}",
             "X-DFE-Enabled-Experiments": "cl:billing.select_add_instrument_by_default",
             "X-DFE-Unsupported-Experiments": "nocache:billing.use_charging_poller,"
             "market_emails,"
@@ -156,7 +150,7 @@ class Playstore(object):
             "Host": "android.clients.google.com",
         }
 
-        url = "https://android.clients.google.com/fdfe/{0}".format(path)
+        url = f"https://android.clients.google.com/fdfe/{path}"
 
         if data is not None:
             headers["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8"
@@ -170,202 +164,47 @@ class Playstore(object):
 
         return message
 
-    def _check_entire_file_downloaded(
-        self, expected_size: int, downloaded_file_path: str
-    ) -> bool:
-        """
-        Check if a file was entirely downloaded.
-
-        This works by comparing the actual size of the file with the expected size
-        of the file.
-
-        :param expected_size: Size (in bytes) of the file to download.
-        :param downloaded_file_path: The complete path where the file has been
-                                     downloaded.
-        :return: True if the entire file was written to disk, False otherwise.
-        """
-
-        if expected_size != os.path.getsize(downloaded_file_path):
-            self.logger.error(
-                "Download of '{0}' not completed, please retry, the file '{0}' is "
-                "corrupted and will be removed".format(downloaded_file_path)
-            )
-            try:
-                os.remove(downloaded_file_path)
-            except OSError:
-                self.logger.warning(
-                    "The file '{0}' is corrupted and should be removed manually".format(
-                        downloaded_file_path
-                    )
-                )
-
-            return False
-        else:
-            return True
-
-    def _download_with_progress(
+    def _download_single_file(
         self,
-        package_name: str,
-        file_name: str = None,
-        download_obb: bool = False,
+        destination_file: str,
+        server_response: requests.Response,
         show_progress_bar: bool = False,
+        download_str: str = "Downloading file",
+        error_str: str = "Unable to download the entire file",
     ) -> Iterable[int]:
         """
-        Internal method to download a certain app (identified by the package name) from
-        the Google Play Store and report the progress (using a generator that reports
-        the download progress in the range 0-100).
+        Internal method to download a file contained in a server response and save it
+        to a specific destination.
 
-        :param package_name: The package name of the app (e.g., "com.example.myapp").
-        :param file_name: The location where to save the downloaded app (by default
-                          "package_name.apk").
-        :param download_obb: Flag indicating whether to also download the additional
-                             .obb files for an application (if any).
+        :param destination_file: The destination path where to save the downloaded file.
+        :param server_response: The response from the server, containing the content of
+                                the file to be saved.
         :param show_progress_bar: Flag indicating whether to show a progress bar in the
-                                  terminal during the download of the file(s).
+                                  terminal during the download of the file.
+        :param download_str: The message to show next to the progress bar during the
+                             download of the file
+        :param error_str: The error message of the exception that will be raised if
+                          the download of the file fails.
         :return: A generator that returns the download progress (0-100) at each
                  iteration.
         """
-
-        # Set the default file name if none is provided.
-        if not file_name:
-            file_name = "{0}.apk".format(package_name)
-
-        # Get the app details before downloading it.
-        details = self.app_details(package_name)
-
-        if details is None:
-            self.logger.error(
-                "Can't proceed with the download: there was an error when "
-                "requesting details for app '{0}''".format(package_name)
-            )
-            raise RuntimeError(
-                "Can't proceed with the download: there was an error when "
-                "requesting details for app '{0}''".format(package_name)
-            )
-
-        version_code = details.docV2.details.appDetails.versionCode
-        offer_type = details.docV2.offer[0].offerType
-
-        # Check if the app was already downloaded by this account.
-        path = "delivery"
-        query = {"ot": offer_type, "doc": package_name, "vc": version_code}
-
-        response = self._execute_request(path, query)
-        if response.payload.deliveryResponse.appDeliveryData.downloadUrl:
-            # The app already belongs to the account.
-            temp_url = response.payload.deliveryResponse.appDeliveryData.downloadUrl
-            cookie = response.payload.deliveryResponse.appDeliveryData.downloadAuthCookie[
-                0
-            ]
-            additional_files = [
-                additional_file
-                for additional_file in response.payload.deliveryResponse.appDeliveryData.additionalFile
-            ]
-            split_apks = (
-                [
-                    split_apk
-                    for split_apk in response.payload.deliveryResponse.appDeliveryData.split
-                ]
-                if response.payload.deliveryResponse.appDeliveryData.split
-                else None
-            )
-        else:
-            # The app doesn't belong to the account, so it has to be added to the
-            # account first.
-            path = "purchase"
-            data = "ot={0}&doc={1}&vc={2}".format(
-                offer_type, package_name, version_code
-            )
-
-            # Execute the first query to get the download link.
-            response = self._execute_request(path, data=data)
-
-            # If the query went completely wrong.
-            if "payload" not in self.protobuf_to_dict(response):
-                try:
-                    self.logger.error(
-                        "Error for app '{0}': {1}".format(
-                            package_name, response.commands.displayErrorMessage
-                        )
-                    )
-                    raise RuntimeError(
-                        "Error for app '{0}': {1}".format(
-                            package_name, response.commands.displayErrorMessage
-                        )
-                    )
-                except AttributeError:
-                    self.logger.error(
-                        "There was an error when requesting the download link "
-                        "for app '{0}'".format(package_name)
-                    )
-                raise RuntimeError(
-                    "Unable to download the application, please see the logs for more "
-                    "information"
-                )
-            else:
-                # The url where to download the apk file.
-                temp_url = (
-                    response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadUrl
-                )
-
-                # Additional files (.obb) to be downloaded with the application.
-                additional_files = [
-                    additional_file
-                    for additional_file in response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.additionalFile
-                ]
-
-                # Additional split apk(s) to be downloaded with the application.
-                split_apks = (
-                    [
-                        split_apk
-                        for split_apk in response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.split
-                    ]
-                    if response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.split
-                    else None
-                )
-
-            try:
-                cookie = response.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[
-                    0
-                ]
-            except IndexError:
-                self.logger.error(
-                    "DownloadAuthCookie was not received for '{0}'".format(package_name)
-                )
-                raise RuntimeError(
-                    "DownloadAuthCookie was not received for '{0}'".format(package_name)
-                )
-
-        cookies = {str(cookie.name): str(cookie.value)}
-
-        headers = {
-            "User-Agent": "AndroidDownloadManager/4.1.1 (Linux; U; Android 4.1.1; "
-            "Nexus S Build/JRO03E)",
-            "Accept-Encoding": "",
-        }
-
-        # Execute another query to get the actual apk file.
-        response = requests.get(
-            temp_url, headers=headers, cookies=cookies, verify=True, stream=True
-        )
-
         chunk_size = 1024
-        apk_size = int(response.headers["content-length"])
+        file_size = int(server_response.headers["Content-Length"])
 
-        # Download the apk file and save it, yielding the progress (in the range 0-100).
+        # Download the file and save it, yielding the progress (in the range 0-100).
         try:
-            with open(file_name, "wb") as f:
+            with open(destination_file, "wb") as f:
                 last_progress = 0
                 for index, chunk in enumerate(
                     Util.show_list_progress(
-                        response.iter_content(chunk_size=chunk_size),
+                        server_response.iter_content(chunk_size=chunk_size),
                         interactive=show_progress_bar,
                         unit=" KB",
-                        total=(apk_size // chunk_size),
-                        description="Downloading {0}".format(package_name),
+                        total=(file_size // chunk_size),
+                        description=download_str,
                     )
                 ):
-                    current_progress = 100 * index * chunk_size // apk_size
+                    current_progress = 100 * index * chunk_size // file_size
                     if current_progress > last_progress:
                         last_progress = current_progress
                         yield last_progress
@@ -383,12 +222,182 @@ class Playstore(object):
             # handle that.
             pass
 
-        # Check if the entire apk was downloaded correctly, otherwise raise an
+        # Check if the entire file was downloaded correctly, otherwise raise an
         # exception.
-        if not self._check_entire_file_downloaded(apk_size, file_name):
-            raise RuntimeError("Unable to download the entire application")
+        if file_size != os.path.getsize(destination_file):
+            self.logger.error(
+                f"Download of '{destination_file}' not completed, please retry, "
+                f"the file '{destination_file}' is corrupted and will be removed"
+            )
 
-        if split_apks:
+            try:
+                os.remove(destination_file)
+            except OSError:
+                self.logger.warning(
+                    f"The file '{destination_file}' is corrupted and should be "
+                    f"removed manually"
+                )
+
+            raise RuntimeError(error_str)
+
+    def _download_with_progress(
+        self,
+        package_name: str,
+        file_name: str = None,
+        download_obb: bool = False,
+        download_split_apks: bool = False,
+        show_progress_bar: bool = False,
+    ) -> Iterable[int]:
+        """
+        Internal method to download a certain app (identified by the package name) from
+        the Google Play Store and report the progress (using a generator that reports
+        the download progress in the range 0-100).
+
+        :param package_name: The package name of the app (e.g., "com.example.myapp").
+        :param file_name: The location where to save the downloaded app (by default
+                          "package_name.apk").
+        :param download_obb: Flag indicating whether to also download the additional
+                             .obb files for an application (if any).
+        :param download_split_apks: Flag indicating whether to also download the
+                                    additional split apks for an application (if any).
+        :param show_progress_bar: Flag indicating whether to show a progress bar in the
+                                  terminal during the download of the file(s).
+        :return: A generator that returns the download progress (0-100) at each
+                 iteration.
+        """
+
+        def _handle_missing_payload(res, pkg):
+            # If the query went completely wrong.
+            if "payload" not in self.protobuf_to_dict(res):
+                try:
+                    self.logger.error(
+                        f"Error for app '{pkg}': " f"{res.commands.displayErrorMessage}"
+                    )
+                    raise RuntimeError(
+                        f"Error for app '{pkg}': " f"{res.commands.displayErrorMessage}"
+                    )
+                except AttributeError:
+                    self.logger.error(
+                        "There was an error when requesting the download link "
+                        f"for app '{pkg}'"
+                    )
+
+                raise RuntimeError(
+                    "Unable to download the application, please see the logs for more "
+                    "information"
+                )
+
+        # Set the default file name if none is provided.
+        if not file_name:
+            file_name = f"{package_name}.apk"
+
+        # Get the app details before downloading it.
+        details = self.app_details(package_name)
+
+        if details is None:
+            self.logger.error(
+                "Can't proceed with the download: there was an error when "
+                f"requesting details for app '{package_name}'"
+            )
+            raise RuntimeError(
+                "Can't proceed with the download: there was an error when "
+                f"requesting details for app '{package_name}'"
+            )
+
+        version_code = details.docV2.details.appDetails.versionCode
+        offer_type = details.docV2.offer[0].offerType
+
+        # Check if the app was already downloaded by this account.
+        path = "delivery"
+        query = {"ot": offer_type, "doc": package_name, "vc": version_code}
+
+        response = self._execute_request(path, query)
+        _handle_missing_payload(response, package_name)
+        delivery_data = response.payload.deliveryResponse.appDeliveryData
+
+        if not delivery_data.downloadUrl:
+            # The app doesn't belong to the account, so it has to be added to the
+            # account first.
+            path = "purchase"
+
+            response = self._execute_request(path, data=query)
+            _handle_missing_payload(response, package_name)
+            delivery_data = (
+                response.payload.buyResponse.purchaseStatusResponse.appDeliveryData
+            )
+
+        # The url where to download the apk file.
+        temp_url = delivery_data.downloadUrl
+
+        # Additional files (.obb) to be downloaded with the application.
+        # https://developer.android.com/google/play/expansion-files
+        additional_files = [
+            additional_file for additional_file in delivery_data.additionalFile
+        ]
+
+        # Additional split apk(s) to be downloaded with the application.
+        # https://developer.android.com/guide/app-bundle/dynamic-delivery
+        split_apks = [split_apk for split_apk in delivery_data.split]
+
+        try:
+            cookie = delivery_data.downloadAuthCookie[0]
+        except IndexError:
+            self.logger.error(
+                f"DownloadAuthCookie was not received for '{package_name}'"
+            )
+            raise RuntimeError(
+                f"DownloadAuthCookie was not received for '{package_name}'"
+            )
+
+        cookies = {str(cookie.name): str(cookie.value)}
+
+        headers = {
+            "User-Agent": "AndroidDownloadManager/4.1.1 (Linux; U; Android 4.1.1; "
+            "Nexus S Build/JRO03E)",
+            "Accept-Encoding": "",
+        }
+
+        # Execute another request to get the actual apk file.
+        response = requests.get(
+            temp_url, headers=headers, cookies=cookies, verify=True, stream=True
+        )
+
+        yield from self._download_single_file(
+            file_name,
+            response,
+            show_progress_bar,
+            f"Downloading {package_name}",
+            "Unable to download the entire application",
+        )
+
+        if download_obb:
+            # Save the additional .obb files for this application.
+            for obb in additional_files:
+
+                # Execute another query to get the actual file.
+                response = requests.get(
+                    obb.downloadUrl,
+                    headers=headers,
+                    cookies=cookies,
+                    verify=True,
+                    stream=True,
+                )
+
+                obb_file_name = os.path.join(
+                    os.path.dirname(file_name),
+                    f"{'main' if obb.fileType == 0 else 'patch'}."
+                    f"{obb.versionCode}.{package_name}.obb",
+                )
+
+                yield from self._download_single_file(
+                    obb_file_name,
+                    response,
+                    show_progress_bar,
+                    f"Downloading additional .obb file for {package_name}",
+                    "Unable to download completely the additional .obb file(s)",
+                )
+
+        if download_split_apks:
             # Save the split apk(s) for this application.
             for split_apk in split_apks:
 
@@ -401,123 +410,18 @@ class Playstore(object):
                     stream=True,
                 )
 
-                chunk_size = 1024
-                file_size = int(response.headers["content-length"])
-
                 split_apk_file_name = os.path.join(
                     os.path.dirname(file_name),
-                    "{0}.{1}.{2}.apk".format(
-                        split_apk.name, version_code, package_name
-                    ),
+                    f"{split_apk.name}.{version_code}.{package_name}.apk",
                 )
 
-                # Download the split apk and save it, yielding the progress (in the
-                # range 0-100).
-                try:
-                    with open(split_apk_file_name, "wb") as f:
-                        last_progress = 0
-                        for index, chunk in enumerate(
-                            Util.show_list_progress(
-                                response.iter_content(chunk_size=chunk_size),
-                                interactive=show_progress_bar,
-                                unit=" KB",
-                                total=(file_size // chunk_size),
-                                description="Downloading split apk for {0}".format(
-                                    package_name
-                                ),
-                            )
-                        ):
-                            current_progress = 100 * index * chunk_size // file_size
-                            if current_progress > last_progress:
-                                last_progress = current_progress
-                                yield last_progress
-
-                            if chunk:
-                                f.write(chunk)
-                                f.flush()
-
-                        # Download complete.
-                        yield 100
-                except ChunkedEncodingError:
-                    # There was an error during the download so not all the file was
-                    # written to disk, hence there will be a mismatch between the
-                    # expected size and the actual size of the downloaded file, but the
-                    # next code block will handle that.
-                    pass
-
-                # Check if the entire additional file was downloaded correctly,
-                # otherwise raise an exception.
-                if not self._check_entire_file_downloaded(
-                    file_size, split_apk_file_name
-                ):
-                    raise RuntimeError(
-                        "Unable to download completely the additional split apk file(s)"
-                    )
-
-        if download_obb:
-            # Save the additional obb files for this application.
-            for obb in additional_files:
-
-                # Execute another query to get the actual file.
-                response = requests.get(
-                    obb.downloadUrl,
-                    headers=headers,
-                    cookies=cookies,
-                    verify=True,
-                    stream=True,
+                yield from self._download_single_file(
+                    split_apk_file_name,
+                    response,
+                    show_progress_bar,
+                    f"Downloading split apk for {package_name}",
+                    "Unable to download completely the additional split apk file(s)",
                 )
-
-                chunk_size = 1024
-                file_size = int(response.headers["content-length"])
-
-                obb_file_name = os.path.join(
-                    os.path.dirname(file_name),
-                    "{0}.{1}.{2}.obb".format(
-                        "main" if obb.fileType == 0 else "patch",
-                        obb.versionCode,
-                        package_name,
-                    ),
-                )
-
-                # Download the additional obb file and save it, yielding the progress
-                # (in the range 0-100).
-                try:
-                    with open(obb_file_name, "wb") as f:
-                        last_progress = 0
-                        for index, chunk in enumerate(
-                            Util.show_list_progress(
-                                response.iter_content(chunk_size=chunk_size),
-                                interactive=show_progress_bar,
-                                unit=" KB",
-                                total=(file_size // chunk_size),
-                                description="Downloading additional obb file "
-                                "for {0}".format(package_name),
-                            )
-                        ):
-                            current_progress = 100 * index * chunk_size // file_size
-                            if current_progress > last_progress:
-                                last_progress = current_progress
-                                yield last_progress
-
-                            if chunk:
-                                f.write(chunk)
-                                f.flush()
-
-                        # Download complete.
-                        yield 100
-                except ChunkedEncodingError:
-                    # There was an error during the download so not all the file was
-                    # written to disk, hence there will be a mismatch between the
-                    # expected size and the actual size of the downloaded file, but
-                    # the next code block will handle that.
-                    pass
-
-                # Check if the entire additional file was downloaded correctly,
-                # otherwise raise an exception.
-                if not self._check_entire_file_downloaded(file_size, obb_file_name):
-                    raise RuntimeError(
-                        "Unable to download completely the additional obb file(s)"
-                    )
 
     ############################
     # Playstore Public Methods #
@@ -559,9 +463,8 @@ class Playstore(object):
         if "payload" not in self.protobuf_to_dict(response):
             try:
                 self.logger.error(
-                    "Error when browsing categories: {0}".format(
-                        response.commands.displayErrorMessage
-                    )
+                    "Error when browsing categories: "
+                    f"{response.commands.displayErrorMessage}"
                 )
             except AttributeError:
                 self.logger.error("There was an error when browsing categories")
@@ -608,9 +511,8 @@ class Playstore(object):
         if "payload" not in self.protobuf_to_dict(response):
             try:
                 self.logger.error(
-                    "Error when listing app by category: {0}".format(
-                        response.commands.displayErrorMessage
-                    )
+                    "Error when listing app by category: "
+                    f"{response.commands.displayErrorMessage}"
                 )
             except AttributeError:
                 self.logger.error("There was an error when listing app by category")
@@ -633,7 +535,7 @@ class Playstore(object):
         base_url = "https://play.google.com/store/apps/developer?id="
 
         # Get the developer's page on Google Play Store.
-        request_url = "{0}{1}".format(base_url, requests.utils.quote(developer_name))
+        request_url = f"{base_url}{requests.utils.quote(developer_name)}"
         response = requests.get(
             request_url,
             headers={
@@ -677,14 +579,11 @@ class Playstore(object):
         if "payload" not in self.protobuf_to_dict(response):
             try:
                 self.logger.error(
-                    "Error for search '{0}': {1}".format(
-                        query, response.commands.displayErrorMessage
-                    )
+                    f"Error for search '{query}': "
+                    f"{response.commands.displayErrorMessage}"
                 )
             except AttributeError:
-                self.logger.error(
-                    "There was an error when searching for '{0}'".format(query)
-                )
+                self.logger.error(f"There was an error when searching for '{query}'")
         else:
             try:
                 doc = response.payload.searchResponse.doc[0]
@@ -694,11 +593,9 @@ class Playstore(object):
             if not doc:
                 doc = None
                 self.logger.warning(
-                    "There were no results when searching for '{0}', "
-                    "try using '{1}'".format(
-                        response.payload.searchResponse.originalQuery,
-                        response.payload.searchResponse.suggestedQuery,
-                    )
+                    "There were no results when searching for "
+                    f"'{response.payload.searchResponse.originalQuery}', "
+                    f"try using '{response.payload.searchResponse.suggestedQuery}'"
                 )
 
         return doc
@@ -726,15 +623,13 @@ class Playstore(object):
         if "payload" not in self.protobuf_to_dict(response):
             try:
                 self.logger.error(
-                    "Error for app '{0}': {1}".format(
-                        package_name, response.commands.displayErrorMessage
-                    )
+                    f"Error for app '{package_name}': "
+                    f"{response.commands.displayErrorMessage}"
                 )
             except AttributeError:
                 self.logger.error(
-                    "There was an error when requesting details for app '{0}'".format(
-                        package_name
-                    )
+                    f"There was an error when requesting details for "
+                    f"app '{package_name}'"
                 )
         else:
             details = response.payload.detailsResponse
@@ -746,6 +641,7 @@ class Playstore(object):
         package_name: str,
         file_name: str = None,
         download_obb: bool = False,
+        download_split_apks: bool = False,
         show_progress_bar: bool = True,
     ) -> bool:
         """
@@ -757,6 +653,8 @@ class Playstore(object):
                           "package_name.apk").
         :param download_obb: Flag indicating whether to also download the additional
                              .obb files for an application (if any).
+        :param download_split_apks: Flag indicating whether to also download the
+                                    additional split apks for an application (if any).
         :param show_progress_bar: Flag indicating whether to show a progress bar in the
                                   terminal during the download of the file(s).
         :return: True if the file was downloaded correctly, False otherwise.
@@ -766,11 +664,15 @@ class Playstore(object):
             # Consume the generator reporting the download progress.
             list(
                 self._download_with_progress(
-                    package_name, file_name, download_obb, show_progress_bar
+                    package_name,
+                    file_name,
+                    download_obb,
+                    download_split_apks,
+                    show_progress_bar,
                 )
             )
         except Exception as e:
-            self.logger.error("Error during the download: {0}".format(e), exc_info=True)
+            self.logger.error(f"Error during the download: {e}", exc_info=True)
             return False
 
         # The apk and the additional files (if any) were downloaded correctly.

@@ -8,6 +8,8 @@
             <path value="file://$PROJECT_DIR$/.github" />
             <path value="file://$PROJECT_DIR$/.github/workflows" />
             <path value="file://$PROJECT_DIR$/static" />
+            <path value="file://$PROJECT_DIR$/docs/demo" />
+            <path value="file://$PROJECT_DIR$/docs" />
           </resourceRoots>
         </entryData>
       </entry>

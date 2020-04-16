@@ -10,6 +10,11 @@
     </content>
     <orderEntry type="jdk" jdkName="Python 3.8 (PlaystoreDownloader)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="socket.io" level="application" />
+    <orderEntry type="library" name="sweetalert2.all" level="application" />
+    <orderEntry type="library" name="all" level="application" />
+    <orderEntry type="library" name="polyfill" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />

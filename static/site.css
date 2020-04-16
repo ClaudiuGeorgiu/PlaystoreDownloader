@@ -20,6 +20,10 @@ body {
     opacity: .65;
 }
 
+.custom-input.is-valid, .custom-input.is-invalid {
+    background-image: none;
+}
+
 #download-button:disabled {
     background-color: #e9ecef;
 }
