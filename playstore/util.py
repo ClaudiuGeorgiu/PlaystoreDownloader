@@ -31,10 +31,10 @@ class Util(object):
                         return function(*args, **kwargs)
                     except exception as e:
                         if delay is None:
-                            logger.error("{0} (no more retries)".format(e))
+                            logger.error(f"{e} (no more retries)")
                             raise
                         else:
-                            logger.warning("{0} (retrying in {1}s)".format(e, delay))
+                            logger.warning(f"{e} (retrying in {delay}s)")
                             time.sleep(delay)
 
             return wrapped

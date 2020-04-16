@@ -196,7 +196,7 @@ class TestApi(object):
     def test_download_valid_package_name(self, playstore, download_folder_path):
         result = playstore.download(
             VALID_PACKAGE_NAME,
-            os.path.join(download_folder_path, "{0}.apk".format(VALID_PACKAGE_NAME)),
+            os.path.join(download_folder_path, f"{VALID_PACKAGE_NAME}.apk"),
             show_progress_bar=True,
         )
         assert result is True
@@ -221,7 +221,7 @@ class TestApi(object):
 
         result = playstore.download(
             VALID_PACKAGE_NAME,
-            os.path.join(download_folder_path, "{0}.apk".format(VALID_PACKAGE_NAME)),
+            os.path.join(download_folder_path, f"{VALID_PACKAGE_NAME}.apk"),
         )
         assert result is False
 
@@ -240,7 +240,7 @@ class TestApi(object):
 
         result = playstore.download(
             APK_WITH_SPLIT_APK,
-            os.path.join(download_folder_path, "{0}.apk".format(APK_WITH_SPLIT_APK)),
+            os.path.join(download_folder_path, f"{APK_WITH_SPLIT_APK}.apk"),
             download_split_apks=True,
             show_progress_bar=False,
         )
@@ -259,7 +259,7 @@ class TestApi(object):
 
         result = playstore.download(
             APK_WITH_OBB,
-            os.path.join(download_folder_path, "{0}.apk".format(APK_WITH_OBB)),
+            os.path.join(download_folder_path, f"{APK_WITH_OBB}.apk"),
             download_obb=True,
             show_progress_bar=False,
         )

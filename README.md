@@ -257,6 +257,7 @@ $ # With source.
 $ python3 download.py --help
 
 usage: download.py [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
+...
 ```
 
 The only mandatory parameter is the `package` name of the application to be downloaded,
@@ -287,11 +288,11 @@ will be saved in a `Downloads/` directory created where the tool is run.
 * `-t TAG` can be used to set a tag that will be prepended to the file name, e.g.,
 by using `-t "LABEL"` the final name of the downloaded application will look like
 `[LABEL] filename.apk`. Note: the tag is applied only to the main application, the
-additional files won't have the tags added to the file name.
+additional files won't have any tag added to the file name.
 
 _Note that currently only the command line interface is configurable with the above
 arguments, the web interface will ask only for a package name and will use the default
-values for the other parameters._
+values for all the other parameters._
 
 
 

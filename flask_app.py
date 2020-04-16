@@ -89,9 +89,8 @@ def on_start_download(package_name):
             except AttributeError:
                 emit(
                     "download_bad_package",
-                    "Unable to retrieve application with package name '{0}'".format(
-                        package_name
-                    ),
+                    f"Unable to retrieve application with "
+                    f"package name '{package_name}'",
                 )
                 return
 
@@ -105,9 +104,8 @@ def on_start_download(package_name):
                 re.sub(
                     r"[^\w\-_.\s]",
                     "_",
-                    "{0} by {1} - {2}.apk".format(
-                        details["title"], details["creator"], details["package_name"]
-                    ),
+                    f"{details['title']} by {details['creator']} - "
+                    f"{details['package_name']}.apk",
                 ),
             )
 
@@ -118,9 +116,8 @@ def on_start_download(package_name):
                 emit("download_progress", progress)
 
             logger.info(
-                "The application was downloaded and saved to '{0}'".format(
-                    downloaded_apk_file_path
-                )
+                f"The application was downloaded and "
+                f"saved to '{downloaded_apk_file_path}'"
             )
             emit("download_success", "The application was successfully downloaded")
         except Exception as e:

@@ -90,14 +90,15 @@ def main():
         # Make sure to use a valid json file with the credentials.
         api = Playstore(args.credentials.strip(" '\""))
 
+        stripped_package_name = args.package.strip(" '\"")
+
         try:
             # Get the application details.
-            app = api.app_details(args.package.strip(" '\"")).docV2
+            app = api.app_details(stripped_package_name).docV2
         except AttributeError:
             logger.critical(
-                "Error when downloading '{0}': unable to get app's details".format(
-                    args.package.strip(" '\"")
-                )
+                f"Error when downloading '{stripped_package_name}': unable to "
+                f"get app's details"
             )
             sys.exit(1)
 
@@ -115,9 +116,8 @@ def main():
                 re.sub(
                     r"[^\w\-_.\s]",
                     "_",
-                    "{0} by {1} - {2}.apk".format(
-                        details["title"], details["creator"], details["package_name"]
-                    ),
+                    f"{details['title']} by {details['creator']} - "
+                    f"{details['package_name']}.apk",
                 ),
             )
         else:
@@ -131,11 +131,10 @@ def main():
 
         if args.tag and args.tag.strip(" '\""):
             # If provided, prepend the specified tag to the file name.
+            stripped_tag = args.tag.strip(" '\"")
             downloaded_apk_file_path = os.path.join(
                 os.path.dirname(downloaded_apk_file_path),
-                "[{0}] {1}".format(
-                    args.tag.strip(" '\""), os.path.basename(downloaded_apk_file_path)
-                ),
+                f"[{stripped_tag}] {os.path.basename(downloaded_apk_file_path)}",
             )
 
         # The download of the additional files is optional.
@@ -147,13 +146,11 @@ def main():
         )
 
         if not success:
-            logger.critical(
-                "Error when downloading '{0}'".format(details["package_name"])
-            )
+            logger.critical(f"Error when downloading '{details['package_name']}'")
             sys.exit(1)
 
     except Exception as ex:
-        logger.critical("Error during the download: {0}".format(ex))
+        logger.critical(f"Error during the download: {ex}")
         sys.exit(1)
 
 

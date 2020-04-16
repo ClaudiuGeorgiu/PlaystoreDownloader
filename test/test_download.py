@@ -29,16 +29,15 @@ class TestDownload(object):
     def test_valid_download_specific_location(
         self, download_folder_path, valid_credentials_path, monkeypatch
     ):
-
-        downloaded_apk_path = "{0}.apk".format(
-            os.path.join(download_folder_path, VALID_PACKAGE_NAME)
+        downloaded_apk_path = (
+            f"{os.path.join(download_folder_path, VALID_PACKAGE_NAME)}.apk"
         )
 
         # Mock the command line parser.
         arguments = download.get_cmd_args(
-            '"{0}" -c "{1}" -o "{2}"'.format(
-                VALID_PACKAGE_NAME, valid_credentials_path, downloaded_apk_path
-            ).split()
+            f'"{VALID_PACKAGE_NAME}" '
+            f'-c "{valid_credentials_path}" '
+            f'-o "{downloaded_apk_path}"'.split()
         )
         monkeypatch.setattr(download, "get_cmd_args", lambda: arguments)
 
@@ -49,19 +48,18 @@ class TestDownload(object):
     def test_valid_download_specific_location_with_tag(
         self, download_folder_path, valid_credentials_path, monkeypatch
     ):
-
-        downloaded_apk_path = "{0}.apk".format(
-            os.path.join(download_folder_path, VALID_PACKAGE_NAME)
+        downloaded_apk_path = (
+            f"{os.path.join(download_folder_path, VALID_PACKAGE_NAME)}.apk"
         )
-        downloaded_apk_path_with_tag = "{0}.apk".format(
-            os.path.join(download_folder_path, "[TEST] {0}".format(VALID_PACKAGE_NAME))
+        downloaded_apk_path_with_tag = (
+            f"{os.path.join(download_folder_path, f'[TEST] {VALID_PACKAGE_NAME}')}.apk"
         )
 
         # Mock the command line parser.
         arguments = download.get_cmd_args(
-            '"{0}" -c "{1}" -o "{2}" -t "TEST"'.format(
-                VALID_PACKAGE_NAME, valid_credentials_path, downloaded_apk_path
-            ).split()
+            f'"{VALID_PACKAGE_NAME}" '
+            f'-c "{valid_credentials_path}" '
+            f'-o "{downloaded_apk_path}" -t "TEST"'.split()
         )
         monkeypatch.setattr(download, "get_cmd_args", lambda: arguments)
 
@@ -72,7 +70,7 @@ class TestDownload(object):
     def test_valid_download_default_location(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.
         arguments = download.get_cmd_args(
-            '"{0}" -c "{1}"'.format(VALID_PACKAGE_NAME, valid_credentials_path).split()
+            f'"{VALID_PACKAGE_NAME}" -c "{valid_credentials_path}"'.split()
         )
         monkeypatch.setattr(download, "get_cmd_args", lambda: arguments)
 
@@ -83,7 +81,7 @@ class TestDownload(object):
     def test_valid_download_additional_files(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.
         arguments = download.get_cmd_args(
-            '"{0}" -b -c "{1}"'.format(APK_WITH_OBB, valid_credentials_path).split()
+            f'"{APK_WITH_OBB}" -b -c "{valid_credentials_path}"'.split()
         )
         monkeypatch.setattr(download, "get_cmd_args", lambda: arguments)
 
@@ -94,9 +92,7 @@ class TestDownload(object):
     def test_valid_download_split_apk(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.
         arguments = download.get_cmd_args(
-            '"{0}" -s -c "{1}"'.format(
-                APK_WITH_SPLIT_APK, valid_credentials_path
-            ).split()
+            f'"{APK_WITH_SPLIT_APK}" -s -c "{valid_credentials_path}"'.split()
         )
         monkeypatch.setattr(download, "get_cmd_args", lambda: arguments)
 
@@ -107,7 +103,7 @@ class TestDownload(object):
     def test_download_app_details_error(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.
         arguments = download.get_cmd_args(
-            '"{0}" -c "{1}"'.format(VALID_PACKAGE_NAME, valid_credentials_path).split()
+            f'"{VALID_PACKAGE_NAME}" -c "{valid_credentials_path}"'.split()
         )
         monkeypatch.setattr(download, "get_cmd_args", lambda: arguments)
 
@@ -121,33 +117,33 @@ class TestDownload(object):
     def test_download_error(
         self, download_folder_path, valid_credentials_path, monkeypatch
     ):
-        downloaded_apk_path = "{0}.apk".format(
-            os.path.join(download_folder_path, "error", VALID_PACKAGE_NAME)
+        downloaded_apk_path = (
+            f"{os.path.join(download_folder_path, 'error', VALID_PACKAGE_NAME)}.apk"
         )
 
         # Mock the command line parser.
         arguments = download.get_cmd_args(
-            '"{0}" -c "{1}" -o "{2}"'.format(
-                VALID_PACKAGE_NAME, valid_credentials_path, downloaded_apk_path
-            ).split()
+            f'"{VALID_PACKAGE_NAME}" '
+            f'-c "{valid_credentials_path}" '
+            f'-o "{downloaded_apk_path}"'.split()
         )
         monkeypatch.setattr(download, "get_cmd_args", lambda: arguments)
 
         # Mock the Playstore.
         monkeypatch.setattr(
-            Playstore, "download", lambda self, package, path, download_obb: False
+            Playstore,
+            "download",
+            lambda self, package, path, download_obb, download_split_apks: False,
         )
 
         with pytest.raises(SystemExit) as err:
             download.main()
         assert err.value.code == 1
 
-    def test_download_wrong_credentials(
-        self, download_folder_path, wrong_credentials_path, monkeypatch
-    ):
+    def test_download_wrong_credentials(self, wrong_credentials_path, monkeypatch):
         # Mock the command line parser.
         arguments = download.get_cmd_args(
-            '"{0}" -c "{1}"'.format(VALID_PACKAGE_NAME, wrong_credentials_path).split()
+            f'"{VALID_PACKAGE_NAME}" -c "{wrong_credentials_path}"'.split()
         )
         monkeypatch.setattr(download, "get_cmd_args", lambda: arguments)
 

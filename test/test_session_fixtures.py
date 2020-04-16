@@ -17,14 +17,20 @@ def valid_credentials_path(tmpdir_factory):
         test_credentials = base64.b64decode(os.environ["CREDENTIALS"]).decode("ascii")
     else:
         # Local testing. Make sure to use a valid json file with the credentials.
-        with open(
-            os.path.join(
+        credentials_location = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)),
+            os.path.pardir,
+            "private_credentials.json",
+        )
+        if not os.path.isfile(credentials_location):
+            # Use the default credentials file if no private credentials are present.
+            credentials_location = os.path.join(
                 os.path.dirname(os.path.realpath(__file__)),
                 os.path.pardir,
-                "private_credentials.json",
-            ),
-            "r",
-        ) as file:
+                "credentials.json",
+            )
+
+        with open(credentials_location, "r",) as file:
             test_credentials = file.read()
 
     tmp_credentials_file = tmpdir_factory.mktemp("credentials").join("credentials.json")
