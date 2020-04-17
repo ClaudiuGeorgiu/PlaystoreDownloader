@@ -10,6 +10,7 @@
             <path value="file://$PROJECT_DIR$/static" />
             <path value="file://$PROJECT_DIR$/docs/demo" />
             <path value="file://$PROJECT_DIR$/docs" />
+            <path value="file://$PROJECT_DIR$/scripts" />
           </resourceRoots>
         </entryData>
       </entry>

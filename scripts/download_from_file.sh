@@ -1,7 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # The directory containing this script.
 DIR=$(dirname "$(readlink -f "${0}")")
+
+# Set the working directory to the directory where this script is run.
+cd -P -- "${DIR}" || exit
 
 USAGE="$(basename "$0") [-h] FILE
 
@@ -41,7 +44,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Read the file line by line and remove from the file the
-# packages names after they are processed.
+# package names after they are processed.
 while read -r line || [[ -n "${line}" ]]; do
 
   # Skip empty lines.
@@ -52,7 +55,10 @@ while read -r line || [[ -n "${line}" ]]; do
 
   # Try to download the Android application and keep track
   # of the package names for which the download failed.
-  if python3 download.py "${line}"; then
+
+  # TODO: adapt the command depending on your file paths.
+  # if ../venv/bin/python ../download.py -c ../private_credentials.json "${line}"; then
+  if ../venv/Scripts/python.exe ../download.py -c ../private_credentials.json "${line}"; then
     :
   else
     echo "${line}" >>"${DIR}/errors.txt"
@@ -64,6 +70,6 @@ while read -r line || [[ -n "${line}" ]]; do
   sed -i '1,1 d' "${filename}"
 
   # Don't stress the server too much.
-  sleep $((($RANDOM % 10) + 1))s
+  sleep $(((RANDOM % 10) + 1))s
 
 done <"${filename}"

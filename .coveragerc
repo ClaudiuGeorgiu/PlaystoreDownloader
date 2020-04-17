@@ -3,6 +3,8 @@ branch = True
 omit =
     # Omit virtualenv directory.
     venv/*
+    # Omit scripts directory.
+    scripts/*
     # Omit test directory.
     test/*
     # Omit protobuf generated files.
