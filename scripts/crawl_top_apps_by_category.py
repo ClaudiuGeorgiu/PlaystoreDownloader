@@ -25,8 +25,8 @@ def main():
     # Get the top top_num free apps in each category.
     top_num = 100
     for cat in store_categories:
-        apps = api.list_app_by_category(cat, "apps_topselling_free", top_num)
-        for app in apps.doc[0].child:
+        doc = api.list_app_by_category(cat, "apps_topselling_free", top_num).doc[0]
+        for app in doc.child if doc.docid else doc.child[0].child:
             downloads = app.details.appDetails.numDownloads
             rating = app.aggregateRating.starRating
 

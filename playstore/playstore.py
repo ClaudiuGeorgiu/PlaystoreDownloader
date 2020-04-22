@@ -136,15 +136,13 @@ class Playstore(object):
             "Authorization": f"GoogleLogin auth={self.auth_token}",
             "X-DFE-Enabled-Experiments": "cl:billing.select_add_instrument_by_default",
             "X-DFE-Unsupported-Experiments": "nocache:billing.use_charging_poller,"
-            "market_emails,"
-            "buyer_currency,prod_baseline,checkin.set_asset_paid_app_field,"
-            "shekel_test,content_ratings,buyer_currency_in_app,"
-            "nocache:encrypted_apk,recent_changes",
+            "market_emails,buyer_currency,prod_baseline,"
+            "checkin.set_asset_paid_app_field,shekel_test,content_ratings,"
+            "buyer_currency_in_app,nocache:encrypted_apk,recent_changes",
             "X-DFE-Device-Id": self.android_id,
             "X-DFE-Client-Id": "am-android-google",
-            "User-Agent": "Android-Finsky/4.4.3 (api=3,versionCode=8016014,sdk=23,"
-            "device=hammerhead,"
-            "hardware=hammerhead,product=hammerhead)",
+            "User-Agent": "Android-Finsky/8.5.39 (api=3,versionCode=80853900,sdk=26,"
+            "device=crackling,hardware=qcom,product=crackling)",
             "X-DFE-SmallestScreenWidthDp": "320",
             "X-DFE-Filter-Level": "3",
             "Host": "android.clients.google.com",
@@ -325,6 +323,14 @@ class Playstore(object):
             delivery_data = (
                 response.payload.buyResponse.purchaseStatusResponse.appDeliveryData
             )
+            download_token = response.payload.buyResponse.downloadToken
+
+            if not self.protobuf_to_dict(delivery_data) and download_token:
+                path = "delivery"
+                query["dtok"] = download_token
+                response = self._execute_request(path, query)
+                _handle_missing_payload(response, package_name)
+                delivery_data = response.payload.deliveryResponse.appDeliveryData
 
         # The url where to download the apk file.
         temp_url = delivery_data.downloadUrl
@@ -352,8 +358,8 @@ class Playstore(object):
         cookies = {str(cookie.name): str(cookie.value)}
 
         headers = {
-            "User-Agent": "AndroidDownloadManager/4.1.1 (Linux; U; Android 4.1.1; "
-            "Nexus S Build/JRO03E)",
+            "User-Agent": "AndroidDownloadManager/8.0.0 (Linux; U; Android 8.0.0; "
+            "STF-L09 Build/HUAWEISTF-L09)",
             "Accept-Encoding": "",
         }
 
@@ -487,9 +493,9 @@ class Playstore(object):
                             trending etc.).
         :param num_of_results: How many results to request from the server.
         :return: A protobuf object containing the the list of apps if a valid
-                 subcategory was provided, otherwise a list with the valid
-                 subcategories. The result will be None if there was something
-                 wrong with the query.
+                 subcategory was provided, otherwise a list of strings with the
+                 valid subcategories. The result will be None if there was
+                 something wrong with the query.
         """
 
         # Prepare the query.
@@ -517,9 +523,15 @@ class Playstore(object):
             except AttributeError:
                 self.logger.error("There was an error when listing app by category")
         else:
-            list_response = response.payload.listResponse
+            if subcategory is not None:
+                list_response = response.payload.listResponse
+            else:
+                list_response = []
+                for pre_fetch in response.preFetch:
+                    for doc in pre_fetch.response.payload.listResponse.doc:
+                        list_response.append(doc.docid or doc.child[0].docid)
 
-        return list_response
+        return list_response or None
 
     # noinspection PyMethodMayBeStatic
     def list_app_by_developer(self, developer_name: str) -> list:
@@ -539,8 +551,8 @@ class Playstore(object):
         response = requests.get(
             request_url,
             headers={
-                "User-Agent": "AndroidDownloadManager/4.1.1 (Linux; U; Android 4.1.1; "
-                "Nexus S Build/JRO03E)"
+                "User-Agent": "AndroidDownloadManager/8.0.0 (Linux; U; Android 8.0.0; "
+                "STF-L09 Build/HUAWEISTF-L09)",
             },
         )
 
@@ -588,7 +600,14 @@ class Playstore(object):
             try:
                 doc = response.payload.searchResponse.doc[0]
             except IndexError:
-                pass
+                try:
+                    doc = (
+                        response.preFetch[0]
+                        .response.payload.listResponse.doc[0]
+                        .child[1]
+                    )
+                except IndexError:
+                    pass
             # If the result of the query doesn't contain the desired information.
             if not doc:
                 doc = None
