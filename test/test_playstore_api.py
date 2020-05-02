@@ -19,8 +19,7 @@ APK_WITH_OBB = "com.mapswithme.maps.pro"
 APK_WITH_SPLIT_APK = "com.android.chrome"
 
 
-# noinspection PyShadowingNames
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def playstore(valid_credentials_path):
     return Playstore(valid_credentials_path)
 
@@ -88,16 +87,22 @@ class TestApi(object):
         assert categories is None
 
     def test_list_app_by_valid_category(self, playstore):
-        subcategories = playstore.protobuf_to_dict(
-            playstore.list_app_by_category("PRODUCTIVITY")
-        )["doc"]
-        subcategory_names = list(map(lambda x: x["docid"], subcategories))
+        subcategory_names = playstore.list_app_by_category("PRODUCTIVITY")
         assert "apps_topselling_free" in subcategory_names
 
     def test_list_app_by_valid_category_and_subcategory(self, playstore):
-        apps = playstore.protobuf_to_dict(
+        doc = playstore.protobuf_to_dict(
             playstore.list_app_by_category("PRODUCTIVITY", "apps_topselling_free", 5)
-        )["doc"][0]["child"]
+        )["doc"][0]
+
+        if "docid" in doc:
+            # Old devices.
+            apps = doc["child"]
+        else:
+            # New devices.
+            apps = doc["child"][0]["child"]
+
+        assert len(apps) > 1
         assert len(apps) <= 5
         assert all(app["docid"] for app in apps)
         assert all(app["title"] for app in apps)
@@ -113,9 +118,7 @@ class TestApi(object):
         assert subcategories is None
 
     def test_list_app_by_bad_category(self, playstore):
-        result = playstore.protobuf_to_dict(
-            playstore.list_app_by_category("INVALID_CATEGORY")
-        )
+        result = playstore.list_app_by_category("INVALID_CATEGORY")
         assert not result
 
     def test_list_app_by_category_missing_category(self, playstore):
@@ -148,6 +151,7 @@ class TestApi(object):
         def mock(*args, **kwargs):
             to_return = original(*args, **kwargs)
             del to_return.payload.searchResponse.doc[:]
+            del to_return.preFetch[:]
             return to_return
 
         # Simulate a bad response from the server.
@@ -305,17 +309,12 @@ class TestApi(object):
         original = Playstore._execute_request
 
         def mock(*args, **kwargs):
-            if mock.counter < 2:
-                mock.counter += 1
-                return original(*args, **kwargs)
-            else:
-                to_return = original(*args, **kwargs)
-                del to_return.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[
-                    :
-                ]
-                return to_return
-
-        mock.counter = 0
+            to_return = original(*args, **kwargs)
+            del to_return.payload.deliveryResponse.appDeliveryData.downloadAuthCookie[:]
+            del to_return.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[
+                :
+            ]
+            return to_return
 
         # Simulate a bad response from the server.
         monkeypatch.setattr(Playstore, "_execute_request", mock)
