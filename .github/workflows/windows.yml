@@ -39,7 +39,7 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         run: |
-          pip install codecov codacy-coverage
+          pip install codacy-coverage
           python-codacy-coverage
 
       - name: Upload tests coverage to Codecov
