@@ -30,7 +30,10 @@ def valid_credentials_path(tmpdir_factory):
                 "credentials.json",
             )
 
-        with open(credentials_location, "r",) as file:
+        with open(
+            credentials_location,
+            "r",
+        ) as file:
             test_credentials = file.read()
 
     tmp_credentials_file = tmpdir_factory.mktemp("credentials").join("credentials.json")
