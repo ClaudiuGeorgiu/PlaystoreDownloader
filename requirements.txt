@@ -1,7 +1,7 @@
 Flask==1.1.2
-Flask-SocketIO==4.2.1
-protobuf==3.11.3
-pycryptodome==3.9.7
-pytest-cov==2.8.1
-requests==2.23.0
-tqdm==4.45.0
+Flask-SocketIO==4.3.1
+protobuf==3.13.0
+pycryptodome==3.9.8
+pytest-cov==2.10.1
+requests==2.24.0
+tqdm==4.50.2

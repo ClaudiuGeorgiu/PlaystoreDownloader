@@ -604,7 +604,7 @@ class Playstore(object):
                     doc = (
                         response.preFetch[0]
                         .response.payload.listResponse.doc[0]
-                        .child[1]
+                        .child[0]
                     )
                 except IndexError:
                     pass

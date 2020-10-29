@@ -3,7 +3,7 @@
 > A command line tool to download Android applications directly from the Google
 > Play Store.
 
-[![Codacy](https://api.codacy.com/project/badge/Grade/92ff2ab2c1114c7e9df13b77fac0d961)](https://www.codacy.com/app/ClaudiuGeorgiu/PlaystoreDownloader)
+[![Codacy](https://app.codacy.com/project/badge/Grade/92ff2ab2c1114c7e9df13b77fac0d961)](https://www.codacy.com/gh/ClaudiuGeorgiu/PlaystoreDownloader)
 [![Ubuntu Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/Ubuntu/badge.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AUbuntu)
 [![Windows Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/Windows/badge.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AWindows)
 [![MacOS Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/MacOS/badge.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AMacOS)

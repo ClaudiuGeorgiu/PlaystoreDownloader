@@ -8,18 +8,18 @@ jobs:
     name: Test on Python ${{ matrix.python-version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
+      fail-fast: true
       max-parallel: 1
       matrix:
-        python-version: [3.6, 3.7, 3.8]
-        os: [macOS-latest]
+        python-version: [ 3.6, 3.7, 3.8, 3.9 ]
+        os: [ macOS-latest ]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
