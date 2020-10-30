@@ -3,16 +3,61 @@
 import json
 import logging
 import os
+import platform
 import re
+import sys
 from typing import Iterable
 
 import requests
+import requests.packages.urllib3.util.ssl_
 from google.protobuf import json_format
 from requests.exceptions import ChunkedEncodingError
 
 from playstore import playstore_proto_pb2 as playstore_protobuf
 from playstore.credentials import EncryptedCredentials
 from playstore.util import Util
+
+# Detect Python version and set the SSL ciphers accordingly. This is needed to avoid
+# login errors with some versions of Python even if correct credentials are used. If
+# you are still getting login errors, try different cipher combinations: the following
+# should work on GitHub Actions runners, but they might not work on different machines.
+# PlaystoreDownloader works best on Linux and Docker, and in such case no cipher
+# modification should be needed.
+
+if sys.version_info < (3, 6):
+    raise RuntimeError("This version of Python is not supported anymore")
+elif sys.version_info.major == 3 and sys.version_info.minor == 6:
+    if platform.system() == "Windows":
+        requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = (
+            "ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+HIGH:"
+            "DH+HIGH:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+HIGH:RSA+3DES:!aNULL:!MD5"
+        )
+elif sys.version_info.major == 3 and (
+    sys.version_info.minor == 7 or sys.version_info.minor == 8
+):
+    if platform.system() == "Windows":
+        requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = (
+            "ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:ECDH+AESGCM:DH+AESGCM:"
+            "ECDH+AES:DH+AES:RSA+AESGCM:RSA+AES:!DSS"
+        )
+    elif platform.system() == "Darwin":
+        requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = (
+            "ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+HIGH:"
+            "DH+HIGH:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+HIGH:RSA+3DES:!aNULL:!MD5"
+        )
+elif sys.version_info.major == 3 and sys.version_info.minor == 9:
+    if platform.system() == "Windows":
+        requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = (
+            "ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:ECDH+AESGCM:DH+AESGCM:"
+            "ECDH+AES:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!eNULL:!MD5:!DSS"
+        )
+    elif platform.system() == "Darwin":
+        requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = (
+            "ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+HIGH:"
+            "DH+HIGH:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+HIGH:RSA+3DES:!aNULL:!MD5"
+        )
+else:
+    raise RuntimeError("This version of Python is not supported yet")
 
 
 class Playstore(object):
