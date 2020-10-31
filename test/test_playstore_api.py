@@ -229,7 +229,7 @@ class TestApi(object):
         )
         assert result is False
 
-    # TODO: split apk download seems not working anymore
+    # TODO: split apk download seems not working anymore.
 
     # def test_download_corrupted_split_apk(
     #     self, playstore, download_folder_path, monkeypatch

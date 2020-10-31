@@ -274,7 +274,7 @@ downloaded application.
 application (if there are any). See
 [Dynamic Delivery](https://developer.android.com/guide/app-bundle/dynamic-delivery)
 for more information. The additional files will be saved in the same directory as the
-downloaded application.
+downloaded application. Note: this feature used to work but currently seems broken.
 
 * `-c CREDENTIALS` is used to set the path to the JSON configuration file containing
 the Google Play Store credentials. If not specified, by default the tool will try to
