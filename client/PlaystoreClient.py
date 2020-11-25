@@ -1,10 +1,27 @@
 import tempfile
 from playstore.playstore import Playstore
 
+import sys
+import os
+import logging
+import json
+import re
+
+# Logging configuration.
+logger = logging.getLogger(__name__)
+logging.basicConfig(
+    format="%(asctime)s> [%(levelname)s][%(name)s][%(funcName)s()] %(message)s",
+    datefmt="%d/%m/%Y %H:%M:%S",
+    level=logging.INFO,
+)
+
+downloaded_apk_default_location = "Downloads"
+
 class PlaystoreClient():
     def __init__(self, credentials_file_path="credentials.json"):
         try:
             self.api = Playstore(credentials_file_path.strip(" '\""))
+            self.api = Playstore(credentials_file_path)
         
         except Exception as ex:
             logger.critical(f"Error during the download: {ex}")
@@ -12,10 +29,10 @@ class PlaystoreClient():
 
     def download(self, package_name, file_path="Downloads", tag=None, blobs=False, split_apks=False):
         try:
-            details = self._get_app_details(package_name)
-            downloaded_apk_file_path = self._prepare_file_path(file_path, tag)
+            details = self._get_app_details(package_name) 
+            downloaded_apk_file_path = self._prepare_file_path(file_path, details, tag)
 
-            success = api.download(
+            success = self.api.download(
                 details["package_name"],
                 downloaded_apk_file_path,
                 download_obb=True if blobs else False,
@@ -51,7 +68,7 @@ class PlaystoreClient():
         }
         return details
 
-    def _prepare_file_path(self, file_path, tag):
+    def _prepare_file_path(self, file_path, details, tag):
         if file_path.strip(" '\"") == downloaded_apk_default_location:
             # The downloaded apk will be saved in the Downloads folder (created in the
             # same folder as this script).
@@ -87,19 +104,19 @@ class PlaystoreClientCredentials(PlaystoreClient):
     def __init__(self, username, password, android_id, lang_code='en_US', lang='us'):
         try:
             credentials_json_struct = [
-            {
-                "USERNAME": username,
-                "PASSWORD": password,
-                "ANDROID_ID": android_id,
-                "LANG_CODE": "en_US",
-                "LANG": "us"
-            }
+                {
+                    "USERNAME": username,
+                    "PASSWORD": password,
+                    "ANDROID_ID": android_id,
+                    "LANG_CODE": "en_US",
+                    "LANG": "us"
+                }
             ]
-            
-            self.credentials_file = tempfile.NamedTemporaryFile(delete=False)
+            self.credentials_file = tempfile.NamedTemporaryFile(mode='w', delete=False, encoding="utf8")  
             json.dump(credentials_json_struct, self.credentials_file)
+            self.credentials_file.close()
 
-            super.__init__(self.credentials_file.name)
+            super().__init__(self.credentials_file.name)
         
         except Exception as ex:
             logger.critical(f"Error during the download: {ex}")
