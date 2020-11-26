@@ -100,7 +100,7 @@ class PlaystoreClient():
         return downloaded_apk_file_path         
 
 
-class PlaystoreClientCredentials(PlaystoreClient):
+class PlaystoreClientNoCredentialsFile(PlaystoreClient):
     def __init__(self, username, password, android_id, lang_code='en_US', lang='us'):
         try:
             credentials_json_struct = [
