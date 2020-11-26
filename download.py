@@ -6,7 +6,7 @@ import os
 import re
 import sys
 
-from client import PlaystoreClient
+from PlaystoreDownloader import PlaystoreClient
 
 # Logging configuration.
 logger = logging.getLogger(__name__)
@@ -82,7 +82,6 @@ def get_cmd_args(args: list = None):
 
 
 def main():
-
     args = get_cmd_args()
 
     try:
