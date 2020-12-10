@@ -4,9 +4,9 @@
 > Play Store.
 
 [![Codacy](https://app.codacy.com/project/badge/Grade/92ff2ab2c1114c7e9df13b77fac0d961)](https://www.codacy.com/gh/ClaudiuGeorgiu/PlaystoreDownloader)
-[![Ubuntu Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/Ubuntu/badge.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AUbuntu)
-[![Windows Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/Windows/badge.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AWindows)
-[![MacOS Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/MacOS/badge.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AMacOS)
+[![Ubuntu Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/Ubuntu/badge.svg?branch=master)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AUbuntu)
+[![Windows Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/Windows/badge.svg?branch=master)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AWindows)
+[![MacOS Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/MacOS/badge.svg?branch=master)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AMacOS)
 [![Code Coverage](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader/badge.svg)](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader)
 [![Python Version](https://img.shields.io/badge/Python-3.6%2B-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/LICENSE)
