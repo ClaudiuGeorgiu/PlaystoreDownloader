@@ -7,7 +7,7 @@ import re
 import sys
 
 from PlaystoreDownloader import PlaystoreClient
-from PlaystoreDownloader.PlaystoreClient import PlaystoreClientConfig
+from PlaystoreDownloader.PlaystoreClient import ConfigFileProvider
 
 # Logging configuration.
 logger = logging.getLogger(__name__)
@@ -85,7 +85,7 @@ def get_cmd_args(args: list = None):
 def main():
     args = get_cmd_args() 
     try:
-        playstore_client = PlaystoreClient.PlaystoreClient(PlaystoreClientConfig(args.credentials))
+        playstore_client = PlaystoreClient.PlaystoreClient(ConfigFileProvider(args.credentials))
 
         file_path = args.out
         if file_path.strip(" '\"") == downloaded_apk_default_location:

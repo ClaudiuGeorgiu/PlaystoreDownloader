@@ -9,15 +9,18 @@ import re
 
 logger = logging.getLogger(__name__)
 
+class ConfigFileProviderInterface:
+    def get_credendials_file_path() -> str:
+        pass
 
-class PlaystoreClientConfig():
+class ConfigFileProvider(ConfigFileProviderInterface):
     def __init__(self, credentials_file="credentials.json"):
         self.file_path = credentials_file
 
     def get_credendials_file_path(self):
         return self.file_path
 
-class PlaystoreClientConfigNoCredentialsFile():
+class ConfigTempFileProvider(ConfigFileProviderInterface):
     def __init__(self, username, password, android_id, lang_code='en_US', lang='us'):
         try:
             credentials_json_struct = [
