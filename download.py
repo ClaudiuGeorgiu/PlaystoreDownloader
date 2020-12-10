@@ -82,11 +82,26 @@ def get_cmd_args(args: list = None):
 
 
 def main():
-    args = get_cmd_args()
-
+    args = get_cmd_args() 
     try:
         playstore_client = PlaystoreClient.PlaystoreClient(args.credentials)
-        playstore_client.download(args.package, args.out, tag=args.tag, blobs=args.blobs, split_apks=args.split_apks)
+
+        file_path = args.out
+        if file_path.strip(" '\"") == downloaded_apk_default_location:
+            # The downloaded apk will be saved in the Downloads folder (created in the
+            # same folder as this script).
+            details = playstore_client.get_app_details(args.package)
+            downloaded_apk_file_path = os.path.join(
+                downloaded_apk_default_location,
+                re.sub(
+                    r"[^\w\-_.\s]",
+                    "_",
+                    f"{details['title']} by {details['creator']} - "
+                    f"{details['package_name']}.apk",
+                ),
+            )   
+
+        playstore_client.download(args.package, downloaded_apk_file_path, tag=args.tag, blobs=args.blobs, split_apks=args.split_apks)
 
     except Exception as ex:
         logger.critical(f"Error during the download: {ex}")

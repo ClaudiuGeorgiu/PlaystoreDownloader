@@ -7,15 +7,7 @@ import logging
 import json
 import re
 
-# Logging configuration.
 logger = logging.getLogger(__name__)
-logging.basicConfig(
-    format="%(asctime)s> [%(levelname)s][%(name)s][%(funcName)s()] %(message)s",
-    datefmt="%d/%m/%Y %H:%M:%S",
-    level=logging.INFO,
-)
-
-downloaded_apk_default_location = "Downloads"
 
 class PlaystoreClient():
     def __init__(self, credentials_file_path="credentials.json"):
@@ -29,8 +21,8 @@ class PlaystoreClient():
 
     def download(self, package_name, file_path="Downloads", tag=None, blobs=False, split_apks=False):
         try:
-            details = self._get_app_details(package_name) 
-            downloaded_apk_file_path = self._prepare_file_path(file_path, details, tag)
+            details = self.get_app_details(package_name) 
+            downloaded_apk_file_path = self._prepare_file_path_if_does_not_exist(file_path, details, tag)
 
             success = self.api.download(
                 details["package_name"],
@@ -48,7 +40,7 @@ class PlaystoreClient():
             sys.exit(1)
         
 
-    def _get_app_details(self, package_name):
+    def get_app_details(self, package_name):
         stripped_package_name = package_name.strip(" '\"")
 
         try:
@@ -68,22 +60,9 @@ class PlaystoreClient():
         }
         return details
 
-    def _prepare_file_path(self, file_path, details, tag):
-        if file_path.strip(" '\"") == downloaded_apk_default_location:
-            # The downloaded apk will be saved in the Downloads folder (created in the
-            # same folder as this script).
-            downloaded_apk_file_path = os.path.join(
-                downloaded_apk_default_location,
-                re.sub(
-                    r"[^\w\-_.\s]",
-                    "_",
-                    f"{details['title']} by {details['creator']} - "
-                    f"{details['package_name']}.apk",
-                ),
-            )
-        else:
-            # The downloaded apk will be saved in the location chosen by the user.
-            downloaded_apk_file_path = os.path.abspath(file_path.strip(" '\""))
+    def _prepare_file_path_if_does_not_exist(self, file_path, details, tag):
+        # The downloaded apk will be saved in the location chosen by the user.
+        downloaded_apk_file_path = os.path.abspath(file_path.strip(" '\""))
 
         # If it doesn't already exist, create the directory where to save the
         # downloaded apk.
@@ -108,8 +87,8 @@ class PlaystoreClientNoCredentialsFile(PlaystoreClient):
                     "USERNAME": username,
                     "PASSWORD": password,
                     "ANDROID_ID": android_id,
-                    "LANG_CODE": "en_US",
-                    "LANG": "us"
+                    "LANG_CODE": lang_code,
+                    "LANG": lang
                 }
             ]
             self.credentials_file = tempfile.NamedTemporaryFile(mode='w', delete=False, encoding="utf8")  
