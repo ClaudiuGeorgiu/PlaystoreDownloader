@@ -9,11 +9,47 @@ import re
 
 logger = logging.getLogger(__name__)
 
-class PlaystoreClient():
-    def __init__(self, credentials_file_path="credentials.json"):
+
+class PlaystoreClientConfig():
+    def __init__(self, credentials_file="credentials.json"):
+        self.file_path = credentials_file
+
+    def get_credendials_file_path(self):
+        return self.file_path
+
+class PlaystoreClientConfigNoCredentialsFile():
+    def __init__(self, username, password, android_id, lang_code='en_US', lang='us'):
         try:
+            credentials_json_struct = [
+                {
+                    "USERNAME": username,
+                    "PASSWORD": password,
+                    "ANDROID_ID": android_id,
+                    "LANG_CODE": lang_code,
+                    "LANG": lang
+                }
+            ]
+            self.credentials_file = tempfile.NamedTemporaryFile(mode='w', delete=False, encoding="utf8")  
+            json.dump(credentials_json_struct, self.credentials_file)
+            self.credentials_file.close() #TODO: remove?
+        
+        except Exception as ex:
+            logger.critical(f"Error during the download: {ex}")
+            sys.exit(1) 
+    
+    def __del__(self):
+        self.credentials_file.close()                        
+
+    def get_credendials_file_path(self):
+        return self.credentials_file.name             
+
+
+class PlaystoreClient():
+    def __init__(self, playstore_client_configuration):
+        try:
+            credentials_file_path = playstore_client_configuration.get_credendials_file_path()
             self.api = Playstore(credentials_file_path.strip(" '\""))
-            self.api = Playstore(credentials_file_path)
+            self.api = Playstore(credentials_file_path) #TODO:
         
         except Exception as ex:
             logger.critical(f"Error during the download: {ex}")
@@ -76,33 +112,4 @@ class PlaystoreClient():
                 os.path.dirname(downloaded_apk_file_path),
                 f"[{stripped_tag}] {os.path.basename(downloaded_apk_file_path)}",
             )
-        return downloaded_apk_file_path         
-
-
-class PlaystoreClientNoCredentialsFile(PlaystoreClient):
-    def __init__(self, username, password, android_id, lang_code='en_US', lang='us'):
-        try:
-            credentials_json_struct = [
-                {
-                    "USERNAME": username,
-                    "PASSWORD": password,
-                    "ANDROID_ID": android_id,
-                    "LANG_CODE": lang_code,
-                    "LANG": lang
-                }
-            ]
-            self.credentials_file = tempfile.NamedTemporaryFile(mode='w', delete=False, encoding="utf8")  
-            json.dump(credentials_json_struct, self.credentials_file)
-            self.credentials_file.close()
-
-            super().__init__(self.credentials_file.name)
-        
-        except Exception as ex:
-            logger.critical(f"Error during the download: {ex}")
-            sys.exit(1)
-
-    def download(self, package_name, file_path="Downloads", tag=None, blobs=False, split_apks=False):
-        super().download(package_name, file_path=file_path, tag=tag, blobs=blobs, split_apks=split_apks)
-
-    def __del__(self):
-        self.credentials_file.close()    
+        return downloaded_apk_file_path  
