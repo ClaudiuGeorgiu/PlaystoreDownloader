@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+urllib3 = "<1.26.0"  # Newer versions seem to cause BadAuthentication errors.
+protobuf = "*"
+requests = "*"
+pycryptodome = "*"
+tqdm = "*"
+flask-socketio = "*"
+
+[dev-packages]
+pytest-cov = "*"
