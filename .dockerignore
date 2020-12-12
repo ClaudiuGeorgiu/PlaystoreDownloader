@@ -1,9 +1,11 @@
 .git/
 .github/
 .idea/
-venv/
 docs/
 test/
+
+**/*.pyc
+**/__pycache__
 
 .gitignore
 .gitattributes

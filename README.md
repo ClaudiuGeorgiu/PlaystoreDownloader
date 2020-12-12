@@ -75,8 +75,8 @@ $ docker tag claudiugeorgiu/playstore-downloader downloader
 #### Install
 
 If you downloaded the official image from Docker Hub, you are ready to use the tool so
-go ahead and check the [usage instructions](#with-docker), otherwise execute the following
-command in the previously created `PlaystoreDownloader/` directory (the folder
+go ahead and check the [usage instructions](#with-docker), otherwise execute the
+following command in the previously created `PlaystoreDownloader/` directory (the folder
 containing the `Dockerfile`) in order to build the Docker image:
 
 ```Shell
@@ -94,8 +94,8 @@ usage: download.py [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
 ...
 ```
 
-PlaystoreDownloader is now ready to be used, see the [usage instructions](#with-docker) for
-more information.
+PlaystoreDownloader is now ready to be used, see the [usage instructions](#with-docker)
+for more information.
 
 ### From source
 
@@ -104,7 +104,8 @@ more information.
 #### Prerequisites
 
 Apart from valid Google Play Store credentials, the only requirement of this project is
-a working `Python 3` (at least `3.6`) installation.
+a working `Python 3` (at least `3.6`) installation and
+[`pipenv`](https://pipenv.pypa.io/) (for dependency management).
 
 #### Install
 
@@ -114,26 +115,25 @@ to install the needed dependencies:
 ```Shell
 $ # Make sure to run the commands in PlaystoreDownloader/ directory.
 
-$ # The usage of a virtual environment is highly recommended, e.g., virtualenv.
-$ # If not using virtualenv (https://virtualenv.pypa.io/), skip the next 2 lines.
-$ virtualenv -p python3 venv
-$ source venv/bin/activate
+$ # This project uses pipenv (https://pipenv.pypa.io/) for dependency management.
+$ # It can be installed with the following command:
+$ # python3 -m pip install pipenv
 
-$ # Install PlaystoreDownloader's requirements.
-$ python3 -m pip install -r requirements.txt
+$ # Install PlaystoreDownloader's requirements (a virtual environment will be created).
+$ pipenv install --deploy
 ```
 
-After the requirements are installed, make a quick test to check that everything works
+After everything is installed, make a quick test to check that everything works
 correctly:
 
 ```Shell
-$ python3 download.py --help
+$ pipenv run python download.py --help
 usage: download.py [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
 ...
 ```
 
-PlaystoreDownloader is now ready to be used, see the [usage instructions](#with-source) for
-more information.
+PlaystoreDownloader is now ready to be used, see the [usage instructions](#with-source)
+for more information.
 
 
 
@@ -214,7 +214,7 @@ $ docker run \
     -v "${PWD}/credentials.json":"/app/credentials.json" \
     -v "${PWD}/output/":"/app/Downloads/" \
     -p 5000:5000 \
-    --entrypoint=python3 \
+    --entrypoint=python \
     --rm -it downloader flask_app.py
 
 $ # Navigate to http://localhost:5000/ to use the web interface.
@@ -226,7 +226,7 @@ In the main directory of the project (`PlaystoreDownloader/`), call the followin
 instruction using the package name of the app to be downloaded:
 
 ```Shell
-$ python3 download.py "com.application.example"
+$ pipenv run python download.py "com.application.example"
 ```
 
 If the download is successful, the resulting `.apk` file will be saved in the
@@ -234,13 +234,13 @@ If the download is successful, the resulting `.apk` file will be saved in the
 of the downloaded `.apk` file by providing an additional `-o "path/to/downloaded.apk"`
 argument to
 [download.py](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/download.py)
-(type `$ python3 download.py --help` or check the
+(type `$ pipenv run python download.py --help` or check the
 [available parameters](#available-parameters) for more information).
 
 A simple web interface is also available:
 
 ```Shell
-$ python3 flask_app.py
+$ pipenv run python flask_app.py
 
 $ # Navigate to http://localhost:5000/ to use the web interface.
 ```
@@ -254,7 +254,7 @@ $ # With Docker.
 $ docker run --rm -it downloader --help
 
 $ # With source.
-$ python3 download.py --help
+$ pipenv run python download.py --help
 
 usage: download.py [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
 ...
@@ -274,7 +274,7 @@ downloaded application.
 application (if there are any). See
 [Dynamic Delivery](https://developer.android.com/guide/app-bundle/dynamic-delivery)
 for more information. The additional files will be saved in the same directory as the
-downloaded application. Note: this feature used to work but currently seems broken.
+downloaded application. _Note: this feature used to work but currently seems broken._
 
 * `-c CREDENTIALS` is used to set the path to the JSON configuration file containing
 the Google Play Store credentials. If not specified, by default the tool will try to
