@@ -57,8 +57,7 @@ while read -r line || [[ -n "${line}" ]]; do
   # of the package names for which the download failed.
 
   # TODO: adapt the command depending on your file paths.
-  # if ../venv/bin/python ../download.py -c ../private_credentials.json "${line}"; then
-  if ../venv/Scripts/python.exe ../download.py -c ../private_credentials.json "${line}"; then
+  if pipenv run python ../download.py -c ../private_credentials.json "${line}"; then
     :
   else
     echo "${line}" >>"${DIR}/errors.txt"

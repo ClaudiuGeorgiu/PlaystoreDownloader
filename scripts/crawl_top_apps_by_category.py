@@ -36,5 +36,5 @@ def main():
 
 if __name__ == "__main__":
     # Run the script from the main directory of the project by using this command:
-    # python3 -m scripts.crawl_top_apps_by_category
+    # pipenv run python -m scripts.crawl_top_apps_by_category
     main()

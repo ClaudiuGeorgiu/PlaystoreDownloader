@@ -6,6 +6,7 @@ on:
 jobs:
   test:
     name: Test on Python ${{ matrix.python-version }} and ${{ matrix.os }}
+    if: contains(github.event.head_commit.message, 'skip ci') == false
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
