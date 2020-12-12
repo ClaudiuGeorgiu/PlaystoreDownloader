@@ -17,8 +17,8 @@
 the Google Play Store. After an initial (one-time) configuration, applications can be
 downloaded by specifying their package name.
 
-**_This project is intended for learning purposes only and is not affiliated with Google
-in any way._**
+***This project is intended for learning purposes only and is not affiliated with Google
+in any way***.
 
 
 
@@ -173,9 +173,9 @@ download the applications):
 
     - temporarily unlock access to your account (<https://accounts.google.com/DisplayUnlockCaptcha>)
 
-_Note that you will be able to download only the applications compatible with the device
+*Note that you will be able to download only the applications compatible with the device
 corresponding to the aforementioned **ANDROID ID** and further limitations may influence
-the total number of applications available for download_.
+the total number of applications available for download*.
 
 
 
@@ -274,7 +274,7 @@ downloaded application.
 application (if there are any). See
 [Dynamic Delivery](https://developer.android.com/guide/app-bundle/dynamic-delivery)
 for more information. The additional files will be saved in the same directory as the
-downloaded application. _Note: this feature used to work but currently seems broken._
+downloaded application. *Note: this feature used to work but currently seems broken*.
 
 * `-c CREDENTIALS` is used to set the path to the JSON configuration file containing
 the Google Play Store credentials. If not specified, by default the tool will try to
@@ -290,16 +290,17 @@ by using `-t "LABEL"` the final name of the downloaded application will look lik
 `[LABEL] filename.apk`. Note: the tag is applied only to the main application, the
 additional files won't have any tag added to the file name.
 
-_Note that currently only the command line interface is configurable with the above
+*Note that currently only the command line interface is configurable with the above
 arguments, the web interface will ask only for a package name and will use the default
-values for all the other parameters._
+values for all the other parameters*.
 
 
 
 ## ❱ Contributing
 
 Questions, bug reports and pull requests are welcome on GitHub at
-[https://github.com/ClaudiuGeorgiu/PlaystoreDownloader](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader).
+[https://github.com/ClaudiuGeorgiu/PlaystoreDownloader](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader)
+(see [contributing](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/docs/CONTRIBUTING.md)).
 
 
 
