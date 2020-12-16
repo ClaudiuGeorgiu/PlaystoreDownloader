@@ -6,7 +6,9 @@ import os
 import re
 import sys
 
-from playstore.playstore import Playstore
+from playstore_downloader.playstore_client import PlaystoreClient
+from playstore_downloader.config_file_provider import ConfigFileProvider
+
 
 # Logging configuration.
 logger = logging.getLogger(__name__)
@@ -82,35 +84,15 @@ def get_cmd_args(args: list = None):
 
 
 def main():
-
-    args = get_cmd_args()
-
+    args = get_cmd_args() 
     try:
+        playstore_client = PlaystoreClient(ConfigFileProvider(args.credentials))
 
-        # Make sure to use a valid json file with the credentials.
-        api = Playstore(args.credentials.strip(" '\""))
-
-        stripped_package_name = args.package.strip(" '\"")
-
-        try:
-            # Get the application details.
-            app = api.app_details(stripped_package_name).docV2
-        except AttributeError:
-            logger.critical(
-                f"Error when downloading '{stripped_package_name}': unable to "
-                f"get app's details"
-            )
-            sys.exit(1)
-
-        details = {
-            "package_name": app.docid,
-            "title": app.title,
-            "creator": app.creator,
-        }
-
-        if args.out.strip(" '\"") == downloaded_apk_default_location:
+        file_path = args.out
+        if file_path.strip(" '\"") == downloaded_apk_default_location:
             # The downloaded apk will be saved in the Downloads folder (created in the
             # same folder as this script).
+            details = playstore_client.get_app_details(args.package)
             downloaded_apk_file_path = os.path.join(
                 downloaded_apk_default_location,
                 re.sub(
@@ -119,35 +101,9 @@ def main():
                     f"{details['title']} by {details['creator']} - "
                     f"{details['package_name']}.apk",
                 ),
-            )
-        else:
-            # The downloaded apk will be saved in the location chosen by the user.
-            downloaded_apk_file_path = os.path.abspath(args.out.strip(" '\""))
+            )   
 
-        # If it doesn't already exist, create the directory where to save the
-        # downloaded apk.
-        if not os.path.isdir(os.path.dirname(downloaded_apk_file_path)):
-            os.makedirs(os.path.dirname(downloaded_apk_file_path), exist_ok=True)
-
-        if args.tag and args.tag.strip(" '\""):
-            # If provided, prepend the specified tag to the file name.
-            stripped_tag = args.tag.strip(" '\"")
-            downloaded_apk_file_path = os.path.join(
-                os.path.dirname(downloaded_apk_file_path),
-                f"[{stripped_tag}] {os.path.basename(downloaded_apk_file_path)}",
-            )
-
-        # The download of the additional files is optional.
-        success = api.download(
-            details["package_name"],
-            downloaded_apk_file_path,
-            download_obb=True if args.blobs else False,
-            download_split_apks=True if args.split_apks else False,
-        )
-
-        if not success:
-            logger.critical(f"Error when downloading '{details['package_name']}'")
-            sys.exit(1)
+        playstore_client.download(args.package, downloaded_apk_file_path, tag=args.tag, blobs=args.blobs, split_apks=args.split_apks)
 
     except Exception as ex:
         logger.critical(f"Error during the download: {ex}")
