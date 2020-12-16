@@ -1,5 +1,5 @@
 import setuptools
-from PlaystoreDownloader.version import VERSION
+from playstore_downloader.version import VERSION
 
 def parse_requirements(filename):
     """ load requirements from a pip requirements file """
