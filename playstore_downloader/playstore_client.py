@@ -1,4 +1,3 @@
-import tempfile
 from playstore.playstore import Playstore
 
 import sys
