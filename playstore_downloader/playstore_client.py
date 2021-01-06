@@ -9,13 +9,9 @@ logger = logging.getLogger(__name__)
 
 class PlaystoreClient():
     def __init__(self, playstore_client_configuration):
-        try:
-            credentials_file_path = playstore_client_configuration.get_credendials_file_path()
-            self.api = Playstore(credentials_file_path.strip(" '\""))
-        
-        except Exception as ex:
-            logger.critical(f"Error during the download: {ex}")
-            sys.exit(1)
+        credentials_file_path = playstore_client_configuration.get_credendials_file_path()
+        self.api = Playstore(credentials_file_path.strip(" '\""))
+
 
     def download(self, package_name, file_path="Downloads", tag=None, blobs=False, split_apks=False):        
         details = self.get_app_details(package_name) 
