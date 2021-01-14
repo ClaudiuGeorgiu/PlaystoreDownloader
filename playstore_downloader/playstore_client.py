@@ -33,11 +33,7 @@ class PlaystoreClient():
             # Get the application details.
             app = self.api.app_details(stripped_package_name).docV2
         except AttributeError:
-            logger.critical(
-                f"Error when downloading '{stripped_package_name}': unable to "
-                f"get app's details"
-            )
-            sys.exit(1)
+            raise RuntimeError(f"Error when downloading '{stripped_package_name}': unable to get app's details")
 
         details = {
             "package_name": app.docid,
