@@ -43,6 +43,7 @@ cases, the first thing to do is to get a local copy of this repository, so open 
 terminal in the directory where you want to save the project and clone the repository:
 
 ```Shell
+$ pip install -r requirements.txt
 $ git clone https://github.com/ClaudiuGeorgiu/PlaystoreDownloader.git
 ```
 
