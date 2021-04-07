@@ -157,7 +157,9 @@ necessary in order to associate the **ANDROID ID** of the device to your account
 that you will be able to download applications as if you were directly using your device.
 Do not remove the account from the device or its **ANDROID ID** won't be valid anymore.
 
-* Get the [**ANDROID ID**](https://developer.android.com/reference/android/provider/Settings.Secure#ANDROID_ID) of the device and fill the `ANDROID_ID` field of the
+* Get the
+[**ANDROID ID**](https://developer.android.com/reference/android/provider/Settings.Secure#ANDROID_ID)
+of the device and fill the `ANDROID_ID` field of the
 [credentials.json](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/credentials.json)
 file. You can obtain the **ANDROID ID** by installing the
 [Device ID](https://play.google.com/store/apps/details?id=com.evozi.deviceid)
