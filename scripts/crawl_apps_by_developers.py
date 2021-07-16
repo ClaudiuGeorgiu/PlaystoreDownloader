@@ -16,7 +16,7 @@ def main():
     )
 
     # This list has to contain the exact developer(s) name(s).
-    developer_list = ["Spotify Ltd.", "WhatsApp Inc.", "Mozilla"]
+    developer_list = ["Spotify AB", "WhatsApp LLC", "Mozilla"]
 
     for developer in developer_list:
         for package_name in api.list_app_by_developer(developer):

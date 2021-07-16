@@ -19,19 +19,20 @@ def main():
     # Get the categories in the Google Play Store.
     res = api.protobuf_to_dict(api.get_store_categories())["category"]
     store_categories = set(
-        map(lambda x: parse_qs(urlparse(x["dataUrl"]).query)["cat"][0], res)
+        map(lambda x: parse_qs(urlparse(x["dataUrl"]).query).get("cat", [None])[0], res)
     )
 
     # Get the top top_num free apps in each category.
-    top_num = 100
+    top_num = 10
     for cat in store_categories:
+        if not cat:
+            continue
         doc = api.list_app_by_category(cat, "apps_topselling_free", top_num).doc[0]
         for app in doc.child if doc.docid else doc.child[0].child:
-            downloads = app.details.appDetails.numDownloads
             rating = app.aggregateRating.starRating
 
-            # Print package name, category, number of downloads and rating.
-            print(f"{app.docid}|{cat}|{downloads}|{rating}")
+            # Print package name, category and rating.
+            print(f"{app.docid}|{cat}|{rating}")
 
 
 if __name__ == "__main__":
