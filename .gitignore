@@ -136,3 +136,6 @@ ENV/
 private_*
 Downloads/
 scripts/*.txt
+
+# Credentials file
+credentials.json
