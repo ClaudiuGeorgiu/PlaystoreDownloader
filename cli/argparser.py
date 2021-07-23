@@ -1,12 +1,12 @@
 import argparse
+from pathlib import Path
 
 # Default directory where to save the downloaded applications.
-downloaded_apk_default_location = "Downloads"
 
 # Default credentials file location.
-credentials_default_location = "credentials.json"
+credentials_default_location = Path.cwd() / "credentials.json"
 
-def get_cmd_args(args: list = None):
+def get_cmd_args():
     """
     Parse and return the command line parameters needed for the script execution.
 
@@ -49,7 +49,6 @@ def get_cmd_args(args: list = None):
         "--out",
         type=str,
         metavar="FILE",
-        default=downloaded_apk_default_location,
         help="The path where to save the downloaded .apk file. By default the file "
         'will be saved in a "Downloads/" directory created where this script '
         "is run",
@@ -61,4 +60,4 @@ def get_cmd_args(args: list = None):
         metavar="TAG",
         help='An optional tag prepended to the file name, e.g., "[TAG] filename.apk"',
     )
-    return parser.parse_args(args)
+    return parser.parse_args()
