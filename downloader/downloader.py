@@ -4,9 +4,10 @@ import logging
 import os
 import re
 import sys
+from pathlib import Path
 
-from playstore.playstore import Playstore
 from cli.argparser import get_cmd_args
+from playstore.playstore import Playstore
 
 # Logging configuration.
 logger = logging.getLogger(__name__)
@@ -15,42 +16,54 @@ logging.basicConfig(
     datefmt="%d/%m/%Y %H:%M:%S",
     level=logging.INFO,
 )
-from pathlib import Path
 
 
 class Downloader:
-    downloaded_apk_default_location = Path.cwd()
+    default_folder = Path.cwd()
+    filename_pattern = re.compile(r"[^\w\-_.\s]")
+    deafult_fname_template = "{title} by {creator} - {package_name}.apk"
 
     def __init__(self, blobs, split_apks, credentials, out, tag):
         self.api = Playstore(credentials.strip(" '\""))
         self.blobs = blobs
         self.split_apks = split_apks
         self.out = out
-        self.tag = tag.strip(" '\"")
+        self.tag = tag
+
+    def add_tag(self, filename):
+        return f"{self.tag} {filename}" if self.tag else filename
+
+    def get_filepath(self, details):
+        if self.out:
+            return self.get_provided_filepath(details)
+        return self.get_default_filepath(details)
+
+    def get_provided_filepath(self, details):
+        dirname, filename = os.path.split(self.out)
+        filename = self.add_tag(filename) if filename else self.get_default_filename
+        return Path.joinpath(dirname, filename)
 
     def get_default_filepath(self, details):
-        filename = re.sub(
-            r"[^\w\-_.\s]",
-            "_",
-            f"{details['title']} by {details['creator']} - "
-            f"{details['package_name']}.apk",
+        return self.default_folder.joinpath(self.get_default_filename(details))
+
+    def get_default_filename(self, details):
+        return self.add_tag(
+            self.filename_pattern.sub(
+                "_",
+                self.deafult_fname_template.format(
+                    title=details.title,
+                    creator=details.creator,
+                    package_name=details.docid,
+                ),
+            )
         )
-        if self.tag:
-            filename = f"{self.tag} {filename}"
-        
-        return self.downloaded_apk_default_location.joinpath(filename)
 
     def download(self, package_name):
-        stripped_package_name = package_name.strip(" '\"")
-        app = self.api.app_details(stripped_package_name).docV2
-        details = {
-            "package_name": app.docid,
-            "title": app.title,
-            "creator": app.creator,
-        }
-        destination = self.out or self.get_default_filepath(details)
+        package_name = package_name.strip(" '\"")
+        details = self.api.app_details(package_name).docV2
+        destination = self.get_filepath(details)
         return self.api.download(
-            details["package_name"],
+            details.docid,
             destination,
             download_obb=True if self.blobs else False,
             download_split_apks=True if self.split_apks else False,

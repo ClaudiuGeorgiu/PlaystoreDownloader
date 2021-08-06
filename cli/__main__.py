@@ -1,4 +1,4 @@
 from .argparser import get_cmd_args
-from downloader.downloader import Downloader
+from downloader.main import main
 
-Downloader(**vars(get_cmd_args()))
+main(**vars(get_cmd_args()))

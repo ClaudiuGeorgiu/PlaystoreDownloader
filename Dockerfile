@@ -11,4 +11,4 @@ RUN python -m pip install --no-cache-dir --upgrade pip pipenv && \
 COPY . /app/
 
 # Run with -u $(id -u):$(id -g) to avoid file permission issues.
-ENTRYPOINT ["python", "download.py"]
+ENTRYPOINT ["python3", "-m", "cli"]
