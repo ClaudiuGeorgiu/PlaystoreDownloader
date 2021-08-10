@@ -76,7 +76,9 @@ created)
 **Please ask first** before embarking on any significant pull request (e.g., new
 features that would require breaking changes), otherwise you risk spending a lot of time
 working on something that the project's developers might not want to merge into the
-project. It's best to open an issue to discuss your proposal first.
+project. It's best to open an issue to discuss your proposal first
+([this discussion](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/issues/58) is a
+great example).
 
 `NOTE:` by submitting a PR, you agree to license your work under the same license as
 that used by the project.
