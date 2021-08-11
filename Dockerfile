@@ -11,4 +11,4 @@ RUN python -m pip install --no-cache-dir --upgrade pip pipenv && \
 COPY . /app/
 
 # Run with -u $(id -u):$(id -g) to avoid file permission issues.
-ENTRYPOINT ["python3", "-m", "cli"]
+ENTRYPOINT ["python3", "-m", "playstoredownloader.cli"]
