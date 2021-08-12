@@ -8,7 +8,7 @@ def main(
     blobs=False,
     split_apks=False,
     credentials=Path("./credentials.json"),
-    out=Path.cwd(),
+    out=Path.cwd() / "Downloads",
     tag=None,
 ):
     return download_packages(packages, blobs, split_apks, credentials, out, tag)

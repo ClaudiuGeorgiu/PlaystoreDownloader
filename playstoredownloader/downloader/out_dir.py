@@ -18,12 +18,11 @@ class OutDir(type(pathlib.Path())):
     default_fname_template = "{title} by {creator} - {package_name}.apk"
 
     def __init__(self, *_, tag, meta) -> None:
-        if not self.exists or not self.is_dir:
-            raise ValueError(f"{self} is not a directory")
+        super().__init__()
+        self.mkdir(parents=True)
         self.meta = meta
         self.tag = tag
         self.apk_path = self.joinpath(self.add_tag(self.build_filename()))
-        super().__init__()
 
     def build_filename(self):
         return self.filename_pattern.sub(
