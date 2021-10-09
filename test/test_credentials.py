@@ -2,7 +2,7 @@
 
 import pytest
 
-from playstore.credentials import EncryptedCredentials
+from playstoredownloader.playstore.credentials import EncryptedCredentials
 
 
 class TestCredentials(object):

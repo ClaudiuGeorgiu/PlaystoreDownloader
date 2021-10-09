@@ -17,12 +17,12 @@ class OutDir(type(pathlib.Path())):
     filename_pattern = re.compile(r"[^\w\-_.\s]")
     default_fname_template = "{title} by {creator} - {package_name}.apk"
 
-    def __init__(self, *_, tag, meta) -> None:
+    def __init__(self, *_, tag=None, meta) -> None:
         super().__init__()
-        self.mkdir(parents=True)
+        self.mkdir(parents=True, exist_ok=True)
         self.meta = meta
         self.tag = tag
-        self.apk_path = self.joinpath(self.add_tag(self.build_filename()))
+        self.apk_path = self.joinpath(self.add_tag(f"{self.meta.docV2.docid}.apk"))
 
     def build_filename(self):
         return self.filename_pattern.sub(

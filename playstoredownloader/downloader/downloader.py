@@ -9,8 +9,20 @@ from .out_dir import OutDir
 logger = logging.getLogger(__name__)
 
 
-class Downloader:
+class DownloadError(Exception):
+    """An unspecified error when downloading a package"""
 
+
+class DownloadResult:
+    def __init__(self, success):
+        self.success = success
+
+    def raise_for_failures(self):
+        if not self.success:
+            raise DownloadError()
+
+
+class Downloader:
     def __init__(self, blobs, split_apks, credentials, out, tag):
         self.api = Playstore(credentials)
         self.blobs = blobs
@@ -24,9 +36,10 @@ class Downloader:
             package_name=package_name.strip(" '\""),
         )
         out_dir = OutDir(self.out, tag=self.tag, meta=meta)
-        return self.api.download(
+        result = self.api.download(
             meta=meta,
             out_dir=out_dir,
             download_obb=self.blobs,
             download_split_apks=self.split_apks,
         )
+        return DownloadResult(result)

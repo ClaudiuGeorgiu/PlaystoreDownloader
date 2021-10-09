@@ -27,4 +27,5 @@ def download_packages(packages, blobs, split_apks, credentials, out, tag):
 
 def download_package(package, blobs, split_apks, credentials, out, tag):
     downloader = Downloader(blobs, split_apks, credentials, out, tag)
-    downloader.download(package)
+    result = downloader.download(package)
+    result.raise_for_failures()

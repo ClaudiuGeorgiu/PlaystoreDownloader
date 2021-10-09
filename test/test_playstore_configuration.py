@@ -4,7 +4,7 @@ import json
 
 import pytest
 
-from playstore.playstore import Playstore
+from playstoredownloader.playstore.playstore import Playstore
 
 # noinspection PyUnresolvedReferences
 from test.test_session_fixtures import (

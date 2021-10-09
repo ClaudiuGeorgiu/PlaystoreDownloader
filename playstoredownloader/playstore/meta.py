@@ -11,6 +11,13 @@ class PackageMeta:
         self.api = api
         self.package_name = package_name
         self.details = self.app_details()
+        if not self.details:
+            exception = RuntimeError(
+                "Can't proceed with the download: there was an error when "
+                f"requesting details for app '{self.package_name}'"
+            )
+            logging.exception(exception)
+            raise exception
 
     def app_details(self) -> object:
         """
@@ -31,7 +38,7 @@ class PackageMeta:
 
         # If the query went completely wrong.
         try:
-            details = response.payload.detailsResponse
+            return response.payload.detailsResponse
         except AttributeError as no_payload_error:
             try:
                 logger.error(
@@ -45,16 +52,6 @@ class PackageMeta:
                     f"app '{self.package_name}'"
                 )
                 raise no_commands_error from no_payload_error
-
-        if not details:
-            exception = RuntimeError(
-                "Can't proceed with the download: there was an error when "
-                f"requesting details for app '{self.package_name}'"
-            )
-            logging.exception(exception)
-            raise exception
-
-        return details
 
     def __getattr__(self, name: str):
         return getattr(self.details, name)
