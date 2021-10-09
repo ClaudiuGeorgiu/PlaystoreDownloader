@@ -13,11 +13,11 @@ def main(
     blobs=False,
     split_apks=False,
     credentials=None,
-    dir=Path.cwd() / "Downloads",
+    out_dir=Path.cwd() / "Downloads",
     tag=None,
 ):
     credentials = credentials or get_default_credentials()
-    return download_packages(packages, blobs, split_apks, credentials, dir, tag)
+    return download_packages(packages, blobs, split_apks, credentials, out_dir, tag)
 
 
 def download_packages(packages, blobs, split_apks, credentials, out, tag):

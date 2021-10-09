@@ -44,9 +44,9 @@ def get_cmd_args():
         'current directort will be tried, and then a "credentials.json"',
     )
     parser.add_argument(
-        "-d",
-        "--dir",
-        dest='dir',
+        "-o",
+        "--out-dir",
+        dest='out_dir',
         type=str,
         metavar="FILE",
         default=argparse.SUPPRESS,
