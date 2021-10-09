@@ -44,9 +44,9 @@ def get_cmd_args():
         "directory will be used",
     )
     parser.add_argument(
-        "-o",
-        "--out",
-        dest='out',
+        "-d",
+        "--dir",
+        dest='dir',
         type=str,
         metavar="FILE",
         default=argparse.SUPPRESS,
