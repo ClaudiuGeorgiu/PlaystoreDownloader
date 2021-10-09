@@ -40,8 +40,8 @@ def get_cmd_args():
         metavar="FILE",
         default=argparse.SUPPRESS,
         help="The path to the JSON configuration file containing the store "
-        'credentials. By default a "credentials.json" file in the current '
-        "directory will be used",
+        'credentials. By default, a "private_credentials.json" file in the '
+        'current directort will be tried, and then a "credentials.json"',
     )
     parser.add_argument(
         "-d",
