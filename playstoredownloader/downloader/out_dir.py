@@ -4,7 +4,7 @@ import re
 
 class OutDir(type(pathlib.Path())):
     """A folder that knows how to name the files downloaded to it
-    
+
     A regular Path object with extra methods for building full path names for
     apk, obb and split apk files.
 

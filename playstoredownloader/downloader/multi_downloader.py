@@ -1,5 +1,3 @@
-from .downloader import Downloader
-
 class MultiDownloader:
     def __init__(self, package_list, downloader):
         self.package_list = package_list

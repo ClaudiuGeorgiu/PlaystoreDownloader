@@ -112,7 +112,7 @@ class Playstore(object):
                 f"Unable to find configuration file '{config_file}'"
             )
 
-        self.logger.debug(f"Reading '{config_file}' configuration file")        
+        self.logger.debug(f"Reading '{config_file}' configuration file")
         self.configuration = json.loads(config_filepath.read_text())[0]
 
     @Util.retry(exception=RuntimeError)

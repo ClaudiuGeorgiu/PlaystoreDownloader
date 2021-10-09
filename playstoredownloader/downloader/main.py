@@ -11,7 +11,7 @@ def main(
     dir=Path.cwd() / "Downloads",
     tag=None,
 ):
-    return download_packages(packages, blobs, split_apks, credentials, out, tag)
+    return download_packages(packages, blobs, split_apks, credentials, dir, tag)
 
 
 def download_packages(packages, blobs, split_apks, credentials, out, tag):
