@@ -12,7 +12,7 @@ def get_cmd_args():
         type=str,
         nargs='+',
         help="A space sepparated list of one or more package names to download,"
-        ' e.g., "com.spotify.music" or "com.whatsapp com.here.app.maps"',
+        ' e.g., "com.spotify.music" or "com.whatsapp" "com.here.app.maps"',
     )
     parser.add_argument(
         "-b",

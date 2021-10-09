@@ -127,7 +127,7 @@ After everything is installed, make a quick test to check that everything works
 correctly:
 
 ```Shell
-$ pipenv run python python3 -m playstoredownloader.cli --help
+$ pipenv run python3 -m playstoredownloader.cli --help
 usage: python3 -m playstoredownloader.cli [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
 ...
 ```
@@ -228,13 +228,13 @@ In the main directory of the project (`PlaystoreDownloader/`), call the followin
 instruction using the package name of the app to be downloaded:
 
 ```Shell
-$ pipenv run python python3 -m playstoredownloader.cli "com.application.example"
+$ pipenv run python3 -m playstoredownloader.cli "com.application.example"
 ```
 
 If the download is successful, the resulting `.apk` file will be saved in the
 current working directory. You can change the location
 of the downloaded `.apk` file by providing an additional `-o "path/to/downloads/folder"`
-argument. (type `$ pipenv run python python3 -m playstoredownloader.cli --help` or check the
+argument. (type `$ pipenv run python3 -m playstoredownloader.cli --help` or check the
 [available parameters](#available-parameters) for more information).
 
 A simple web interface is also available:
@@ -254,7 +254,7 @@ $ # With Docker.
 $ docker run --rm -it downloader --help
 
 $ # With source.
-$ pipenv run python python3 -m playstoredownloader.cli --help
+$ pipenv run python3 -m playstoredownloader.cli --help
 
 usage: python3 -m playstoredownloader.cli [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
 ...
