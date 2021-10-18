@@ -11,6 +11,7 @@ from playstoredownloader.playstore.playstore import Playstore
 from playstoredownloader.playstore.util import Util
 from playstoredownloader.playstore.meta import PackageMeta
 from playstoredownloader.downloader.out_dir import OutDir
+
 # noinspection PyUnresolvedReferences
 from test.test_session_fixtures import valid_credentials_path, download_folder_path
 
@@ -175,9 +176,7 @@ class TestApi(object):
     def test_valid_app_details(self, playstore):
         api = Playstore()
         meta = PackageMeta(api, VALID_PACKAGE_NAME)
-        assert (
-            meta.app_details().docV2.docid == VALID_PACKAGE_NAME
-        )
+        assert meta.app_details().docV2.docid == VALID_PACKAGE_NAME
 
     def test_app_details_response_error(self, playstore, monkeypatch):
         # Simulate a bad response from the server.
@@ -214,7 +213,7 @@ class TestApi(object):
         # noinspection PyUnusedLocal
         api = Playstore()
         meta = PackageMeta(api, VALID_PACKAGE_NAME)
-        
+
         def raise_exception(*args, **kwargs):
             raise ChunkedEncodingError()
 
@@ -281,8 +280,9 @@ class TestApi(object):
         )
         assert result is False
 
-    def test_download_response_error(self, playstore, monkeypatch, download_folder_path):
-
+    def test_download_response_error(
+        self, playstore, monkeypatch, download_folder_path
+    ):
         def mock(*args, **kwargs):
             return {}
 
@@ -296,7 +296,9 @@ class TestApi(object):
         )
         assert result is False
 
-    def test_download_response_error_2(self, playstore, monkeypatch, download_folder_path):
+    def test_download_response_error_2(
+        self, playstore, monkeypatch, download_folder_path
+    ):
         # noinspection PyProtectedMember
         original = Playstore._execute_request
 

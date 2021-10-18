@@ -14,6 +14,7 @@ class OutDir(type(pathlib.Path())):
     https://bugs.python.org/issue24132
     https://stackoverflow.com/questions/29850801/subclass-pathlib-path-fails/29851079#29851079
     """
+
     filename_pattern = re.compile(r"[^\w\-_.\s]")
     default_fname_template = "{title} by {creator} - {package_name}.apk"
 
@@ -38,7 +39,7 @@ class OutDir(type(pathlib.Path())):
         return f"{self.tag} {filename}" if self.tag else filename
 
     def obb_path(self, obb):
-        toplevel = 'main' if obb.fileType == 0 else 'patch'
+        toplevel = "main" if obb.fileType == 0 else "patch"
         filename = f"{toplevel}.{obb.versionCode}.{self.meta.details.docid}.obb"
         return self.joinpath(self.add_tag(filename))
 

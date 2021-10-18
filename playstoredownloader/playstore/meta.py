@@ -6,7 +6,6 @@ logger = logging.getLogger(__name__)
 
 
 class PackageMeta:
-
     def __init__(self, api, package_name) -> None:
         self.api = api
         self.package_name = package_name

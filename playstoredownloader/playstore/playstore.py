@@ -636,8 +636,6 @@ class Playstore(object):
 
         return doc
 
-
-
     def download(
         self,
         meta: PackageMeta,

@@ -2,11 +2,13 @@ from pathlib import Path
 from .downloader import Downloader
 from .multi_downloader import MultiDownloader
 
+
 def get_default_credentials():
     credentials_path = Path("./private_credentials.json")
     if credentials_path.is_file():
         return credentials_path
     return Path("./credentials.json")
+
 
 def main(
     packages,

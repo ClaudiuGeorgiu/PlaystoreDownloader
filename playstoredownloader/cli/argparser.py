@@ -1,5 +1,6 @@
 import argparse
 
+
 def get_cmd_args():
     """
     Parse and return the cli parameters needed for the script execution.
@@ -10,14 +11,14 @@ def get_cmd_args():
     parser.add_argument(
         "packages",
         type=str,
-        nargs='+',
+        nargs="+",
         help="A space sepparated list of one or more package names to download,"
         ' e.g., "com.spotify.music" or "com.whatsapp" "com.here.app.maps"',
     )
     parser.add_argument(
         "-b",
         "--blobs",
-        dest='blobs',
+        dest="blobs",
         action="store_true",
         default=argparse.SUPPRESS,
         help="Download the additional .obb files along with the application "
@@ -26,7 +27,7 @@ def get_cmd_args():
     parser.add_argument(
         "-s",
         "--split-apks",
-        dest='split_apks',
+        dest="split_apks",
         action="store_true",
         default=argparse.SUPPRESS,
         help="Download the additional split apks along with the application "
@@ -35,7 +36,7 @@ def get_cmd_args():
     parser.add_argument(
         "-c",
         "--credentials",
-        dest='credentials',
+        dest="credentials",
         type=str,
         metavar="FILE",
         default=argparse.SUPPRESS,
@@ -46,7 +47,7 @@ def get_cmd_args():
     parser.add_argument(
         "-o",
         "--out-dir",
-        dest='out_dir',
+        dest="out_dir",
         type=str,
         metavar="FILE",
         default=argparse.SUPPRESS,
@@ -56,11 +57,11 @@ def get_cmd_args():
     parser.add_argument(
         "-t",
         "--tag",
-        dest='tag',
+        dest="tag",
         type=str,
         metavar="TAG",
         default=argparse.SUPPRESS,
-        help='An optional tag prepended to the file name, e.g., '
+        help="An optional tag prepended to the file name, e.g., "
         '"[TAG] filename.apk"',
     )
     return parser.parse_args()
