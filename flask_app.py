@@ -8,7 +8,9 @@ from flask import Flask, make_response, jsonify
 from flask import render_template
 from flask_socketio import SocketIO, emit
 
-from playstore.playstore import Playstore
+from playstoredownloader.downloader.out_dir import OutDir
+from playstoredownloader.playstore.meta import PackageMeta
+from playstoredownloader.playstore.playstore import Playstore
 
 if "LOG_LEVEL" in os.environ:
     log_level = os.environ["LOG_LEVEL"]
@@ -84,8 +86,9 @@ def on_start_download(package_name):
     if package_name_regex.match(package_name):
         try:
             api = Playstore(credentials_location)
+            meta = PackageMeta(api, package_name)
             try:
-                app = api.app_details(package_name).docV2
+                app = meta.app_details().docV2
             except AttributeError:
                 emit(
                     "download_bad_package",
@@ -111,7 +114,8 @@ def on_start_download(package_name):
 
             # noinspection PyProtectedMember
             for progress in api._download_with_progress(
-                details["package_name"], downloaded_apk_file_path
+                meta,
+                OutDir(downloaded_apk_file_path, meta=meta),
             ):
                 emit("download_progress", progress)
 

@@ -3,10 +3,10 @@
 import json
 import logging
 import os
-from pathlib import Path
 import platform
 import re
 import sys
+from pathlib import Path
 from typing import Iterable
 
 import requests
@@ -14,8 +14,8 @@ import requests.packages.urllib3.util.ssl_
 from google.protobuf import json_format
 from requests.exceptions import ChunkedEncodingError
 
-from playstoredownloader.playstore import playstore_proto_pb2 as playstore_protobuf
 from playstoredownloader.downloader.out_dir import OutDir
+from playstoredownloader.playstore import playstore_proto_pb2 as playstore_protobuf
 from .credentials import EncryptedCredentials
 from .meta import PackageMeta
 from .util import Util
@@ -288,9 +288,9 @@ class Playstore(object):
         the Google Play Store and report the progress (using a generator that reports
         the download progress in the range 0-100).
 
-        :param package_name: The package name of the app (e.g., "com.example.myapp").
-        :param file_name: The location where to save the downloaded app (by default
-                          "package_name.apk").
+        :param meta: PackageMeta object containing data about the app.
+        :param out_dir: OutDir object containing the location where to save the
+                        downloaded app (by default "package_name.apk").
         :param download_obb: Flag indicating whether to also download the additional
                              .obb files for an application (if any).
         :param download_split_apks: Flag indicating whether to also download the
@@ -400,6 +400,8 @@ class Playstore(object):
             "Unable to download the entire application",
         )
 
+        # NOTE: expansion files (OBBs) will no longer be supported for new apps.
+        # https://android-developers.googleblog.com/2020/11/new-android-app-bundle-and-target-api.html
         if download_obb:
             # Save the additional .obb files for this application.
             for obb in additional_files:
@@ -639,7 +641,7 @@ class Playstore(object):
     def download(
         self,
         meta: PackageMeta,
-        out_dir: Path,
+        out_dir: OutDir,
         download_obb: bool = False,
         download_split_apks: bool = False,
         show_progress_bar: bool = True,
@@ -648,9 +650,9 @@ class Playstore(object):
         Download a certain app (identified by the package name) from the
         Google Play Store.
 
-        :param package_name: The package name of the app (e.g., "com.example.myapp").
-        :param file_name: The location where to save the downloaded app (by default
-                          "package_name.apk").
+        :param meta: PackageMeta object containing data about the app.
+        :param out_dir: OutDir object containing the location where to save the
+                        downloaded app (by default "package_name.apk").
         :param download_obb: Flag indicating whether to also download the additional
                              .obb files for an application (if any).
         :param download_split_apks: Flag indicating whether to also download the

@@ -1,5 +1,7 @@
-from .argparser import get_cmd_args
+#!/usr/bin/env python3
+
 from playstoredownloader.downloader.main import main
+from playstoredownloader.cli.argparser import get_cmd_args
 
 
 def cli():

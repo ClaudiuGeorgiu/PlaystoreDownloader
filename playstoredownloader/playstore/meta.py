@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import logging
 
 import requests
@@ -23,9 +25,8 @@ class PackageMeta:
         Get the details for a certain app (identified by the package name) in the
         Google Play Store.
 
-        :param package_name: The package name of the app (e.g., "com.example.myapp").
         :return: A protobuf object containing the details of the app. The result
-                    will be None if there was something wrong with the query.
+                 will be None if there was something wrong with the query.
         """
 
         # Prepare the query.
@@ -33,6 +34,7 @@ class PackageMeta:
         query = {"doc": requests.utils.quote(self.package_name)}
 
         # Execute the query.
+        # noinspection PyProtectedMember
         response = self.api._execute_request(path, query)
 
         # If the query went completely wrong.

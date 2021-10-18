@@ -2,15 +2,15 @@
 
 import logging
 
-from playstoredownloader.playstore.playstore import Playstore
+from playstoredownloader.downloader.out_dir import OutDir
 from playstoredownloader.playstore.meta import PackageMeta
-from .out_dir import OutDir
+from playstoredownloader.playstore.playstore import Playstore
 
 logger = logging.getLogger(__name__)
 
 
 class DownloadError(Exception):
-    """An unspecified error when downloading a package"""
+    """An unspecified error when downloading a package."""
 
 
 class DownloadResult:

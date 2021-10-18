@@ -57,7 +57,9 @@ while read -r line || [[ -n "${line}" ]]; do
   # of the package names for which the download failed.
 
   # TODO: adapt the command depending on your file paths.
-  if pipenv run python ../download.py -c ../private_credentials.json "${line}"; then
+  if PYTHONPATH="../" \
+      pipenv run python -m playstoredownloader.cli \
+      -c ../private_credentials.json "${line}"; then
     :
   else
     echo "${line}" >>"${DIR}/errors.txt"

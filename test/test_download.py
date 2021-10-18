@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 
+import argparse
 import os
 
 import pytest
-import argparse
-import importlib
 
-import playstoredownloader.cli.argparser as psdparser
 import playstoredownloader.cli.cli as psdcli
-from playstoredownloader.playstore.playstore import Playstore
 from playstoredownloader.downloader.downloader import DownloadError
 from playstoredownloader.playstore.meta import PackageMeta
+from playstoredownloader.playstore.playstore import Playstore
 
 # noinspection PyUnresolvedReferences
 from test.test_playstore_api import (
@@ -39,7 +37,7 @@ class TestMain(object):
         )
 
         arguments = argparse.Namespace(
-            packages=[VALID_PACKAGE_NAME],
+            package=[VALID_PACKAGE_NAME],
             credentials=valid_credentials_path,
             out_dir=download_folder_path,
         )
@@ -57,10 +55,10 @@ class TestMain(object):
 
         # Mock the command line parser.
         arguments = argparse.Namespace(
-            packages=[VALID_PACKAGE_NAME],
+            package=[VALID_PACKAGE_NAME],
             credentials=valid_credentials_path,
             out_dir=download_folder_path,
-            tag="[TEST]",
+            tag="TEST",
         )
         monkeypatch.setattr(psdcli, "get_cmd_args", lambda: arguments)
         psdcli.cli()
@@ -70,43 +68,43 @@ class TestMain(object):
     def test_valid_download_default_location(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.
         arguments = argparse.Namespace(
-            packages=[VALID_PACKAGE_NAME],
+            package=[VALID_PACKAGE_NAME],
             credentials=valid_credentials_path,
         )
         monkeypatch.setattr(psdcli, "get_cmd_args", lambda: arguments)
 
         # If this runs without errors, the apk will be saved in the Downloads folder
-        # (created in the same folder as download.py).
+        # (created in the same folder where this code is run).
         psdcli.cli()
 
     def test_valid_download_additional_files(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.
         arguments = argparse.Namespace(
-            packages=[APK_WITH_OBB],
+            package=[APK_WITH_OBB],
             credentials=valid_credentials_path,
         )
         monkeypatch.setattr(psdcli, "get_cmd_args", lambda: arguments)
 
         # If this runs without errors, the apk and the additional files will be saved
-        # in the Downloads folder (created in the same folder as download.py).
+        # in the Downloads folder (created in the same folder where this code is run).
         psdcli.cli()
 
     def test_valid_download_split_apk(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.
         arguments = argparse.Namespace(
-            packages=[APK_WITH_SPLIT_APK],
+            package=[APK_WITH_SPLIT_APK],
             credentials=valid_credentials_path,
         )
         monkeypatch.setattr(psdcli, "get_cmd_args", lambda: arguments)
 
         # If this runs without errors, the apk and the split apk(s) will be saved in
-        # the Downloads folder (created in the same folder as download.py).
+        # the Downloads folder (created in the same folder where this code is run).
         psdcli.cli()
 
     def test_download_app_details_error(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.
         arguments = argparse.Namespace(
-            packages=[VALID_PACKAGE_NAME],
+            package=[VALID_PACKAGE_NAME],
             credentials=valid_credentials_path,
         )
         monkeypatch.setattr(psdcli, "get_cmd_args", lambda: arguments)
@@ -123,7 +121,7 @@ class TestMain(object):
 
         # Mock the command line parser.
         arguments = argparse.Namespace(
-            packages=[VALID_PACKAGE_NAME],
+            package=[VALID_PACKAGE_NAME],
             credentials=valid_credentials_path,
             out_dir=download_folder_path,
             tag="[TEST]",
@@ -143,7 +141,7 @@ class TestMain(object):
     def test_download_wrong_credentials(self, wrong_credentials_path, monkeypatch):
         # Mock the command line parser.
         arguments = argparse.Namespace(
-            packages=[VALID_PACKAGE_NAME],
+            package=[VALID_PACKAGE_NAME],
             credentials=wrong_credentials_path,
         )
         monkeypatch.setattr(psdcli, "get_cmd_args", lambda: arguments)

@@ -1,3 +1,5 @@
+***The latest version on master branch introduces some new features and some breaking changes in the CLI parameters, please use old stable [release v1.3.0](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/releases/tag/v1.3.0) until we release v2.0 properly***.
+
 # PlaystoreDownloader
 
 > A command line tool to download Android applications directly from the Google
@@ -24,9 +26,11 @@ in any way***.
 
 ## ❱ Demo
 
+<!--
 | Command Line Interface                                                                                |
 |:-----------------------------------------------------------------------------------------------------:|
 | ![CLI](https://raw.githubusercontent.com/ClaudiuGeorgiu/PlaystoreDownloader/master/docs/demo/cli.gif) |
+-->
 
 | Web Interface                                                                                         |
 |:-----------------------------------------------------------------------------------------------------:|
@@ -90,7 +94,7 @@ installed correctly:
 
 ```Shell
 $ docker run --rm -it downloader --help
-usage: python3 -m playstoredownloader.cli [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
+usage: python3 -m playstoredownloader.cli [-h] [-b] [-s] [-c FILE] [-o DIR] [-t TAG] package [package ...]
 ...
 ```
 
@@ -128,7 +132,7 @@ correctly:
 
 ```Shell
 $ pipenv run python3 -m playstoredownloader.cli --help
-usage: python3 -m playstoredownloader.cli [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
+usage: python3 -m playstoredownloader.cli [-h] [-b] [-s] [-c FILE] [-o DIR] [-t TAG] package [package ...]
 ...
 ```
 
@@ -142,7 +146,8 @@ for more information.
 Before interacting with the Google Play Store you have to provide valid credentials
 and an **ANDROID ID** associated to your account. Please modify the
 [credentials.json](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/credentials.json)
-file and insert the required information before trying to use this tool:
+file and insert the required information before trying to use this tool (and think
+twice before committing this file after the change, or you might leak your credentials):
 
 * Enter your Google email and password in the `USERNAME` and `PASSWORD` fields of the
 [credentials.json](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/credentials.json)
@@ -231,10 +236,10 @@ instruction using the package name of the app to be downloaded:
 $ pipenv run python3 -m playstoredownloader.cli "com.application.example"
 ```
 
-If the download is successful, the resulting `.apk` file will be saved in the
-current working directory. You can change the location
-of the downloaded `.apk` file by providing an additional `-o "path/to/downloads/folder"`
-argument. (type `$ pipenv run python3 -m playstoredownloader.cli --help` or check the
+If the download is successful, by default the resulting `.apk` file will be saved in
+the `PlaystoreDownloader/Downloads/` directory. You can change the location of the
+download directory by providing an additional `-o "path/to/download/folder/"`
+argument (type `$ pipenv run python3 -m playstoredownloader.cli --help` or check the
 [available parameters](#available-parameters) for more information).
 
 A simple web interface is also available:
@@ -256,7 +261,7 @@ $ docker run --rm -it downloader --help
 $ # With source.
 $ pipenv run python3 -m playstoredownloader.cli --help
 
-usage: python3 -m playstoredownloader.cli [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
+usage: python3 -m playstoredownloader.cli [-h] [-b] [-s] [-c FILE] [-o DIR] [-t TAG] package [package ...]
 ...
 ```
 
@@ -268,27 +273,28 @@ The other optional arguments are as follows:
 (if there are any). See
 [Expansion Files](https://developer.android.com/google/play/expansion-files)
 for more information. The additional files will be saved in the same directory as the
-downloaded application.
+downloaded application. *Note:
+[expansion files will no longer be supported for new apps](https://android-developers.googleblog.com/2020/11/new-android-app-bundle-and-target-api.html)*.
 
 * `-s` is a flag for downloading the additional split `.apk` files along with the
 application (if there are any). See
 [Dynamic Delivery](https://developer.android.com/guide/app-bundle/dynamic-delivery)
 for more information. The additional files will be saved in the same directory as the
-downloaded application. *Note: this feature used to work but currently seems broken*.
+downloaded application.
 
 * `-c CREDENTIALS` is used to set the path to the JSON configuration file containing
 the Google Play Store credentials. If not specified, by default the tool will try to
 use a file named `credentials.json` located in the directory where the command is run.
 
-* `-o FILE` is used to set the path (relative or absolute) of the downloaded `.apk`
-file (e.g., `-o /home/user/Desktop/downloaded.apk`). If the path contains missing
-directories, they will be created automatically. If not specified, by default the file
-will be saved in a `Downloads/` directory created where the tool is run.
+* `-o DIR` is used to set the path (relative or absolute) of the directory where to
+save the downloaded `.apk` file (e.g., `-o /home/user/Desktop/`). If the path contains
+missing directories, they will be created automatically. If not specified, by default
+the file will be saved in a `Downloads/` directory created where the tool is run.
 
 * `-t TAG` can be used to set a tag that will be prepended to the file name, e.g.,
 by using `-t "LABEL"` the final name of the downloaded application will look like
-`[LABEL] filename.apk`. Note: the tag is applied only to the main application, the
-additional files won't have any tag added to the file name.
+`[LABEL] filename.apk`. Note: the tag is applied to the main application and to the
+additional files (if any).
 
 *Note that currently only the command line interface is configurable with the above
 arguments, the web interface will ask only for a package name and will use the default
