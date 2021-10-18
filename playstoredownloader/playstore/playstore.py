@@ -3,6 +3,7 @@
 import json
 import logging
 import os
+from pathlib import Path
 import platform
 import re
 import sys
@@ -13,9 +14,11 @@ import requests.packages.urllib3.util.ssl_
 from google.protobuf import json_format
 from requests.exceptions import ChunkedEncodingError
 
-from playstore import playstore_proto_pb2 as playstore_protobuf
-from playstore.credentials import EncryptedCredentials
-from playstore.util import Util
+from playstoredownloader.playstore import playstore_proto_pb2 as playstore_protobuf
+from playstoredownloader.downloader.out_dir import OutDir
+from .credentials import EncryptedCredentials
+from .meta import PackageMeta
+from .util import Util
 
 # Detect Python version and set the SSL ciphers accordingly. This is needed to avoid
 # login errors with some versions of Python even if correct credentials are used. If
@@ -102,16 +105,15 @@ class Playstore(object):
                             the credentials.
         """
 
-        if not os.path.isfile(config_file):
+        config_filepath = Path(config_file)
+        if not config_filepath.is_file():
             self.logger.critical("Missing configuration file")
             raise FileNotFoundError(
                 f"Unable to find configuration file '{config_file}'"
             )
 
         self.logger.debug(f"Reading '{config_file}' configuration file")
-
-        with open(config_file, "r") as file:
-            self.configuration = json.loads(file.read())[0]
+        self.configuration = json.loads(config_filepath.read_text())[0]
 
     @Util.retry(exception=RuntimeError)
     def _login(self) -> None:
@@ -275,8 +277,8 @@ class Playstore(object):
 
     def _download_with_progress(
         self,
-        package_name: str,
-        file_name: str = None,
+        meta: PackageMeta,
+        out_dir: OutDir,
         download_obb: bool = False,
         download_split_apks: bool = False,
         show_progress_bar: bool = False,
@@ -320,32 +322,19 @@ class Playstore(object):
                     "information"
                 )
 
-        # Set the default file name if none is provided.
-        if not file_name:
-            file_name = f"{package_name}.apk"
-
-        # Get the app details before downloading it.
-        details = self.app_details(package_name)
-
-        if details is None:
-            self.logger.error(
-                "Can't proceed with the download: there was an error when "
-                f"requesting details for app '{package_name}'"
-            )
-            raise RuntimeError(
-                "Can't proceed with the download: there was an error when "
-                f"requesting details for app '{package_name}'"
-            )
-
-        version_code = details.docV2.details.appDetails.versionCode
-        offer_type = details.docV2.offer[0].offerType
+        version_code = meta.docV2.details.appDetails.versionCode
+        offer_type = meta.docV2.offer[0].offerType
 
         # Check if the app was already downloaded by this account.
         path = "delivery"
-        query = {"ot": offer_type, "doc": package_name, "vc": version_code}
+        query = {
+            "ot": offer_type,
+            "doc": meta.docV2.docid,
+            "vc": version_code,
+        }
 
         response = self._execute_request(path, query)
-        _handle_missing_payload(response, package_name)
+        _handle_missing_payload(response, meta.package_name)
         delivery_data = response.payload.deliveryResponse.appDeliveryData
 
         if not delivery_data.downloadUrl:
@@ -354,7 +343,7 @@ class Playstore(object):
             path = "purchase"
 
             response = self._execute_request(path, data=query)
-            _handle_missing_payload(response, package_name)
+            _handle_missing_payload(response, meta.package_name)
             delivery_data = (
                 response.payload.buyResponse.purchaseStatusResponse.appDeliveryData
             )
@@ -364,7 +353,7 @@ class Playstore(object):
                 path = "delivery"
                 query["dtok"] = download_token
                 response = self._execute_request(path, query)
-                _handle_missing_payload(response, package_name)
+                _handle_missing_payload(response, meta.package_name)
                 delivery_data = response.payload.deliveryResponse.appDeliveryData
 
         # The url where to download the apk file.
@@ -384,10 +373,10 @@ class Playstore(object):
             cookie = delivery_data.downloadAuthCookie[0]
         except IndexError:
             self.logger.error(
-                f"DownloadAuthCookie was not received for '{package_name}'"
+                f"DownloadAuthCookie was not received for '{meta.package_name}'"
             )
             raise RuntimeError(
-                f"DownloadAuthCookie was not received for '{package_name}'"
+                f"DownloadAuthCookie was not received for '{meta.package_name}'"
             )
 
         cookies = {str(cookie.name): str(cookie.value)}
@@ -404,10 +393,10 @@ class Playstore(object):
         )
 
         yield from self._download_single_file(
-            file_name,
+            out_dir.apk_path,
             response,
             show_progress_bar,
-            f"Downloading {package_name}",
+            f"Downloading {meta.package_name}",
             "Unable to download the entire application",
         )
 
@@ -424,17 +413,13 @@ class Playstore(object):
                     stream=True,
                 )
 
-                obb_file_name = os.path.join(
-                    os.path.dirname(file_name),
-                    f"{'main' if obb.fileType == 0 else 'patch'}."
-                    f"{obb.versionCode}.{package_name}.obb",
-                )
+                obb_file_name = out_dir.obb_path(obb)
 
                 yield from self._download_single_file(
                     obb_file_name,
                     response,
                     show_progress_bar,
-                    f"Downloading additional .obb file for {package_name}",
+                    f"Downloading additional .obb file for {meta.package_name}",
                     "Unable to download completely the additional .obb file(s)",
                 )
 
@@ -451,16 +436,13 @@ class Playstore(object):
                     stream=True,
                 )
 
-                split_apk_file_name = os.path.join(
-                    os.path.dirname(file_name),
-                    f"{split_apk.name}.{version_code}.{package_name}.apk",
-                )
+                split_apk_file_name = out_dir.split_apk_path(split_apk)
 
                 yield from self._download_single_file(
                     split_apk_file_name,
                     response,
                     show_progress_bar,
-                    f"Downloading split apk for {package_name}",
+                    f"Downloading split apk for {meta.package_name}",
                     "Unable to download completely the additional split apk file(s)",
                 )
 
@@ -654,46 +636,12 @@ class Playstore(object):
 
         return doc
 
-    def app_details(self, package_name: str) -> object:
-        """
-        Get the details for a certain app (identified by the package name) in the
-        Google Play Store.
 
-        :param package_name: The package name of the app (e.g., "com.example.myapp").
-        :return: A protobuf object containing the details of the app. The result
-                 will be None if there was something wrong with the query.
-        """
-
-        # Prepare the query.
-        path = "details"
-        query = {"doc": requests.utils.quote(package_name)}
-
-        # Execute the query.
-        response = self._execute_request(path, query)
-
-        details = None
-
-        # If the query went completely wrong.
-        if "payload" not in self.protobuf_to_dict(response):
-            try:
-                self.logger.error(
-                    f"Error for app '{package_name}': "
-                    f"{response.commands.displayErrorMessage}"
-                )
-            except AttributeError:
-                self.logger.error(
-                    f"There was an error when requesting details for "
-                    f"app '{package_name}'"
-                )
-        else:
-            details = response.payload.detailsResponse
-
-        return details
 
     def download(
         self,
-        package_name: str,
-        file_name: str = None,
+        meta: PackageMeta,
+        out_dir: Path,
         download_obb: bool = False,
         download_split_apks: bool = False,
         show_progress_bar: bool = True,
@@ -718,11 +666,11 @@ class Playstore(object):
             # Consume the generator reporting the download progress.
             list(
                 self._download_with_progress(
-                    package_name,
-                    file_name,
-                    download_obb,
-                    download_split_apks,
-                    show_progress_bar,
+                    meta=meta,
+                    out_dir=out_dir,
+                    download_obb=download_obb,
+                    download_split_apks=download_split_apks,
+                    show_progress_bar=show_progress_bar,
                 )
             )
         except Exception as e:

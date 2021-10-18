@@ -90,7 +90,7 @@ installed correctly:
 
 ```Shell
 $ docker run --rm -it downloader --help
-usage: download.py [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
+usage: python3 -m playstoredownloader.cli [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
 ...
 ```
 
@@ -127,8 +127,8 @@ After everything is installed, make a quick test to check that everything works
 correctly:
 
 ```Shell
-$ pipenv run python download.py --help
-usage: download.py [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
+$ pipenv run python3 -m playstoredownloader.cli --help
+usage: python3 -m playstoredownloader.cli [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
 ...
 ```
 
@@ -228,15 +228,13 @@ In the main directory of the project (`PlaystoreDownloader/`), call the followin
 instruction using the package name of the app to be downloaded:
 
 ```Shell
-$ pipenv run python download.py "com.application.example"
+$ pipenv run python3 -m playstoredownloader.cli "com.application.example"
 ```
 
 If the download is successful, the resulting `.apk` file will be saved in the
-`PlaystoreDownloader/Downloads/` directory. You can change the name and the location
-of the downloaded `.apk` file by providing an additional `-o "path/to/downloaded.apk"`
-argument to
-[download.py](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/download.py)
-(type `$ pipenv run python download.py --help` or check the
+current working directory. You can change the location
+of the downloaded `.apk` file by providing an additional `-o "path/to/downloads/folder"`
+argument. (type `$ pipenv run python3 -m playstoredownloader.cli --help` or check the
 [available parameters](#available-parameters) for more information).
 
 A simple web interface is also available:
@@ -256,9 +254,9 @@ $ # With Docker.
 $ docker run --rm -it downloader --help
 
 $ # With source.
-$ pipenv run python download.py --help
+$ pipenv run python3 -m playstoredownloader.cli --help
 
-usage: download.py [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
+usage: python3 -m playstoredownloader.cli [-h] [-b] [-s] [-c CREDENTIALS] [-o FILE] [-t TAG] package
 ...
 ```
 
