@@ -10,7 +10,7 @@
 [![Windows Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/Windows/badge.svg?branch=master)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AWindows)
 [![MacOS Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/MacOS/badge.svg?branch=master)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AMacOS)
 [![Code Coverage](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader/badge.svg)](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader)
-[![Python Version](https://img.shields.io/badge/Python-3.6%2B-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![Python Version](https://img.shields.io/badge/Python-3.7%2B-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/LICENSE)
 
 
@@ -61,13 +61,13 @@ is to have a recent version of Docker installed:
 
 ```Shell
 $ docker --version             
-Docker version 19.03.0, build aeac949
+Docker version 20.10.7, build f0df350
 ```
 
 #### Official Docker Hub image
 
 The [official PlaystoreDownloader Docker image](https://hub.docker.com/r/claudiugeorgiu/playstore-downloader)
-is available on Docker Hub (automatically built from this repository):
+is available on Docker Hub:
 
 ```Shell
 $ # Download the Docker image.
@@ -108,8 +108,8 @@ for more information.
 #### Prerequisites
 
 Apart from valid Google Play Store credentials, the only requirement of this project is
-a working `Python 3` (at least `3.6`) installation and
-[`pipenv`](https://pipenv.pypa.io/) (for dependency management).
+a working `Python 3` (at least `3.7`) installation and
+[`pipenv`](https://github.com/pypa/pipenv) (for dependency management).
 
 #### Install
 
@@ -119,7 +119,7 @@ to install the needed dependencies:
 ```Shell
 $ # Make sure to run the commands in PlaystoreDownloader/ directory.
 
-$ # This project uses pipenv (https://pipenv.pypa.io/) for dependency management.
+$ # This project uses pipenv (https://github.com/pypa/pipenv) for dependency management.
 $ # It can be installed with the following command:
 $ # python3 -m pip install pipenv
 

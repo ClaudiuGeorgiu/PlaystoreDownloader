@@ -43,7 +43,9 @@ elif sys.version_info.major == 3 and (
             "ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:ECDH+AESGCM:DH+AESGCM:"
             "ECDH+AES:DH+AES:RSA+AESGCM:RSA+AES:!DSS"
         )
-elif sys.version_info.major == 3 and sys.version_info.minor == 9:
+elif sys.version_info.major == 3 and (
+    sys.version_info.minor == 9 or sys.version_info.minor == 10
+):
     if platform.system() == "Windows":
         requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = (
             "ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:ECDH+AESGCM:DH+AESGCM:"
