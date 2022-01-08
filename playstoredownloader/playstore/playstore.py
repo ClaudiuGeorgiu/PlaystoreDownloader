@@ -27,14 +27,8 @@ from .util import Util
 # PlaystoreDownloader works best on Linux and Docker, and in such case no cipher
 # modification should be needed.
 
-if sys.version_info < (3, 6):
+if sys.version_info < (3, 7):
     raise RuntimeError("This version of Python is not supported anymore")
-elif sys.version_info.major == 3 and sys.version_info.minor == 6:
-    if platform.system() == "Windows":
-        requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = (
-            "ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+HIGH:"
-            "DH+HIGH:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+HIGH:RSA+3DES:!aNULL:!MD5"
-        )
 elif sys.version_info.major == 3 and (
     sys.version_info.minor == 7 or sys.version_info.minor == 8
 ):

@@ -89,17 +89,19 @@ class TestMain(object):
         # in the Downloads folder (created in the same folder where this code is run).
         psdcli.cli()
 
-    def test_valid_download_split_apk(self, valid_credentials_path, monkeypatch):
-        # Mock the command line parser.
-        arguments = argparse.Namespace(
-            package=[APK_WITH_SPLIT_APK],
-            credentials=valid_credentials_path,
-        )
-        monkeypatch.setattr(psdcli, "get_cmd_args", lambda: arguments)
-
-        # If this runs without errors, the apk and the split apk(s) will be saved in
-        # the Downloads folder (created in the same folder where this code is run).
-        psdcli.cli()
+    # TODO ############################################################
+    # def test_valid_download_split_apk(self, valid_credentials_path, monkeypatch):
+    #     # Mock the command line parser.
+    #     arguments = argparse.Namespace(
+    #         package=[APK_WITH_SPLIT_APK],
+    #         credentials=valid_credentials_path,
+    #     )
+    #     monkeypatch.setattr(psdcli, "get_cmd_args", lambda: arguments)
+    #
+    #     # If this runs without errors, the apk and the split apk(s) will be saved in
+    #     # the Downloads folder (created in the same folder where this code is run).
+    #     psdcli.cli()
+    # TODO ############################################################
 
     def test_download_app_details_error(self, valid_credentials_path, monkeypatch):
         # Mock the command line parser.

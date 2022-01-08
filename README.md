@@ -26,11 +26,9 @@ in any way***.
 
 ## ❱ Demo
 
-<!--
 | Command Line Interface                                                                                |
 |:-----------------------------------------------------------------------------------------------------:|
 | ![CLI](https://raw.githubusercontent.com/ClaudiuGeorgiu/PlaystoreDownloader/master/docs/demo/cli.gif) |
--->
 
 | Web Interface                                                                                         |
 |:-----------------------------------------------------------------------------------------------------:|
