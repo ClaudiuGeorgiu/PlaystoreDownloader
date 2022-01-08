@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{all, polyfill, socket.io, sweetalert2.all}" />
+    <file url="file://$PROJECT_DIR$" libraries="{all, polyfill, socket.io-client, sweetalert2.all}" />
     <file url="PROJECT" libraries="{jquery}" />
     <includedPredefinedLibrary name="HTTP Response Handler" />
   </component>
