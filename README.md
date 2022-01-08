@@ -65,7 +65,7 @@ Docker version 20.10.7, build f0df350
 #### Official Docker Hub image
 
 The [official PlaystoreDownloader Docker image](https://hub.docker.com/r/claudiugeorgiu/playstore-downloader)
-is available on Docker Hub:
+is available on Docker Hub (automatically built from this repository):
 
 ```Shell
 $ # Download the Docker image.
