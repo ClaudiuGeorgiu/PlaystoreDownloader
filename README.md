@@ -1,14 +1,9 @@
-***The latest version on master branch introduces some new features and some breaking changes in the CLI parameters, please use old stable [release v1.3.0](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/releases/tag/v1.3.0) until we release v2.0 properly***.
-
 # PlaystoreDownloader
 
 > A command line tool to download Android applications directly from the Google
 > Play Store.
 
 [![Codacy](https://app.codacy.com/project/badge/Grade/92ff2ab2c1114c7e9df13b77fac0d961)](https://www.codacy.com/gh/ClaudiuGeorgiu/PlaystoreDownloader)
-[![Ubuntu Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/Ubuntu/badge.svg?branch=master)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AUbuntu)
-[![Windows Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/Windows/badge.svg?branch=master)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AWindows)
-[![MacOS Build Status](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/workflows/MacOS/badge.svg?branch=master)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/actions?query=workflow%3AMacOS)
 [![Code Coverage](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader/badge.svg)](https://codecov.io/gh/ClaudiuGeorgiu/PlaystoreDownloader)
 [![Python Version](https://img.shields.io/badge/Python-3.7%2B-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/LICENSE)
@@ -219,7 +214,7 @@ $ docker run \
     -v "${PWD}/credentials.json":"/app/credentials.json" \
     -v "${PWD}/output/":"/app/Downloads/" \
     -p 5000:5000 \
-    --entrypoint=python \
+    --entrypoint=python3 \
     --rm -it downloader flask_app.py
 
 $ # Navigate to http://localhost:5000/ to use the web interface.
@@ -243,7 +238,7 @@ argument (type `$ pipenv run python3 -m playstoredownloader.cli --help` or check
 A simple web interface is also available:
 
 ```Shell
-$ pipenv run python flask_app.py
+$ pipenv run python3 flask_app.py
 
 $ # Navigate to http://localhost:5000/ to use the web interface.
 ```
@@ -297,14 +292,6 @@ additional files (if any).
 *Note that currently only the command line interface is configurable with the above
 arguments, the web interface will ask only for a package name and will use the default
 values for all the other parameters*.
-
-
-
-## ❱ Contributing
-
-Questions, bug reports and pull requests are welcome on GitHub at
-[https://github.com/ClaudiuGeorgiu/PlaystoreDownloader](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader)
-(see [contributing](https://github.com/ClaudiuGeorgiu/PlaystoreDownloader/blob/master/docs/CONTRIBUTING.md)).
 
 
 
