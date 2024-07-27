@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This project is archived and no longer maintained.
+
 # PlaystoreDownloader
 
 > A command line tool to download Android applications directly from the Google
